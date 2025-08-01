@@ -1,20 +1,19 @@
 import EditGameCard from "@/components/edit-game-card";
 import { Game, User } from "@/types";
-import { closestCorners, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { closestCorners, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
 import axios from "axios";
+import TrashCan from "@/components/trash-can";
 
-type UserRole = 'home_coach' | 'away_coach' | 'home_team' | 'away_team';
+type UserRole = 'home_coach' | 'away_coach' | 'home_team' | 'away_team' | 'home_referee' | 'away_referee';
 
 export default function Index({ _games }: { _games: Game[] }) {
 
     const [games, setGames] = useState<Game[]>(_games);
+    const [isDraggingUser, setIsDraggingUser] = useState(false);
 
     const sensors = useSensors(
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        }),
         useSensor(TouchSensor, {
             activationConstraint: {
                 delay: 250,
@@ -28,8 +27,16 @@ export default function Index({ _games }: { _games: Game[] }) {
             },
         }));
 
+    const handleDragStart = (event: DragStartEvent) => {
+        if (event.active.data.current?.type === 'user') {
+            setIsDraggingUser(true);
+        }
+    }
+
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
+
+        setIsDraggingUser(false);
 
         if (active.id === over?.id) return;
 
@@ -90,28 +97,66 @@ export default function Index({ _games }: { _games: Game[] }) {
             if (activeGameId === targetGameId) {
                 updates.push({
                     gameId: activeGameId,
-                    changes: {
-                        [activeRole]: over.data.current.user?.id || null,
-                        [targetRole]: activeUser.id,
-                    }
+                    changes: [
+                        {
+                            key: activeRole,
+                            value: over.data.current.user?.id || null,
+                        },
+                        {
+                            key: targetRole,
+                            value: activeUser.id,
+                        }
+                    ]
                 });
             } else {
                 updates.push({
                     gameId: activeGameId,
-                    changes: {
-                        [activeRole]: over.data.current?.user?.id || null
-                    }
+                    changes: [
+                        {
+                            key: activeRole,
+                            value: over.data.current?.user?.id || null,
+                        }
+                    ]
                 });
                 updates.push({
                     gameId: targetGameId,
-                    changes: {
-                        [targetRole]: activeUser.id
-                    }
+                    changes: [
+                        {
+                            key: targetRole,
+                            value: activeUser.id,
+                        }
+                    ]
                 });
             }
 
-            // axios.post('/games/update-users', { updates });
+            axios.post('/games/update-users', { updates });
         }
+
+        if (active.data.current?.type === 'user' && over?.data.current?.type === 'trash') {
+            const activeRole: UserRole = active.data.current.role;
+            const activeGameId: number = active.data.current.gameId;
+
+            setGames((games) => {
+                const newGames = [...games];
+                const gameIndex = newGames.findIndex((game) => game.id === activeGameId);
+
+                if (gameIndex !== -1) {
+                    newGames[gameIndex][activeRole] = null;
+                }
+
+                return newGames;
+            });
+
+            axios.post('/games/update-users', {
+                updates: [
+                    {
+                        gameId: activeGameId,
+                        changes: [{ key: activeRole, value: null }]
+                    }
+                ]
+            });
+        }
+        return;
     };
 
         return (
@@ -121,6 +166,7 @@ export default function Index({ _games }: { _games: Game[] }) {
                     collisionDetection={closestCorners}
                     onDragEnd={handleDragEnd}
                     sensors={sensors}
+                    onDragStart={handleDragStart}
                     >
                     <div className="flex flex-col gap-3">
                         <SortableContext items={games} strategy={verticalListSortingStrategy}>
@@ -134,6 +180,7 @@ export default function Index({ _games }: { _games: Game[] }) {
                             ))}
                         </SortableContext>
                     </div>
+                    <TrashCan isVisible={isDraggingUser} />
                 </DndContext>
             </div>
         );

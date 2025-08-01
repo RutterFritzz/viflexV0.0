@@ -21,5 +21,6 @@ Route::post('/games/update-users', [GameController::class, 'updateUsers'])->name
 
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

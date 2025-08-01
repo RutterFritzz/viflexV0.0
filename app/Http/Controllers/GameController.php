@@ -27,6 +27,15 @@ class GameController extends Controller
     }
 
     public function updateUsers(Request $request) {
-        dd($request->all());
+        $updates = $request->updates;
+
+        foreach ($updates as $update) {
+            $game = Game::where('id', $update['gameId'])->first();
+            foreach ($update['changes'] as $change) {
+                $change['key'] = $change['key'] . "_id";
+                $game->{$change['key']} = $change['value'];
+                $game->save();
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@ import { User } from "@/types";
 import { useDraggable } from "@dnd-kit/core";
 import { CircleUser } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
+import { router } from "@inertiajs/react";
+import UserModal from "./user-modal";
 
 interface DraggableUserProps {
 user: User;
@@ -26,11 +28,13 @@ export default function DraggableUser({ user, role, gameId }: DraggableUserProps
     };
 
     return (
+        <UserModal user={user}>
         <div {...attributes} {...listeners} ref={setNodeRef} style={style} className={`flex flex-row gap-2 items-center p-2
-            border rounded-lg shadow-sm cursor-grab hover:shadow-md transition-shadow ${ isDragging
-            ? 'shadow-xl scale-105 cursor-grabbing opacity-50' : '' }`}>
+            border rounded-lg shadow-sm hover:shadow-md transition-shadow ${ isDragging
+            ? 'shadow-xl scale-105 cursor-grabbing opacity-50' : 'cursor-pointer' }`}>
             <CircleUser />
             <p>{user.name}</p>
         </div>
+        </UserModal>
     )
 }
