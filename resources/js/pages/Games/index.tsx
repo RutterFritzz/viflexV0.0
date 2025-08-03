@@ -1,7 +1,7 @@
 import EditGameCard from "@/components/edit-game-card";
 import { Game, User } from "@/types";
-import { closestCorners, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { closestCorners, DndContext, DragEndEvent, DragStartEvent, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
 import axios from "axios";
 import TrashCan from "@/components/trash-can";
@@ -159,6 +159,28 @@ export default function Index({ _games }: { _games: Game[] }) {
         return;
     };
 
+    const handleUserAssign = (user: User, role: string, gameId: number) => {
+        setGames((games) => {
+            const newGames = [...games];
+            const gameIndex = newGames.findIndex((game) => game.id === gameId);
+
+            if (gameIndex !== -1) {
+                newGames[gameIndex][role as UserRole] = user;
+            }
+
+            return newGames;
+        });
+
+        axios.post('/games/update-users', {
+            updates: [
+                {
+                    gameId: gameId,
+                    changes: [{ key: role, value: user.id }]
+                }
+            ]
+        });
+    }
+
         return (
             <div>
                 <h1>Games</h1>
@@ -174,7 +196,7 @@ export default function Index({ _games }: { _games: Game[] }) {
                                 <div key={game.id} className="flex flex-row gap-5 w-5/6 mx-auto">
                                     <p className="text-sm text-gray-500 flex items-center">{game.time}</p>
                                     <div className="w-full">
-                                        <EditGameCard key={game.id} game={game} />
+                                        <EditGameCard key={game.id} game={game} onUserAssign={handleUserAssign} />
                                     </div>
                                 </div>
                             ))}

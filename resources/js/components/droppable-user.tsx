@@ -2,20 +2,19 @@ import { User } from "@/types";
 import { CircleUser } from "lucide-react";
 import { useDroppable } from "@dnd-kit/core";
 import DraggableUser from "@/components/draggable-user";
-import { useEffect, useRef, useState } from "react";
-import UserDropdown from "./user-dropdown";
+import { useState } from "react";
+import UserSearch from "./user-search";
 
 interface DroppableUserProps {
     user: User | null;
     role: 'home_coach' | 'away_coach' | 'home_referee' | 'away_referee';
     gameId: number;
     label: string;
+    onUserAssign?: (user: User, role: string, gameId: number) => void;
 }
 
-export default function DroppableUser({ user, role, gameId, label }: DroppableUserProps) {
+export default function DroppableUser({ user, role, gameId, label, onUserAssign }: DroppableUserProps) {
     const [focus, setFocus] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [popoverOpen, setPopoverOpen] = useState(false);
     const { setNodeRef, isOver } = useDroppable({
         id: `slot-${gameId}-${role}`,
         data: {
@@ -25,18 +24,6 @@ export default function DroppableUser({ user, role, gameId, label }: DroppableUs
             user: user,
         },
     });
-
-    useEffect(() => {
-        if (focus) {
-            inputRef.current?.focus();
-        }
-    }, [focus]);
-
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = (e.target as HTMLInputElement).value;
-        // setInputValue(value);
-        setPopoverOpen(value.length > 0);
-    }
 
     return (
         <div className="flex flex-col gap-2">
@@ -55,14 +42,12 @@ export default function DroppableUser({ user, role, gameId, label }: DroppableUs
             ) : (
                 focus ? (
                     <div className="flex p-2 gap-2">
-                        {/* <input type="text" name="search" id="search" placeholder="Search for a user" className="w-full h-full border-none outline-none" ref={inputRef} onBlur={() => setFocus(false)} onChange={handleInput}  /> */}
-                        <input type="text" name="search" id="search" placeholder="Search for a user" className="w-full h-full border-none outline-none" ref={inputRef} onChange={handleInput}  />
-                        <UserDropdown open={popoverOpen} onOpenChange={setPopoverOpen} />
+                            <UserSearch setFocus={setFocus} focus={focus} onUserAssign={onUserAssign} role={role} gameId={gameId} />
                     </div>
                 ) : (
                     <div className="flex items-center p-2 gap-2 text-gray-400">
                     <CircleUser />
-                    <p>Drop user here</p>
+                    <p>Search or drop user here</p>
                 </div>
                 )
             )}

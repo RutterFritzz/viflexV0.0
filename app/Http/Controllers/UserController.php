@@ -14,4 +14,11 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->query('query');
+        $users = User::where('name', 'like', "$query%")->limit(10)->get(['id', 'name']);
+        return response()->json($users);
+    }
 }
