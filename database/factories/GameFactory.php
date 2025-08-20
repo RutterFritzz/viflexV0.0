@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Competition;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\game>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Game>
  */
 class GameFactory extends Factory
 {
@@ -17,18 +19,12 @@ class GameFactory extends Factory
     public function definition(): array
     {
         return [
-            'home_team_id' => $this->faker->numberBetween(1, 10),
-            'away_team_id' => $this->faker->numberBetween(1, 10),
-            'date' => '2025-06-27',
-            'time' => $this->faker->time,
-            'status' => 'waiting',
-            'location' => $this->faker->word,
-            'home_referee_id' => $this->faker->numberBetween(1, 10),
-            'away_referee_id' => $this->faker->numberBetween(1, 10),
-            'home_coach_id' => $this->faker->numberBetween(1, 10),
-            'away_coach_id' => $this->faker->numberBetween(1, 10),
-            'home_score' => $this->faker->numberBetween(0, 10),
-            'away_score' => $this->faker->numberBetween(0, 10),
+            'competition_id' => Competition::factory(),
+            'home_team_id' => Team::factory(),
+            'away_team_id' => Team::factory(),
+            'location' => $this->faker->city(),
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time(),
         ];
     }
 }

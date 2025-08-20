@@ -4,53 +4,57 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Collection;
 
 class Game extends Model
 {
     /** @use HasFactory<\Database\Factories\GameFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'home_team_id',
-        'away_team_id',
-        'date',
-        'time',
-        'status',
-        'location',
-        'home_referee_id',
-        'away_referee_id',
-        'home_coach_id',
-        'away_coach_id',
-        'home_score',
-        'away_score',
+    protected $fillable = ['gameday_id', 'competition_id', 'home_team_id', 'away_team_id', 'home_referee_id', 'away_referee_id', 'home_team_score', 'away_team_score', 'time'];
+
+    protected $casts = [
+        'time' => 'datetime:H:i',
     ];
 
-    public function homeTeam()
+    public function competition(): BelongsTo
+    {
+        return $this->belongsTo(Competition::class);
+    }
+
+    public function homeTeam(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'home_team_id');
     }
 
-    public function awayTeam()
+    public function awayTeam(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'away_team_id');
     }
 
-    public function homeCoach()
+    public function getTeams(): Collection
     {
-        return $this->belongsTo(User::class, 'home_coach_id');
+        return collect([$this->homeTeam, $this->awayTeam])->filter();
     }
 
-    public function awayCoach()
+    public function gameday(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'away_coach_id');
+        return $this->belongsTo(Gameday::class);
     }
 
-    public function homeReferee()
+    public function location(): HasOneThrough
+    {
+        return $this->hasOneThrough(Location::class, Gameday::class, 'id', 'id', 'gameday_id', 'location_id');
+    }
+
+    public function homeReferee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'home_referee_id');
     }
 
-    public function awayReferee()
+    public function awayReferee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'away_referee_id');
     }

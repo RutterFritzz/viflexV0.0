@@ -6,8 +6,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Command, CommandList, CommandItem } from "./ui/command";
 import debounce from "lodash/debounce";
 import axios from "axios";
+import { User } from "@/types";
 
-interface UserSearchProps {
+interface EditUserSearchProps {
     focus: boolean;
     setFocus: (focus: boolean) => void;
     onUserAssign?: (user: User, role: string, gameId: number) => void;
@@ -20,7 +21,7 @@ interface UserName {
     name: string;
 }
 
-export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId }: UserSearchProps) {
+export default function EditUserSearch({ setFocus, focus, onUserAssign, role, gameId }: EditUserSearchProps) {
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +29,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
     const [results, setResults] = useState<UserName[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchUsers = useCallback(async (value: string) => {
+    const fetchUsers = useCallback(async (value: string, role: string) => {
             if (value.length < 2) {
                 setResults([])
                 setOpen(false)
@@ -44,7 +45,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
             setLoading(true)
             setOpen(true)
             try {
-                const response = await axios.get<UserName[]>(`/api/users/search?query=${value}`, {
+                const response = await axios.get<UserName[]>(`/api/user-roles/search?query=${value}&role=${role.split('_')[1]}`, {
                     signal: controllerRef.current.signal
                 })
                 setResults(response.data)
@@ -60,15 +61,6 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
 
     const debouncedFetchUsers = useMemo(() => debounce(fetchUsers, 300), [fetchUsers])
 
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        const relatedTarget = e.relatedTarget as HTMLElement;
-        if (!e.currentTarget.parentElement?.contains(relatedTarget)) {
-            setTimeout(() => {
-                setFocus(false);
-            }, 150);
-        }
-    }
-
     useEffect(() => {
         if (focus) {
             inputRef.current?.focus();
@@ -76,8 +68,8 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
     }, [focus]);
 
     useEffect(() => {
-        debouncedFetchUsers(inputValue)
-    }, [inputValue, debouncedFetchUsers])
+        debouncedFetchUsers(inputValue, role)
+    }, [inputValue, role, debouncedFetchUsers]);
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

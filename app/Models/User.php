@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -38,28 +41,46 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function homeCoachGames()
+
+    // get all the team roles for the user (player and coach)
+    public function teamRoles(): HasMany
     {
-        return $this->hasMany(Game::class, 'home_coach_id');
+        return $this->hasMany(UserTeamRole::class);
     }
 
-    public function awayCoachGames()
+    // get all the teams the user is a player in
+    public function teamsAsPlayer(): HasMany
     {
-        return $this->hasMany(Game::class, 'away_coach_id');
+        return $this->teamRoles()->where('role_id', Role::where('name', 'player')->first()->id)->with('team');
     }
 
-    public function homeRefereeGames()
+    // get all the teams the user is a coach in
+    public function teamsAsCoach(): HasMany
     {
-        return $this->hasMany(Game::class, 'home_referee_id');
+        return $this->teamRoles()->where('role_id', Role::where('name', 'coach')->first()->id)->with('team');
     }
 
-    public function awayRefereeGames()
+    // get the referee for the user
+    public function referee(): HasOne
     {
-        return $this->hasMany(Game::class, 'away_referee_id');
+        return $this->hasOne(Referee::class);
     }
 
-    public function allOfficiatedGames()
+    // get all the games the user is a player in
+    public function gamesAsPlayer(): HasMany
     {
-        return $this->homeCoachGames->merge($this->awayCoachGames)->merge($this->homeRefereeGames)->merge($this->awayRefereeGames);
+        return $this->hasMany(GamePlayer::class);
+    }
+
+    // get all the games the user is a coach in
+    public function gamesAsCoach(): HasMany
+    {
+        return $this->hasMany(GameCoach::class);
+    }
+
+    // get all the games the user is a referee in
+    public function gamesAsReferee(): HasMany
+    {
+        return $this->hasMany(GameReferee::class);
     }
 }
