@@ -48,6 +48,7 @@ Route::get('team/create/{club}', [TeamController::class, 'create'])->name('team.
 Route::post('team/{club}', [TeamController::class, 'store'])->name('team.store');
 Route::post('team/{team}/add-player', [TeamController::class, 'addPlayer'])->name('team.add-player');
 Route::post('team/{team}/add-coach', [TeamController::class, 'addCoach'])->name('team.add-coach');
+Route::get('team/{team}/get-members', [TeamController::class, 'getMembers'])->name('team.get-members');
 
 // Competitions
 Route::resource('competition', CompetitionController::class);
@@ -66,6 +67,7 @@ Route::resource('location', LocationController::class);
 
 // Gamedays
 Route::resource('gameday', GamedayController::class);
+Route::post('gameday/{gameday}/submit-presence', [GamedayController::class, 'submitPresence'])->name('gameday.submit-presence');
 
 // Referees
 Route::resource('referee', RefereeController::class);

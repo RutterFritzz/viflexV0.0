@@ -33,7 +33,7 @@ export function Header() {
                 <div className="container mx-auto h-16 flex items-center justify-between">
                     {/* Logo/Brand Section */}
                     <div className="flex items-center space-x-4">
-                        <Link href="/" className="flex items-center space-x-2">
+                        <Link href="/" className="flex items-center space-x-2 ml-6">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center">
                                 <AppLogoIcon className="w-8 h-8" />
                             </div>

@@ -85,4 +85,17 @@ class TeamController extends Controller
         ]);
         UserTeamRole::create($validated);
     }
+
+    public function getMembers(Team $team)
+    {
+        $team->load('players', 'coaches');
+        return response()->json([
+            'coaches' => $team->coaches->map(function($coach) {
+                return ['id' => $coach->id, 'name' => $coach->name];
+            })->toArray(),
+            'players' => $team->players->map(function($player) {
+                return ['id' => $player->id, 'name' => $player->name];
+            })->toArray(),
+        ]);
+    }
 }

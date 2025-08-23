@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Gameday, Game, User } from "@/types";
+import { Gameday, Game, User, Team, PresenceData } from "@/types";
 import { Link } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import EditGameCard from "@/components/edit-game-card";
@@ -235,6 +235,13 @@ export default function Show({ gameday, games = [] }: ShowProps) {
         });
     }
 
+    const handlePresenceSubmit = (team: Team, presenceData: PresenceData) => {
+        axios.post(route('gameday.submit-presence', gameday.id), {
+            team_id: team.id,
+            presence: presenceData
+        });
+    }
+
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
             {/* Header Section */}
@@ -342,7 +349,7 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                     <div className="flex flex-col gap-3">
                         <div className="grid grid-cols-2 gap-3">
                             {gameday.teams?.map((team) => (
-                                <PresenceSubmit key={team.id} team={team}>
+                                <PresenceSubmit key={team.id} team={team} onSubmit={handlePresenceSubmit}>
                                     <div className="border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 cursor-pointer hover:shadow-md transition-shadow">
                                     <h3 className="text-lg font-medium">{team.name}</h3>
                                     <div className="flex flex-col gap-2">

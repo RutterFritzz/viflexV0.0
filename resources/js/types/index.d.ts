@@ -113,3 +113,8 @@ export type PageModule = {
         layout?: (pageContent: JSX.Element) => JSX.Element;
     };
 };
+
+export interface PresenceData {
+    coaches: { [userId: string]: boolean };
+    players: { [userId: string]: boolean };
+}
