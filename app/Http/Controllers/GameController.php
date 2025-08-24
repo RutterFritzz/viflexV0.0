@@ -52,7 +52,10 @@ class GameController extends Controller
 
     public function show(Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'awayTeam', 'location', 'gameday']);
+        $game->load(['competition', 'homeTeam', 'awayTeam', 'location', 'gameday', 'homeReferee',
+            'awayReferee', 'homeTeam.players', 'awayTeam.players', 'homeTeam.coaches', 'awayTeam.coaches']);
+        $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
+        $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
         return Inertia::render('Game/show', [
             'game' => $game,
         ]);
@@ -177,5 +180,39 @@ class GameController extends Controller
             }
         }
         return response()->json(['message' => 'Users updated successfully']);
+    }
+
+    public function submitPresence(Request $request, Game $game)
+    {
+        $validated = $request->validate([
+            'team_id' => 'required|exists:teams,id',
+            'presence' => 'required|array',
+            'presence.coaches' => 'sometimes|array',
+            'presence.players' => 'sometimes|array',
+        ]);
+
+        $team = Team::find($validated['team_id']);
+
+        if (isset($validated['presence']['coaches'])) {
+            foreach ($validated['presence']['coaches'] as $userId => $isPresent) {
+                $userId = (int) $userId;
+                GameCoach::where('game_id', $game->id)
+                    ->where('team_id', $team->id)
+                    ->where('user_id', $userId)
+                    ->update(['present' => $isPresent]);
+            }
+        }
+
+        if (isset($validated['presence']['players'])) {
+            foreach ($validated['presence']['players'] as $userId => $isPresent) {
+                $userId = (int) $userId;
+                GamePlayer::where('game_id', $game->id)
+                    ->where('team_id', $team->id)
+                    ->where('user_id', $userId)
+                    ->update(['present' => $isPresent]);
+            }
+        }
+
+        return response()->json(['message' => 'Presence updated successfully']);
     }
 }

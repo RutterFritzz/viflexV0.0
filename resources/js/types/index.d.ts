@@ -49,6 +49,7 @@ export interface Team {
     players: User[] | null;
     coaches: User[] | null;
     category: Category;
+    hasPresences?: boolean;
 }
 
 export type Category = "Men" | "Women" | "U10" | "U12" | "U14" | "U18";
@@ -99,6 +100,8 @@ export interface Game {
     away_team_users?: User[] | null;
     home_referee?: User | null;
     away_referee?: User | null;
+    homeTeamPresences?: boolean;
+    awayTeamPresences?: boolean;
 }
 
 export interface Referee {

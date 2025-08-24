@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
@@ -57,5 +58,26 @@ class Game extends Model
     public function awayReferee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'away_referee_id');
+    }
+
+    public function gamePlayers(): HasMany
+    {
+        return $this->hasMany(GamePlayer::class);
+    }
+
+    public function gameCoaches(): HasMany
+    {
+        return $this->hasMany(GameCoach::class);
+    }
+
+    public function hasPresences(Team $team): bool
+    {
+        if ($this->gamePlayers->where('game_id', $team->id)->whereNull('present')->count() > 0) {
+            return false;
+        }
+        if ($this->gameCoaches->where('game_id', $team->id)->whereNull('present')->count() > 0) {
+            return false;
+        }
+        return true;
     }
 }

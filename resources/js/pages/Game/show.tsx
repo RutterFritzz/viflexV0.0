@@ -2,12 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Game } from "@/types";
-import { Link } from "@inertiajs/react";
+import { Game, PresenceData, Team } from "@/types";
+import { Link, router } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
 import { Trophy, Calendar, ArrowLeft, Edit, Trash2, Users, Award, Target, Building2 } from "lucide-react";
+// import Captain from "@/components/captain";
+import Coach from "@/components/coach";
+import Player from "@/components/player";
+import PresenceSubmit from "@/components/presence-submit";
+import axios from "axios";
 
 interface ShowProps {
     game: Game;
@@ -15,6 +20,8 @@ interface ShowProps {
 
 export default function Show({ game }: ShowProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [homeTeamPresences, setHomeTeamPresences] = useState(game.homeTeamPresences);
+    const [awayTeamPresences, setAwayTeamPresences] = useState(game.awayTeamPresences);
 
     // Helper function to get game status
     const getGameStatus = () => {
@@ -46,6 +53,17 @@ export default function Show({ game }: ShowProps) {
     };
 
     const status = getGameStatus();
+
+    const handlePresenceSubmit = (team: Team, presenceData: PresenceData) => {
+        axios.post(route('game.submit-presence', game.id), {
+            team_id: team.id,
+            presence: presenceData
+        });
+        setHomeTeamPresences(true);
+        setAwayTeamPresences(true);
+        router.reload();
+    }
+
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
@@ -130,8 +148,8 @@ export default function Show({ game }: ShowProps) {
                                     {game.home_team_score > game.away_team_score
                                         ? `${game.home_team?.name || 'Team A'} wins`
                                         : game.home_team_score < game.away_team_score
-                                        ? `${game.away_team?.name || 'Team B'} wins`
-                                        : 'Draw'
+                                            ? `${game.away_team?.name || 'Team B'} wins`
+                                            : 'Draw'
                                     }
                                 </div>
                             </div>
@@ -145,6 +163,25 @@ export default function Show({ game }: ShowProps) {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Team Management Section */}
+            <Card>
+                <CardHeader>
+                    <CardTitle>Team Management</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-col gap-3">
+                        <div className="grid grid-cols-2 gap-3">
+                            { game.home_team && (
+                                <PresenceSubmit team={game.home_team} onSubmit={handlePresenceSubmit} presences={game.homeTeamPresences} disabled={game.homeTeamPresences} />
+                            )}
+                            { game.away_team && (
+                                <PresenceSubmit team={game.away_team} onSubmit={handlePresenceSubmit} presences={game.awayTeamPresences} disabled={game.awayTeamPresences} />
+                            )}
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Teams Section */}
             <div className="grid gap-6 md:grid-cols-2">
@@ -160,15 +197,30 @@ export default function Show({ game }: ShowProps) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-center py-6">
-                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Users className="h-8 w-8 text-primary" />
+                    {game.homeTeam ? (
+                            <div className="text-center py-6">
+                            <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Users className="h-8 w-8 text-secondary" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">{game.home_team?.name}</h3>
+                            <h3 className="text-xl font-semibold mb-2">Team A</h3>
                             <p className="text-sm text-muted-foreground">
-                                Playing at home
+                                Playing home
                             </p>
                         </div>
+                        ) : (
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2">
+                                {game.home_team?.coaches?.map((coach) => (
+                                    <Coach key={coach.id} name={coach.name} />
+                                ))}
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                {game.home_team?.players?.map((player) => (
+                                    <Player key={player.id} name={player.name} />
+                                ))}
+                            </div>
+                        </div>
+                        )}
                     </CardContent>
                 </Card>
 
@@ -184,15 +236,30 @@ export default function Show({ game }: ShowProps) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-center py-6">
+                        {game.awayTeam ? (
+                            <div className="text-center py-6">
                             <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Users className="h-8 w-8 text-secondary" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">{game.away_team?.name}</h3>
+                            <h3 className="text-xl font-semibold mb-2">Team B</h3>
                             <p className="text-sm text-muted-foreground">
                                 Playing away
                             </p>
                         </div>
+                        ) : (
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2">
+                                {game.away_team?.coaches?.map((coach) => (
+                                    <Coach key={coach.id} name={coach.name} />
+                                ))}
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                {game.away_team?.players?.map((player) => (
+                                    <Player key={player.id} name={player.name} />
+                                ))}
+                            </div>
+                        </div>
+                        )}
                     </CardContent>
                 </Card>
             </div>

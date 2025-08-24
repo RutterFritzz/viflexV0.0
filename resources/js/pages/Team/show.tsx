@@ -9,6 +9,8 @@ import DeleteConfirmation from "@/components/delete-confirmation";
 import axios from "axios";
 import { useState } from "react";
 import { Users, Building2, ArrowLeft, Edit, Trash2, UserPlus, Crown, User } from "lucide-react";
+import Coach from "@/components/coach";
+import Player from "@/components/player";
 
 interface ShowProps {
     team: Team;
@@ -95,13 +97,7 @@ export default function Show({ team, club }: ShowProps) {
                         ) : (
                             <div className="space-y-2">
                                 {team.coaches.map((coach) => (
-                                    <div key={coach.id} className="flex items-center gap-3 p-2 border rounded-lg">
-                                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                            <Crown className="h-4 w-4 text-primary" />
-                                        </div>
-                                        <span className="font-medium">{coach.name}</span>
-                                        <Badge variant="secondary" className="ml-auto text-xs">Coach</Badge>
-                                    </div>
+                                    <Coach key={coach.id} name={coach.name} />
                                 ))}
                             </div>
                         )}
@@ -131,13 +127,7 @@ export default function Show({ team, club }: ShowProps) {
                         ) : (
                             <div className="space-y-2">
                                 {team.players.map((player) => (
-                                    <div key={player.id} className="flex items-center gap-3 p-2 border rounded-lg">
-                                        <div className="h-8 w-8 rounded-full bg-secondary/50 flex items-center justify-center">
-                                            <User className="h-4 w-4" />
-                                        </div>
-                                        <span className="font-medium">{player.name}</span>
-                                        <Badge variant="outline" className="ml-auto text-xs">Player</Badge>
-                                    </div>
+                                    <Player key={player.id} name={player.name} />
                                 ))}
                             </div>
                         )}

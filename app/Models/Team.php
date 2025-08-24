@@ -68,4 +68,25 @@ class Team extends Model
     {
         return $this->hasMany(Game::class)->where('home_team_id', $this->id)->orWhere('away_team_id', $this->id);
     }
+
+    public function gamePlayers(): HasMany
+    {
+        return $this->hasMany(GamePlayer::class);
+    }
+
+    public function gameCoaches(): HasMany
+    {
+        return $this->hasMany(GameCoach::class);
+    }
+
+    public function hasPresences(Game $game): bool
+    {
+        if ($this->gamePlayers->where('game_id', $game->id)->whereNull('present')->count() > 0) {
+            return false;
+        }
+        if ($this->gameCoaches->where('game_id', $game->id)->whereNull('present')->count() > 0) {
+            return false;
+        }
+        return true;
+    }
 }

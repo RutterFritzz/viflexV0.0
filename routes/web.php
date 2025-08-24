@@ -55,19 +55,19 @@ Route::resource('competition', CompetitionController::class);
 Route::post('competition/add-team', [CompetitionController::class, 'addTeam'])->name('competition.add-team');
 
 // Games
+Route::post('game/update-time', [GameController::class, 'updateTime'])->name('game.update-time');
+Route::post('game/update-users', [GameController::class, 'updateUsers'])->name('game.update-users');
 Route::resource('game', GameController::class)->except(['create', 'store']);
 Route::get('game/create/{competition}', [GameController::class, 'create'])->name('game.create');
 Route::post('game/{competition}', [GameController::class, 'store'])->name('game.store');
-
-Route::post('game/update-time', [GameController::class, 'updateTime'])->name('game.update-time');
-Route::post('game/update-users', [GameController::class, 'updateUsers'])->name('game.update-users');
+Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
 
 // Locations
 Route::resource('location', LocationController::class);
 
 // Gamedays
 Route::resource('gameday', GamedayController::class);
-Route::post('gameday/{gameday}/submit-presence', [GamedayController::class, 'submitPresence'])->name('gameday.submit-presence');
+// Route::post('gameday/{gameday}/submit-presence', [GamedayController::class, 'submitPresence'])->name('gameday.submit-presence');
 
 // Referees
 Route::resource('referee', RefereeController::class);

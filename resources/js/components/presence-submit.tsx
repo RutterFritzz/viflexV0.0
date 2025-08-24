@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogTrigger, DialogDescription, DialogFooter } from "./ui/dialog";
 import { Team, PresenceData } from "@/types";
-import { CheckIcon, Loader2, XIcon } from "lucide-react";
+import { CheckIcon, CircleCheck, CircleAlert, Loader2, XIcon } from "lucide-react";
 import axios from "axios";
 
 interface PresenceSubmitProps {
-    children: React.ReactNode;
     team: Team;
     onSubmit: (team: Team, presenceData: PresenceData) => void;
+    presences?: boolean;
+    disabled?: boolean;
 }
 
-export default function PresenceSubmit({ children, team, onSubmit }: PresenceSubmitProps) {
+export default function PresenceSubmit({ team, onSubmit, presences, disabled = false }: PresenceSubmitProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [allCoaches, setAllCoaches] = useState<{ id: number, name: string }[]>([]);
@@ -23,6 +24,9 @@ export default function PresenceSubmit({ children, team, onSubmit }: PresenceSub
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!isFormValid) {
+            return;
+        }
         onSubmit(team, presenceData);
         setIsOpen(false);
         setPresenceData({ coaches: {}, players: {} });
@@ -39,7 +43,7 @@ export default function PresenceSubmit({ children, team, onSubmit }: PresenceSub
     };
 
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && !disabled) {
             if (allCoaches.length === 0 && allPlayers.length === 0) {
                 setIsLoading(true);
                 axios.get(route('team.get-members', team.id))
@@ -50,18 +54,27 @@ export default function PresenceSubmit({ children, team, onSubmit }: PresenceSub
                     });
             }
         }
-    }, [isOpen, allCoaches.length, allPlayers.length, team.id]);
+    }, [isOpen, allCoaches.length, allPlayers.length, team.id, disabled]);
 
     const allMembers = [...allCoaches, ...allPlayers];
 
     const isFormValid = allMembers.length > 0 &&
-    allCoaches.every(coach => presenceData.coaches[coach.id.toString()] !== undefined) &&
-    allPlayers.every(player => presenceData.players[player.id.toString()] !== undefined);
+        allCoaches.every(coach => presenceData.coaches[coach.id.toString()] !== undefined) &&
+        allPlayers.every(player => presenceData.players[player.id.toString()] !== undefined);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <Dialog open={isOpen && !disabled} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                {children}
+                <div className={`border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 ${presences ? 'text-muted-foreground border-muted' : 'cursor-pointer hover:shadow-md transition-shadow'}`}>
+                    <h3 className="text-lg font-medium">{team.name}</h3>
+                    <div className="flex flex-col gap-2">
+                        {presences ? (
+                            <CircleCheck className="h-6 w-6 text-success" />
+                        ) : (
+                            <CircleAlert className="h-6 w-6 text-warning" />
+                        )}
+                    </div>
+                </div>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -139,8 +152,8 @@ export default function PresenceSubmit({ children, team, onSubmit }: PresenceSub
                         <Button variant="outline" onClick={() => setIsOpen(false)} type="button">
                             Cancel
                         </Button>
-                        <Button type="submit" disabled={isLoading || isFormValid}>
-                            Save
+                        <Button type="submit" disabled={isLoading || !isFormValid || disabled}>
+                            Submit
                         </Button>
                     </DialogFooter>
                 </form>
