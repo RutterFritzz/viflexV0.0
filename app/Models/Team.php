@@ -17,6 +17,7 @@ class Team extends Model
 
     protected $fillable = ['name', 'club_id', 'category'];
 
+    // get the category of the team
     public function category(): Attribute
     {
         return Attribute::make(
@@ -69,16 +70,19 @@ class Team extends Model
         return $this->hasMany(Game::class)->where('home_team_id', $this->id)->orWhere('away_team_id', $this->id);
     }
 
+    // get all the players that play a game in the team
     public function gamePlayers(): HasMany
     {
         return $this->hasMany(GamePlayer::class);
     }
 
+    // get all the coaches that coach a game in the team
     public function gameCoaches(): HasMany
     {
         return $this->hasMany(GameCoach::class);
     }
 
+    // check if the team has presences filled in for a game
     public function hasPresences(Game $game): bool
     {
         if ($this->gamePlayers->where('game_id', $game->id)->whereNull('present')->count() > 0) {

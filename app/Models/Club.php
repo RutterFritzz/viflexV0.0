@@ -12,6 +12,7 @@ class Club extends Model
 
     protected $fillable = ['name', 'location'];
 
+    // get all the teams in the club
     public function teams()
     {
         return $this->hasMany(Team::class);

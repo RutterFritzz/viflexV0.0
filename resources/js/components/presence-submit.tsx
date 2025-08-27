@@ -89,7 +89,7 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col gap-2 mb-5">
+                    <div className="flex flex-col gap-2 mb-5 overflow-y-auto max-h-[500px]">
                         {allCoaches.length > 0 && (
                             <>
                                 <p className="text-sm text-muted-foreground">Coach{allCoaches.length === 1 ? '' : 'es'}</p>
