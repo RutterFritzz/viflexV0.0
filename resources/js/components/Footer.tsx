@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { Separator } from "./ui/separator";
 import { TrophyIcon, HeartIcon, Building2, Users, Settings, HelpCircle } from "lucide-react";
+import { t } from "i18next";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -18,7 +19,7 @@ export default function Footer() {
                             <span className="text-xl font-bold text-foreground">Viflex</span>
                         </div>
                         <p className="text-sm text-muted-foreground max-w-xs">
-                            The complete sports management platform for clubs, teams, and athletes. 
+                            The complete sports management platform for clubs, teams, and athletes.
                             Streamline your organization and focus on what matters most.
                         </p>
                         <div className="flex items-center space-x-1 text-xs text-muted-foreground">
@@ -30,33 +31,33 @@ export default function Footer() {
 
                     {/* Navigation Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">Navigation</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('navigation')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <Link 
-                                    href="/club" 
+                                <Link
+                                    href="/club"
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Building2 className="w-3 h-3" />
-                                    Clubs
+                                    {t('clubs')}
                                 </Link>
                             </li>
                             <li>
-                                <Link 
-                                    href="/team" 
+                                <Link
+                                    href="/team"
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Users className="w-3 h-3" />
-                                    Teams
+                                    {t('teams')}
                                 </Link>
                             </li>
                             <li>
-                                <Link 
-                                    href="/dashboard" 
+                                <Link
+                                    href="/dashboard"
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <TrophyIcon className="w-3 h-3" />
-                                    Dashboard
+                                    {t('dashboard')}
                                 </Link>
                             </li>
                         </ul>
@@ -64,24 +65,24 @@ export default function Footer() {
 
                     {/* Account Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">Account</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('account')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <Link 
-                                    href="/settings/profile" 
+                                <Link
+                                    href="/settings/profile"
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Settings className="w-3 h-3" />
-                                    Settings
+                                    {t('settings')}
                                 </Link>
                             </li>
                             <li>
-                                <Link 
-                                    href="/help" 
+                                <Link
+                                    href="/help"
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <HelpCircle className="w-3 h-3" />
-                                    Help & Support
+                                    {t('help')} & {t('support')}
                                 </Link>
                             </li>
                         </ul>
@@ -89,30 +90,30 @@ export default function Footer() {
 
                     {/* Legal Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">Legal</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('legal')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <Link 
-                                    href="/privacy" 
+                                <Link
+                                    href="/privacy"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    Privacy Policy
+                                    {t('privacyPolicy')}
                                 </Link>
                             </li>
                             <li>
-                                <Link 
-                                    href="/terms" 
+                                <Link
+                                    href="/terms"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    Terms of Service
+                                    {t('termsOfService')}
                                 </Link>
                             </li>
                             <li>
-                                <Link 
-                                    href="/contact" 
+                                <Link
+                                    href="/contact"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    Contact Us
+                                    {t('contactUs')}
                                 </Link>
                             </li>
                         </ul>
@@ -124,10 +125,10 @@ export default function Footer() {
                 {/* Bottom Section */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
                     <div className="text-xs text-muted-foreground">
-                        © {currentYear} Viflex. All rights reserved.
+                        © {currentYear} Viflex. {t('allRightsReserved')}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                        Version 1.0.0 • Built with Laravel & React
+                        {t('version')} 1.0.0 • {t('builtWith')} Laravel & React
                     </div>
                 </div>
             </div>

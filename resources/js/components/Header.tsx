@@ -4,11 +4,12 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { HomeIcon, UsersIcon, TrophyIcon, UserIcon, SettingsIcon, LogOutIcon, SearchIcon, CalendarIcon, GavelIcon, MapPinIcon, GamepadIcon } from "lucide-react";
+import { HomeIcon, UsersIcon, TrophyIcon, UserIcon, SettingsIcon, LogOutIcon, SearchIcon } from "lucide-react";
 import { SharedData } from "@/types";
 import { useEffect, useState } from "react";
 import CtrlShortcut from "./ctrl-shortcut";
 import AppLogoIcon from "./app-logo-icon";
+import { t } from "i18next";
 
 export function Header() {
     const { auth } = usePage<SharedData>().props;
@@ -50,7 +51,7 @@ export function Header() {
                                     className="w-full justify-start text-muted-foreground"
                                 >
                                     <SearchIcon className="w-4 h-4 mr-2" />
-                                    Search teams, clubs, users...
+                                    {t('searchTeamsClubsUsers')}
                                     <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
                                         <CtrlShortcut />
                                     </kbd>
@@ -62,44 +63,44 @@ export function Header() {
                                         <SearchIcon className="w-4 h-4 mr-2 shrink-0 opacity-50" />
                                         <input
                                             className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-                                            placeholder="Search teams, clubs, users..."
+                                            placeholder={t('searchTeamsClubsUsers')}
                                             autoFocus
                                         />
                                     </div>
                                     <div className="max-h-[300px] overflow-y-auto">
                                         <div className="p-2">
                                             {/* Teams Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">Teams</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">{t('teams')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <UsersIcon className="w-4 h-4" />
-                                                    <span>Search Teams</span>
+                                                    <span>{t('searchTeams')}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>My Teams</span>
+                                                    <span>{t('myTeams')}</span>
                                                 </div>
                                             </div>
 
                                             {/* Clubs Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">Clubs</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('clubs')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>Search Clubs</span>
+                                                    <span>{t('searchClubs')}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <HomeIcon className="w-4 h-4" />
-                                                    <span>My Clubs</span>
+                                                    <span>{t('myClubs')}</span>
                                                 </div>
                                             </div>
 
                                             {/* Users Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">Users</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('users')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <UserIcon className="w-4 h-4" />
-                                                    <span>Search Users</span>
+                                                    <span>{t('searchUsers')}</span>
                                                 </div>
                                             </div>
 
@@ -122,7 +123,7 @@ export function Header() {
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
                                         <HomeIcon className="w-4 h-4 mr-2" />
-                                        Dashboard
+                                        {t('dashboard')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
@@ -132,7 +133,7 @@ export function Header() {
                                                     className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <HomeIcon className="w-4 h-4" />
-                                                    <span>Overview</span>
+                                                    <span>{t('overview')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
@@ -141,7 +142,7 @@ export function Header() {
                                                     className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>My Activities</span>
+                                                    <span>{t('myActivities')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>
@@ -156,7 +157,7 @@ export function Header() {
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
                                         <UsersIcon className="w-4 h-4 mr-2" />
-                                        Teams
+                                        {t('teams')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
@@ -166,7 +167,7 @@ export function Header() {
                                                     className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <UsersIcon className="w-4 h-4" />
-                                                    <span>All Teams</span>
+                                                    <span>{t('allTeams')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>
@@ -181,7 +182,7 @@ export function Header() {
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
                                         <TrophyIcon className="w-4 h-4 mr-2" />
-                                        Clubs
+                                        {t('clubs')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
@@ -191,7 +192,7 @@ export function Header() {
                                                     className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>All Clubs</span>
+                                                    <span>{t('allClubs')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>
@@ -234,7 +235,7 @@ export function Header() {
                                                         className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <UserIcon className="w-4 h-4" />
-                                                        <span>Profile</span>
+                                                        <span>{t('profile')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                                 <NavigationMenuLink asChild>
@@ -243,7 +244,7 @@ export function Header() {
                                                         className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <SettingsIcon className="w-4 h-4" />
-                                                        <span>Settings</span>
+                                                        <span>{t('settings')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                                 <Separator />
@@ -255,7 +256,7 @@ export function Header() {
                                                         className="flex items-center space-x-2 p-2 rounded-md hover:bg-destructive hover:text-destructive-foreground transition-colors text-left w-full"
                                                     >
                                                         <LogOutIcon className="w-4 h-4" />
-                                                        <span>Logout</span>
+                                                        <span>{t('logout')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                             </div>
@@ -266,10 +267,10 @@ export function Header() {
                         ) : (
                             <div className="flex items-center space-x-2">
                                 <Button variant="ghost" asChild>
-                                    <Link href="/login">Login</Link>
+                                    <Link href="/login">{t('login')}</Link>
                                 </Button>
                                 <Button asChild>
-                                    <Link href="/register">Sign Up</Link>
+                                    <Link href="/register">{t('signUp')}</Link>
                                 </Button>
                             </div>
                         )}
