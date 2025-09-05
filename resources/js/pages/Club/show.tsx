@@ -7,6 +7,7 @@ import { Link } from "@inertiajs/react";
 import { MapPin, Users, Plus, Edit, ArrowLeft, Trash2 } from "lucide-react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
+import { t } from "i18next";
 
 interface ShowProps {
     club: Club;
@@ -41,12 +42,12 @@ export default function Show({ club, teams }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Users className="h-5 w-5" />
-                        Teams
+                        {t('teams')}
                     </CardTitle>
                     <CardDescription>
                         {teams.length === 0
-                            ? "No teams have been created yet."
-                            : `Manage and view all teams in ${club.name}.`
+                            ? t('noTeamsHaveBeenCreatedYet')
+                            : t('manageAndViewAllTeamsIn') + ` ${club.name}`
                         }
                     </CardDescription>
                 </CardHeader>
@@ -54,8 +55,8 @@ export default function Show({ club, teams }: ShowProps) {
                     {teams.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">No teams yet</p>
-                            <p className="text-sm">Create your first team to get started.</p>
+                            <p className="text-lg font-medium">{t('noTeamsYet')}</p>
+                            <p className="text-sm">{t('createYourFirstTeamToGetStarted')}</p>
                         </div>
                     ) : (
                         <div className="grid gap-3">
@@ -75,7 +76,7 @@ export default function Show({ club, teams }: ShowProps) {
                                     <div className="flex items-center gap-2">
                                         {team.players && (
                                             <Badge variant="outline" className="text-xs">
-                                                {team.players.length} players
+                                                {team.players.length} {t('players')}
                                             </Badge>
                                         )}
                                     </div>
@@ -88,7 +89,7 @@ export default function Show({ club, teams }: ShowProps) {
                     <Button asChild className="w-full">
                         <Link href={route('team.create', club.id)}>
                             <Plus className="h-4 w-4 mr-2" />
-                            Create New Team
+                            {t('createNewTeam')}
                         </Link>
                     </Button>
                 </CardFooter>
@@ -97,9 +98,9 @@ export default function Show({ club, teams }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Club Actions</CardTitle>
+                    <CardTitle>{t('clubActions')}</CardTitle>
                     <CardDescription>
-                        Manage club settings and navigation.
+                        {t('manageClubSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -107,13 +108,13 @@ export default function Show({ club, teams }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('club.edit', club.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Club
+                                {t('editClub')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('club.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Clubs
+                                {t('backToClubs')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -123,7 +124,7 @@ export default function Show({ club, teams }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Club
+                            {t('deleteClub')}
                         </Button>
                         <DeleteConfirmation dialogOpen={dialogOpen} type="club" name={club.name} onOpenChange={setDialogOpen} id={club.id} />
                     </div>

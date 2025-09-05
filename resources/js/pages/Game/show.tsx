@@ -13,6 +13,7 @@ import Coach from "@/components/coach";
 import Player from "@/components/player";
 import PresenceSubmit from "@/components/presence-submit";
 import axios from "axios";
+import { t } from "i18next";
 
 interface ShowProps {
     game: Game;
@@ -73,14 +74,14 @@ export default function Show({ game }: ShowProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('game.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Games
+                            {t('backToGames')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {game.home_team?.name || 'Team A'} vs {game.away_team?.name || 'Team B'}
+                        {game.home_team?.name || t('teamA')} vs {game.away_team?.name || t('teamB')}
                     </h1>
                     <div className="flex items-center gap-4 text-muted-foreground">
                         <div className="flex items-center gap-2">
@@ -104,24 +105,24 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Calendar className="h-5 w-5" />
-                            Match Information
+                            {t('matchInformation')}
                         </CardTitle>
                         <CardDescription>
-                            Date, time, and location details.
+                            {t('dateTimeAndLocationDetails')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Date:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('date')}:</span>
                                 <span className="font-medium">{formatDate(game.gameday?.date || 'Unknown Date')}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Time:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('time')}:</span>
                                 <span className="font-medium">{game.time}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Location:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('location')}:</span>
                                 <span className="font-medium">{game.location?.name || 'Unknown Location'}</span>
                             </div>
                         </div>
@@ -132,10 +133,10 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Target className="h-5 w-5" />
-                            Match Result
+                            {t('matchResult')}
                         </CardTitle>
                         <CardDescription>
-                            Final score and outcome.
+                            {t('finalScoreAndOutcome')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -146,18 +147,18 @@ export default function Show({ game }: ShowProps) {
                                 </div>
                                 <div className="text-sm text-muted-foreground">
                                     {game.home_team_score > game.away_team_score
-                                        ? `${game.home_team?.name || 'Team A'} wins`
+                                        ? `${game.home_team?.name || t('teamA')} wins`
                                         : game.home_team_score < game.away_team_score
-                                            ? `${game.away_team?.name || 'Team B'} wins`
-                                            : 'Draw'
+                                            ? `${game.away_team?.name || t('teamB')} wins`
+                                            : t('draw')
                                     }
                                 </div>
                             </div>
                         ) : (
                             <div className="text-center py-8 text-muted-foreground">
                                 <Target className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                                <p className="text-lg font-medium">No result yet</p>
-                                <p className="text-sm">Score will be updated after the match.</p>
+                                <p className="text-lg font-medium">{t('noResultYet')}</p>
+                                <p className="text-sm">{t('scoreWillBeUpdatedAfterTheMatch')}</p>
                             </div>
                         )}
                     </CardContent>
@@ -167,7 +168,7 @@ export default function Show({ game }: ShowProps) {
             {/* Team Management Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Team Management</CardTitle>
+                    <CardTitle>{t('teamManagement')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-3">
@@ -190,10 +191,10 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Building2 className="h-5 w-5" />
-                            Home Team
+                            {t('homeTeam')}
                         </CardTitle>
                         <CardDescription>
-                            {game.home_team?.name || 'Team A'}
+                            {game.home_team?.name || t('teamA')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -202,9 +203,9 @@ export default function Show({ game }: ShowProps) {
                             <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Users className="h-8 w-8 text-secondary" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">Team A</h3>
+                            <h3 className="text-xl font-semibold mb-2">{t('teamA')}</h3>
                             <p className="text-sm text-muted-foreground">
-                                Playing home
+                                {t('playingHome')}
                             </p>
                         </div>
                         ) : (
@@ -229,10 +230,10 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Building2 className="h-5 w-5" />
-                            Away Team
+                            {t('awayTeam')}
                         </CardTitle>
                         <CardDescription>
-                            {game.away_team?.name || 'Team B'}
+                            {game.away_team?.name || t('teamB')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -241,9 +242,9 @@ export default function Show({ game }: ShowProps) {
                             <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Users className="h-8 w-8 text-secondary" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">Team B</h3>
+                            <h3 className="text-xl font-semibold mb-2">{t('teamB')}</h3>
                             <p className="text-sm text-muted-foreground">
-                                Playing away
+                                {t('playingAway')}
                             </p>
                         </div>
                         ) : (
@@ -269,10 +270,10 @@ export default function Show({ game }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Award className="h-5 w-5" />
-                        Competition Context
+                        {t('competitionContext')}
                     </CardTitle>
                     <CardDescription>
-                        Information about the competition this game belongs to.
+                        {t('informationAboutTheCompetitionThisGameBelongsTo')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -286,7 +287,7 @@ export default function Show({ game }: ShowProps) {
                         <Button asChild variant="outline">
                             <Link href={route('competition.show', game.competition_id)}>
                                 <Award className="h-4 w-4 mr-2" />
-                                View Competition
+                                {t('viewCompetition')}
                             </Link>
                         </Button>
                     </div>
@@ -296,9 +297,9 @@ export default function Show({ game }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Game Actions</CardTitle>
+                    <CardTitle>{t('gameActions')}</CardTitle>
                     <CardDescription>
-                        Manage game settings and navigation.
+                        {t('manageGameSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -306,13 +307,13 @@ export default function Show({ game }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('game.edit', game.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Game
+                                {t('editGame')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('game.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Games
+                                {t('backToGames')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -322,7 +323,7 @@ export default function Show({ game }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Game
+                            {t('deleteGame')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}

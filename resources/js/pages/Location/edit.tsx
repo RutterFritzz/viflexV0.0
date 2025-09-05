@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Location } from "@/types";
 import { Link } from "@inertiajs/react";
 import { MapPin, ArrowLeft, Save, Building2, Map } from "lucide-react";
+import { t } from "i18next";
 
 interface EditProps {
     location: Location;
@@ -22,17 +23,17 @@ export default function Edit({ location }: EditProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('location.show', location.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Location
+                            {t('backToLocation')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <MapPin className="h-8 w-8" />
-                        Edit Location
+                        {t('editLocation')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the details for <span className="font-medium">{location.name}</span>.
+                        {t('updateTheDetailsFor')} <span className="font-medium">{location.name}</span>.
                     </p>
                 </div>
             </div>
@@ -42,10 +43,10 @@ export default function Edit({ location }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Location Information
+                        {t('locationInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the location details below.
+                        {t('makeChangesToTheLocationDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -56,13 +57,13 @@ export default function Edit({ location }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                Venue Name
+                                {t('venueName')}
                             </Label>
                             <Input 
                                 id="name"
                                 type="text" 
                                 name="name" 
-                                placeholder="Enter venue name" 
+                                placeholder={t('enterVenueName')} 
                                 defaultValue={location.name}
                                 required
                                 className="w-full"
@@ -72,13 +73,13 @@ export default function Edit({ location }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="city" className="flex items-center gap-2">
                                 <Map className="h-4 w-4" />
-                                City
+                                {t('city')}
                             </Label>
                             <Input 
                                 id="city"
                                 type="text" 
                                 name="city" 
-                                placeholder="Enter city name" 
+                                placeholder={t('enterCityName')} 
                                 defaultValue={location.city}
                                 required
                                 className="w-full"
@@ -88,11 +89,11 @@ export default function Edit({ location }: EditProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Location
+                                {t('updateLocation')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('location.show', location.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -105,14 +106,14 @@ export default function Edit({ location }: EditProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Building2 className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Current Values</p>
+                        <p className="font-medium">{t('currentValues')}</p>
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
-                                <p className="font-medium text-xs">Venue Name</p>
+                                <p className="font-medium text-xs">{t('venueName')}</p>
                                 <p className="text-xs">{location.name}</p>
                             </div>
                             <div>
-                                <p className="font-medium text-xs">City</p>
+                                <p className="font-medium text-xs">{t('city')}</p>
                                 <Badge variant="outline" className="text-xs">{location.city}</Badge>
                             </div>
                         </div>

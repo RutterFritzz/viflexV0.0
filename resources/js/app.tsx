@@ -7,7 +7,7 @@ import { initializeTheme } from './hooks/use-appearance';
 import { JSX } from 'react';
 import MainLayout from './layouts/MainLayout';
 import { PageModule } from './types';
-import './i18n';
+import '../lang/i18n';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

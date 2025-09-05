@@ -5,6 +5,7 @@ import { Gameday } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Calendar, Plus, ArrowLeft, MapPin, Trophy, Clock } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
+import { t } from "i18next";
 
 export default function Index({ gamedays }: { gamedays: Gameday[] }) {
     // Helper function to get status badge
@@ -15,13 +16,13 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays < 0) {
-            return <Badge variant="secondary">Past</Badge>;
+            return <Badge variant="secondary">{t('past')}</Badge>;
         } else if (diffDays === 0) {
-            return <Badge variant="default">Today</Badge>;
+            return <Badge variant="default">{t('today')}</Badge>;
         } else if (diffDays <= 7) {
-            return <Badge variant="destructive">Upcoming</Badge>;
+            return <Badge variant="destructive">{t('upcoming')}</Badge>;
         } else {
-            return <Badge variant="outline">Scheduled</Badge>;
+            return <Badge variant="outline">{t('scheduled')}</Badge>;
         }
     };
 
@@ -33,7 +34,7 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href="/dashboard">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Dashboard
+                            {t('backToDashboard')}
                         </Link>
                     </Button>
                 </div>
@@ -41,21 +42,21 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Calendar className="h-8 w-8" />
-                            Gamedays & Events
+                            {t('gamedaysAndEvents')}
                         </h1>
                         <p className="text-muted-foreground">
-                            Manage all scheduled gamedays and sporting events.
+                            {t('manageAllScheduledGamedaysAndSportingEvents')}
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Badge variant="secondary" className="flex items-center gap-1">
                             <Trophy className="h-3 w-3" />
-                            {gamedays.length} {gamedays.length === 1 ? 'Gameday' : 'Gamedays'}
+                            {gamedays.length} {gamedays.length === 1 ? t('gameday') : t('gamedays')}
                         </Badge>
                         <Button asChild>
                             <Link href={route('gameday.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Schedule Gameday
+                                {t('scheduleGameday')}
                             </Link>
                         </Button>
                     </div>
@@ -67,14 +68,14 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">No gamedays scheduled</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('noGamedaysScheduled')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            Create your first gameday to start organizing sporting events.
+                            {t('createYourFirstGamedayToStartOrganizingSportingEvents')}
                         </p>
                         <Button asChild>
                             <Link href={route('gameday.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Schedule First Gameday
+                                {t('scheduleFirstGameday')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -93,31 +94,31 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                                 </div>
                                 <CardDescription className="flex items-center gap-2">
                                     <MapPin className="h-3 w-3" />
-                                    <span className="text-xs">{gameday.location?.name || 'Unknown Venue'}</span>
+                                    <span className="text-xs">{gameday.location?.name || t('unknownVenue')}</span>
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="pt-0">
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-muted-foreground">Venue:</span>
+                                        <span className="text-muted-foreground">{t('venue')}:</span>
                                         <span className="font-medium">{gameday.location?.name}</span>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-muted-foreground">City:</span>
+                                        <span className="text-muted-foreground">{t('city')}:</span>
                                         <Badge variant="outline" className="text-xs">{gameday.location?.city}</Badge>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-muted-foreground">Games:</span>
-                                        <span className="font-medium">{gameday.games_count} scheduled</span>
+                                        <span className="text-muted-foreground">{t('games')}:</span>
+                                        <span className="font-medium">{gameday.games_count} {t('scheduled')}</span>
                                     </div>
                                     {gameday.games && gameday.games.length > 0 && (
                                         <div className="pt-2 border-t">
-                                            <div className="text-xs text-muted-foreground mb-2">Upcoming Games:</div>
+                                            <div className="text-xs text-muted-foreground mb-2">{t('upcomingGames')}:</div>
                                             <div className="space-y-1">
                                                 {gameday.games.slice(0, 2).map((game) => (
                                                     <div key={game.id} className="flex items-center justify-between text-xs">
                                                         <span className="truncate">
-                                                            {game.homeTeam?.name || 'Team A'} vs {game.awayTeam?.name || 'Team B'}
+                                                            {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
                                                         </span>
                                                         <span className="text-muted-foreground">
                                                             <Clock className="inline h-3 w-3 mr-1" />
@@ -127,7 +128,7 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                                                 ))}
                                                 {gameday.games.length > 2 && (
                                                     <div className="text-xs text-muted-foreground">
-                                                        +{gameday.games.length - 2} more games
+                                                        +{gameday.games.length - 2} {t('moreGames')}
                                                     </div>
                                                 )}
                                             </div>
@@ -136,7 +137,7 @@ export default function Index({ gamedays }: { gamedays: Gameday[] }) {
                                     <div className="flex items-center justify-between pt-2">
                                         <Button asChild variant="outline" size="sm">
                                             <Link href={route('gameday.show', gameday.id)}>
-                                                View Details
+                                                {t('viewDetails')}
                                             </Link>
                                         </Button>
                                     </div>

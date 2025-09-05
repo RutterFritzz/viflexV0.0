@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Location } from "@/types";
 import { Link } from "@inertiajs/react";
 import { MapPin, Plus, ArrowLeft, Building2, Map } from "lucide-react";
+import { t } from "i18next";
 
 export default function Index({ locations }: { locations: Location[] }) {
     return (
@@ -14,7 +15,7 @@ export default function Index({ locations }: { locations: Location[] }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href="/dashboard">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Dashboard
+                            {t('backToDashboard')}
                         </Link>
                     </Button>
                 </div>
@@ -22,21 +23,21 @@ export default function Index({ locations }: { locations: Location[] }) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <MapPin className="h-8 w-8" />
-                            Locations & Venues
+                            {t('locationsAndVenues')}
                         </h1>
                         <p className="text-muted-foreground">
-                            Manage all sports venues and locations for games and events.
+                            {t('manageAllSportsVenuesAndLocationsForGamesAndEvents')}
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Badge variant="secondary" className="flex items-center gap-1">
                             <Building2 className="h-3 w-3" />
-                            {locations.length} {locations.length === 1 ? 'Location' : 'Locations'}
+                            {locations.length} {locations.length === 1 ? t('location') : t('locations')}
                         </Badge>
                         <Button asChild>
                             <Link href={route('location.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Add Location
+                                {t('addLocation')}
                             </Link>
                         </Button>
                     </div>
@@ -48,14 +49,14 @@ export default function Index({ locations }: { locations: Location[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <MapPin className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">No locations yet</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('noLocationsYet')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            Create your first location to start organizing games and events.
+                            {t('createYourFirstLocationToStartOrganizingGamesAndEvents')}
                         </p>
                         <Button asChild>
                             <Link href={route('location.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create First Location
+                                {t('createFirstLocation')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -82,11 +83,11 @@ export default function Index({ locations }: { locations: Location[] }) {
                             <CardContent className="pt-0">
                                 <div className="flex items-center justify-between">
                                     <div className="text-sm text-muted-foreground">
-                                        <span className="font-medium">Venue:</span> {location.name}
+                                        <span className="font-medium">{t('venue')}:</span> {location.name}
                                     </div>
                                     <Button asChild variant="outline" size="sm">
                                         <Link href={route('location.show', location.id)}>
-                                            View Details
+                                            {t('viewDetails')}
                                         </Link>
                                     </Button>
                                 </div>

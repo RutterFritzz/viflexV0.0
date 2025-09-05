@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Category } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Plus, Tag, Calendar } from "lucide-react";
+import { t } from "i18next";
 
 export default function Create({ categories }: { categories: Category[] }) {
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -20,17 +21,17 @@ export default function Create({ categories }: { categories: Category[] }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('competition.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Competitions
+                            {t('backToCompetitions')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        Create New Competition
+                        {t('createNewCompetition')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Set up a new competition or tournament.
+                        {t('setUpANewCompetitionOrTournament')}
                     </p>
                 </div>
             </div>
@@ -40,10 +41,10 @@ export default function Create({ categories }: { categories: Category[] }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        Competition Information
+                        {t('competitionInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Enter the basic information for the new competition.
+                        {t('enterTheBasicInformationForTheNewCompetition')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -53,13 +54,13 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Trophy className="h-4 w-4" />
-                                Competition Name
+                                {t('competitionName')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder="Enter competition name (e.g., Summer Championship 2024)"
+                                placeholder={t('enterCompetitionName')}
                                 required
                                 className="w-full"
                             />
@@ -68,11 +69,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Tag className="h-4 w-4" />
-                                Category
+                                {t('category')}
                             </Label>
                             <Select name="category" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select a category" />
+                                    <SelectValue placeholder={t('selectACategory')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -87,11 +88,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="year" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                Year
+                                {t('year')}
                             </Label>
                             <Select name="year" required defaultValue={currentYear.toString()}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select year" />
+                                    <SelectValue placeholder={t('selectYear')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {years.map((year) => (
@@ -106,11 +107,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create Competition
+                                {t('createCompetition')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('competition.index')}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -123,8 +124,8 @@ export default function Create({ categories }: { categories: Category[] }) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Trophy className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Competition Setup</p>
-                        <p>After creating the competition, you'll be able to add teams, schedule matches, and manage the tournament structure.</p>
+                        <p className="font-medium">{t('competitionSetup')}</p>
+                        <p>{t('afterCreatingTheCompetitionYouWillBeAbleToAddTeamsScheduleMatchesAndManageTheTournamentStructure')}</p>
                     </div>
                 </CardContent>
             </Card>

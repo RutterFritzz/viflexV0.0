@@ -10,6 +10,7 @@ import { Trophy, Calendar, Tag, ArrowLeft, Edit, Trash2, Users, Award, Calendar 
 import Search from "@/components/search";
 import axios from "axios";
 import { formatDate } from "@/helpers/format-date";
+import { t } from "i18next";
 
 interface ShowProps {
     competition: Competition;
@@ -45,7 +46,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('competition.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Competitions
+                            {t('backToCompetitions')}
                         </Link>
                     </Button>
                 </div>
@@ -75,24 +76,24 @@ export default function Show({ competition, teams, games }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Award className="h-5 w-5" />
-                            Competition Information
+                            {t('competitionInformation')}
                         </CardTitle>
                         <CardDescription>
-                            Basic details about this competition.
+                            {t('basicDetailsAboutThisCompetition')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Name:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('name')}:</span>
                                 <span className="font-medium">{competition.name}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Category:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('category')}:</span>
                                 <Badge variant="outline">{competition.category}</Badge>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Year:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('year')}:</span>
                                 <span className="font-medium">{competition.year}</span>
                             </div>
                         </div>
@@ -103,25 +104,25 @@ export default function Show({ competition, teams, games }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <CalendarIcon className="h-5 w-5" />
-                            Quick Stats
+                            {t('quickStats')}
                         </CardTitle>
                         <CardDescription>
-                            Overview of competition statistics.
+                            {t('overviewOfCompetitionStatistics')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4">
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-primary">{teams.length}</div>
-                                <div className="text-sm text-muted-foreground">Participating Teams</div>
+                                <div className="text-sm text-muted-foreground">{t('participatingTeams')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-secondary">0</div>
-                                <div className="text-sm text-muted-foreground">Matches Played</div>
+                                <div className="text-sm text-muted-foreground">{t('matchesPlayed')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-accent">TBD</div>
-                                <div className="text-sm text-muted-foreground">Status</div>
+                                <div className="text-sm text-muted-foreground">{t('status')}</div>
                             </div>
                         </div>
                     </CardContent>
@@ -135,10 +136,10 @@ export default function Show({ competition, teams, games }: ShowProps) {
                         <div>
                             <CardTitle className="flex items-center gap-2">
                                 <Users className="h-5 w-5" />
-                                Participating Teams
+                                {t('participatingTeams')}
                             </CardTitle>
                             <CardDescription>
-                                Teams registered for this competition.
+                                {t('teamsRegisteredForThisCompetition')}
                             </CardDescription>
                         </div>
                         <Button
@@ -147,7 +148,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                             size="sm"
                         >
                             <Plus className="h-4 w-4 mr-2" />
-                            {showAddTeam ? 'Cancel' : 'Add Team'}
+                            {showAddTeam ? t('cancel') : t('addTeam')}
                         </Button>
                     </div>
                 </CardHeader>
@@ -156,7 +157,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                         <div className="mb-6 p-4 border rounded-lg bg-muted/50">
                             <div className="flex items-center gap-2 mb-3">
                                 <Plus className="h-4 w-4 text-primary" />
-                                <span className="font-medium text-sm">Add Team to Competition</span>
+                                <span className="font-medium text-sm">{t('addTeamToCompetition')}</span>
                             </div>
                             <Search onSelect={handleTeamSelect} type="team" />
                         </div>
@@ -165,15 +166,15 @@ export default function Show({ competition, teams, games }: ShowProps) {
                     {teams.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">No teams registered yet</p>
-                            <p className="text-sm mb-4">Teams will appear here once they register for this competition.</p>
+                            <p className="text-lg font-medium">{t('noTeamsRegisteredYet')}</p>
+                            <p className="text-sm mb-4">{t('teamsWillAppearHereOnceTheyRegisterForThisCompetition')}</p>
                             <Button
                                 onClick={() => setShowAddTeam(true)}
                                 variant="outline"
                                 size="sm"
                             >
                                 <Plus className="h-4 w-4 mr-2" />
-                                Add First Team
+                                {t('addFirstTeam')}
                             </Button>
                         </div>
                     ) : (
@@ -200,11 +201,11 @@ export default function Show({ competition, teams, games }: ShowProps) {
                                                 <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                                                     <div className="flex items-center gap-1">
                                                         <User className="h-3 w-3" />
-                                                        <span>{team.players?.length || 0} player{team.players?.length === 1 ? '' : 's'}</span>
+                                                        <span>{team.players?.length || 0} {t('player')}{team.players?.length === 1 ? '' : 's'}</span>
                                                     </div>
                                                     <div className="flex items-center gap-1">
                                                         <UserCheck className="h-3 w-3" />
-                                                        <span>{team.coaches?.length || 0} coach{team.coaches?.length === 1 ? '' : 'es'}</span>
+                                                        <span>{team.coaches?.length || 0} {t('coach')}{team.coaches?.length === 1 ? '' : 'es'}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,25 +230,25 @@ export default function Show({ competition, teams, games }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Trophy className="h-5 w-5" />
-                        Matches & Fixtures
+                        {t('matchesAndFixtures')}
                     </CardTitle>
                     <CardDescription>
-                        Schedule and results for this competition.
+                        {t('scheduleAndResultsForThisCompetition')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="flex justify-between items-center mb-4">
-                        <div className="font-semibold text-lg">Matches</div>
+                        <div className="font-semibold text-lg">{t('matches')}</div>
                         <Button
                             asChild
                             variant="secondary"
                             size="sm"
                             disabled={teams.length < 2}
-                            title={teams.length < 2 ? "At least 2 teams required to schedule a match" : ""}
+                            title={teams.length < 2 ? t('atLeast2TeamsRequiredToScheduleAMatch') : ""}
                         >
                             <Link href={route('game.create', competition.id)}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Make a Match
+                                {t('makeAMatch')}
                             </Link>
                         </Button>
                     </div>
@@ -257,9 +258,9 @@ export default function Show({ competition, teams, games }: ShowProps) {
                             {games.map((game: Game) => (
                                 <div key={game.id} className="border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                                     <div className="flex items-center gap-4">
-                                        <span className="font-semibold">{game.home_team?.name || "Team A"}</span>
-                                        <span className="text-muted-foreground">vs</span>
-                                        <span className="font-semibold">{game.away_team?.name || "Team B"}</span>
+                                        <span className="font-semibold">{game.home_team?.name || t('teamA')}</span>
+                                        <span className="text-muted-foreground">{t('vs')}</span>
+                                        <span className="font-semibold">{game.away_team?.name || t('teamB')}</span>
                                     </div>
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                         <span>
@@ -282,8 +283,8 @@ export default function Show({ competition, teams, games }: ShowProps) {
                     ) : (
                         <div className="text-center py-8 text-muted-foreground">
                             <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">No matches scheduled</p>
-                            <p className="text-sm">Match fixtures will be displayed here once the competition begins.</p>
+                            <p className="text-lg font-medium">{t('noMatchesScheduled')}</p>
+                            <p className="text-sm">{t('matchFixturesWillBeDisplayedHereOnceTheCompetitionBegins')}</p>
                         </div>
                     )}
                 </CardContent>
@@ -292,9 +293,9 @@ export default function Show({ competition, teams, games }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Competition Actions</CardTitle>
+                    <CardTitle>{t('competitionActions')}</CardTitle>
                     <CardDescription>
-                        Manage competition settings and navigation.
+                        {t('manageCompetitionSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -302,21 +303,21 @@ export default function Show({ competition, teams, games }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('competition.edit', competition.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Competition
+                                {t('editCompetition')}
                             </Link>
                         </Button>
                         {teams.length >= 2 && (
                             <Button asChild variant="secondary">
                                 <Link href={route('game.create', competition.id)}>
                                     <Trophy className="h-4 w-4 mr-2" />
-                                    Schedule Game
+                                    {t('scheduleGame')}
                                 </Link>
                             </Button>
                         )}
                         <Button asChild variant="outline">
                             <Link href={route('competition.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Competitions
+                                {t('backToCompetitions')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -326,7 +327,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Competition
+                            {t('deleteCompetition')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}

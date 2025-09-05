@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Category, Competition } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Save, Tag, Calendar } from "lucide-react";
+import { t } from "i18next";
 
 export default function Edit({ competition, categories }: { competition: Competition, categories: Category[] }) {
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -20,17 +21,17 @@ export default function Edit({ competition, categories }: { competition: Competi
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('competition.show', competition.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Competition
+                            {t('backToCompetitions')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        Edit Competition
+                        {t('editCompetition')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the information for <span className="font-medium">{competition.name}</span>.
+                        {t('updateTheInformationFor')} <span className="font-medium">{competition.name}</span>.
                     </p>
                 </div>
             </div>
@@ -40,10 +41,10 @@ export default function Edit({ competition, categories }: { competition: Competi
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Competition Information
+                        {t('competitionInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the competition details below.
+                        {t('makeChangesToTheCompetitionDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -54,13 +55,13 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Trophy className="h-4 w-4" />
-                                Competition Name
+                                {t('competitionName')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder="Enter competition name"
+                                placeholder={t('enterCompetitionName')}
                                 defaultValue={competition.name}
                                 required
                                 className="w-full"
@@ -70,11 +71,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Tag className="h-4 w-4" />
-                                Category
+                                {t('category')}
                             </Label>
                             <Select name="category" required defaultValue={competition.category}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select a category" />
+                                    <SelectValue placeholder={t('selectACategory')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -89,11 +90,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="year" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                Year
+                                {t('year')}
                             </Label>
                             <Select name="year" required defaultValue={competition.year.toString()}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select year" />
+                                    <SelectValue placeholder={t('selectYear')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {years.map((year) => (
@@ -108,11 +109,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Competition
+                                {t('updateCompetition')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('competition.show', competition.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -127,17 +128,17 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="grid grid-cols-3 gap-4 text-center">
                             <div>
                                 <Trophy className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">Current Name</p>
+                                <p className="font-medium text-xs">{t('currentName')}</p>
                                 <p className="text-xs">{competition.name}</p>
                             </div>
                             <div>
                                 <Tag className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">Current Category</p>
+                                <p className="font-medium text-xs">{t('currentCategory')}</p>
                                 <p className="text-xs">{competition.category}</p>
                             </div>
                             <div>
                                 <Calendar className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">Current Year</p>
+                                <p className="font-medium text-xs">{t('currentYear')}</p>
                                 <p className="text-xs">{competition.year}</p>
                             </div>
                         </div>

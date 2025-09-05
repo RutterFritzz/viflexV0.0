@@ -8,6 +8,7 @@ import { Game, Location, Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
 import { useState } from "react";
+import { t } from "i18next";
 
 interface EditProps {
     game: Game;
@@ -28,17 +29,17 @@ export default function Edit({ game, teams, locations }: EditProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('game.show', game.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Game
+                            {t('backToGame')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        Edit Game
+                        {t('editGame')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the details for <span className="font-medium">{game.homeTeam?.name || 'Team A'} vs {game.awayTeam?.name || 'Team B'}</span>.
+                        {t('updateTheDetailsFor')} <span className="font-medium">{game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}</span>.
                     </p>
                 </div>
             </div>
@@ -48,10 +49,10 @@ export default function Edit({ game, teams, locations }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Game Information
+                        {t('gameInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the game details below.
+                        {t('makeChangesToTheGameDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -63,11 +64,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="home_team_id" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    Home Team
+                                    {t('homeTeam')}
                                 </Label>
                                 <Select name="home_team_id" required defaultValue={game.home_team_id.toString()}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select home team" />
+                                        <SelectValue placeholder={t('selectHomeTeam')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {teams.map((team) => (
@@ -82,11 +83,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="away_team_id" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    Away Team
+                                    {t('awayTeam')}
                                 </Label>
                                 <Select name="away_team_id" required defaultValue={game.away_team_id.toString()}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select away team" />
+                                        <SelectValue placeholder={t('selectAwayTeam')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {teams.map((team) => (
@@ -102,11 +103,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="location" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                Location
+                                {t('location')}
                             </Label>
                             <Select name="location" required defaultValue={game.gameday?.location_id.toString()}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select location" />
+                                    <SelectValue placeholder={t('selectLocation')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {locations.map((location) => (
@@ -122,7 +123,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="date" className="flex items-center gap-2">
                                     <Calendar className="h-4 w-4" />
-                                    Date
+                                    {t('date')}
                                 </Label>
                                 <Calendar22 date={date} setDate={setDate} />
                                 <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
@@ -131,7 +132,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="time" className="flex items-center gap-2">
                                     <Clock className="h-4 w-4" />
-                                    Time
+                                    {t('time')}
                                 </Label>
                                 <Input
                                     id="time"
@@ -148,11 +149,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Game
+                                {t('updateGame')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('game.show', game.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -165,10 +166,10 @@ export default function Edit({ game, teams, locations }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Target className="h-5 w-5" />
-                        Update Score
+                        {t('updateScore')}
                     </CardTitle>
                     <CardDescription>
-                        Record the final score for this match.
+                        {t('recordTheFinalScoreForThisMatch')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -180,7 +181,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="home_team_score" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {game.homeTeam?.name || 'Team A'} Score
+                                    {game.homeTeam?.name || t('teamA')} {t('score')}
                                 </Label>
                                 <Input
                                     id="home_team_score"
@@ -196,7 +197,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="away_team_score" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {game.awayTeam?.name || 'Team B'} Score
+                                    {game.awayTeam?.name || t('teamB')} {t('score')}
                                 </Label>
                                 <Input
                                     id="away_team_score"
@@ -213,7 +214,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Target className="h-4 w-4 mr-2" />
-                                Update Score
+                                {t('updateScore')}
                             </Button>
                         </div>
                     </form>
@@ -227,16 +228,16 @@ export default function Edit({ game, teams, locations }: EditProps) {
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
                                 <Users className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">Current Teams</p>
-                                <p className="text-xs">{game.homeTeam?.name || 'Team A'} vs {game.awayTeam?.name || 'Team B'}</p>
+                                <p className="font-medium text-xs">{t('currentTeams')}</p>
+                                <p className="text-xs">{game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}</p>
                             </div>
                             <div>
                                 <Target className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">Current Score</p>
+                                <p className="font-medium text-xs">{t('currentScore')}</p>
                                 <p className="text-xs">
                                     {game.home_team_score !== null && game.away_team_score !== null
                                         ? `${game.home_team_score} - ${game.away_team_score}`
-                                        : 'Not recorded'
+                                        : t('notRecorded')
                                     }
                                 </p>
                             </div>

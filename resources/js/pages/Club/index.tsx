@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Club } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Building2, MapPin, Plus, Eye } from "lucide-react";
+import { t } from "i18next";
 
 export default function Index({ clubs }: { clubs: Club[] }) {
     return (
@@ -14,15 +15,15 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Building2 className="h-8 w-8" />
-                            Clubs
+                            {t('clubs')}
                         </h1>
                         <p className="text-muted-foreground">
-                            Manage and view all sports clubs in your organization.
+                            {t('manageAndViewAllSportsClubsInYourOrganization')}
                         </p>
                     </div>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Building2 className="h-3 w-3" />
-                        {clubs.length} {clubs.length === 1 ? 'Club' : 'Clubs'}
+                        {clubs.length} {clubs.length === 1 ? t('club') : t('clubs')}
                     </Badge>
                 </div>
             </div>
@@ -32,14 +33,14 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <Building2 className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">No clubs yet</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('noClubsYet')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            Create your first club to get started with managing teams and players.
+                            {t('createYourFirstClubToGetStartedWithManagingTeamsAndPlayers')}
                         </p>
                         <Button asChild>
                             <Link href={route('club.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create Your First Club
+                                {t('createYourFirstClub')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -63,7 +64,7 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                                     <Button asChild variant="outline" className="w-full">
                                         <Link href={route('club.show', club.id)}>
                                             <Eye className="h-4 w-4 mr-2" />
-                                            View Club
+                                            {t('viewClub')}
                                         </Link>
                                     </Button>
                                 </CardFooter>
@@ -77,7 +78,7 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                             <Button asChild size="lg">
                                 <Link href={route('club.create')}>
                                     <Plus className="h-4 w-4 mr-2" />
-                                    Create New Club
+                                    {t('createNewClub')}
                                 </Link>
                             </Button>
                         </CardContent>

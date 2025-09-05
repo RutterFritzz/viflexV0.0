@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Club } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Building2, MapPin, ArrowLeft, Save } from "lucide-react";
+import { t } from "i18next";
 
 export default function Edit({ club }: { club: Club }) {
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -17,17 +18,17 @@ export default function Edit({ club }: { club: Club }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Club
+                            {t('backToClub')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Building2 className="h-8 w-8" />
-                        Edit Club
+                        {t('editClub')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the information for <span className="font-medium">{club.name}</span>.
+                        {t('updateTheInformationFor')} <span className="font-medium">{club.name}</span>.
                     </p>
                 </div>
             </div>
@@ -37,27 +38,27 @@ export default function Edit({ club }: { club: Club }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Club Information
+                        {t('clubInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the club details below.
+                        {t('makeChangesToTheClubDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form action={route('club.update', club.id)} method="post" className="space-y-6">
                         <input type="hidden" name="_token" value={csrf_token} />
                         <input type="hidden" name="_method" value="PUT" />
-                        
+
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                Club Name
+                                {t('clubName')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="name"
-                                type="text" 
-                                name="name" 
-                                placeholder="Enter club name" 
+                                type="text"
+                                name="name"
+                                placeholder={t('enterClubName')}
                                 defaultValue={club.name}
                                 required
                                 className="w-full"
@@ -67,13 +68,13 @@ export default function Edit({ club }: { club: Club }) {
                         <div className="space-y-2">
                             <Label htmlFor="location" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                Location
+                                {t('location')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="location"
-                                type="text" 
-                                name="location" 
-                                placeholder="Enter location" 
+                                type="text"
+                                name="location"
+                                placeholder={t('enterLocation')}
                                 defaultValue={club.location}
                                 required
                                 className="w-full"
@@ -83,11 +84,11 @@ export default function Edit({ club }: { club: Club }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Club
+                                {t('updateClub')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('club.show', club.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>

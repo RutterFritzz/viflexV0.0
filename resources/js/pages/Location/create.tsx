@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@inertiajs/react";
 import { MapPin, ArrowLeft, Plus, Building2, Map } from "lucide-react";
+import { t } from "i18next";
 
 export default function Create() {
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -16,17 +17,17 @@ export default function Create() {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('location.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Locations
+                            {t('backToLocations')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <MapPin className="h-8 w-8" />
-                        Add New Location
+                        {t('addNewLocation')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Create a new sports venue or location for games and events.
+                        {t('createANewSportsVenueOrLocationForGamesAndEvents')}
                     </p>
                 </div>
             </div>
@@ -36,26 +37,26 @@ export default function Create() {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        Location Information
+                        {t('locationInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Enter the details for the new location.
+                        {t('enterTheDetailsForTheNewLocation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form action={route('location.store')} method="post" className="space-y-6">
                         <input type="hidden" name="_token" value={csrf_token} />
-                        
+
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                Venue Name
+                                {t('venueName')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="name"
-                                type="text" 
-                                name="name" 
-                                placeholder="Enter venue name (e.g., Central Stadium, Sports Complex)" 
+                                type="text"
+                                name="name"
+                                placeholder={t('enterVenueName')}
                                 required
                                 className="w-full"
                             />
@@ -64,13 +65,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="city" className="flex items-center gap-2">
                                 <Map className="h-4 w-4" />
-                                City
+                                {t('city')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="city"
-                                type="text" 
-                                name="city" 
-                                placeholder="Enter city name" 
+                                type="text"
+                                name="city"
+                                placeholder={t('enterCityName')}
                                 required
                                 className="w-full"
                             />
@@ -79,11 +80,11 @@ export default function Create() {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create Location
+                                {t('createLocation')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('location.index')}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -96,8 +97,8 @@ export default function Create() {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Building2 className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Location Management</p>
-                        <p>Locations are used to specify where games and events take place. You can create multiple venues in different cities.</p>
+                        <p className="font-medium">{t('locationManagement')}</p>
+                        <p>{t('locationsAreUsedToSpecifyWhereGamesAndEventsTakePlaceYouCanCreateMultipleVenuesInDifferentCities')}</p>
                     </div>
                 </CardContent>
             </Card>

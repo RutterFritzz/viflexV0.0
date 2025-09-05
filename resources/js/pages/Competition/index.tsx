@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Competition } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, Calendar, Tag, Plus, Eye, ArrowLeft } from "lucide-react";
+import { t } from "i18next";
 
 export default function Index({ competitions }: { competitions: Competition[] }) {
     // Group competitions by year for better organization
@@ -26,7 +27,7 @@ export default function Index({ competitions }: { competitions: Competition[] })
                     <Button asChild variant="ghost" size="sm">
                         <Link href="/dashboard">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Dashboard
+                            {t('backToDashboard')}
                         </Link>
                     </Button>
                 </div>
@@ -34,15 +35,15 @@ export default function Index({ competitions }: { competitions: Competition[] })
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Trophy className="h-8 w-8" />
-                            Competitions
+                            {t('competitions')}
                         </h1>
                         <p className="text-muted-foreground">
-                            Manage and view all competitions across different categories and years.
+                            {t('manageAndViewAllCompetitionsAcrossDifferentCategoriesAndYears')}
                         </p>
                     </div>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Trophy className="h-3 w-3" />
-                        {competitions.length} {competitions.length === 1 ? 'Competition' : 'Competitions'}
+                        {competitions.length} {competitions.length === 1 ? t('competition') : t('competitions')}
                     </Badge>
                 </div>
             </div>
@@ -52,7 +53,7 @@ export default function Index({ competitions }: { competitions: Competition[] })
                 <Button asChild>
                     <Link href={route('competition.create')}>
                         <Plus className="h-4 w-4 mr-2" />
-                        Create New Competition
+                        {t('createNewCompetition')}
                     </Link>
                 </Button>
             </div>
@@ -62,14 +63,14 @@ export default function Index({ competitions }: { competitions: Competition[] })
                 <Card>
                     <CardContent className="text-center py-12">
                         <Trophy className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">No competitions yet</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('noCompetitionsYet')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            Create your first competition to start organizing tournaments and leagues.
+                            {t('createYourFirstCompetitionToStartOrganizingTournamentsAndLeagues')}
                         </p>
                         <Button asChild>
                             <Link href={route('competition.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create Your First Competition
+                                {t('createYourFirstCompetition')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -109,7 +110,7 @@ export default function Index({ competitions }: { competitions: Competition[] })
                                             <Button asChild variant="outline" className="w-full">
                                                 <Link href={route('competition.show', competition.id)}>
                                                     <Eye className="h-4 w-4 mr-2" />
-                                                    View Competition
+                                                    {t('viewCompetition')}
                                                 </Link>
                                             </Button>
                                         </CardFooter>

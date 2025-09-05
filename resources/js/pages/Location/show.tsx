@@ -8,20 +8,23 @@ import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
 import { MapPin, ArrowLeft, Edit, Trash2, Building2, Map, Calendar, Trophy, Clock } from "lucide-react";
+import { t } from "i18next";
 
 interface ShowProps {
     location: Location;
     games?: Game[];
 }
 
+
 export default function Show({ location, games = [] }: ShowProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
-
+    
+    console.log(games);
     // Get upcoming games
-    // const upcomingGames = games.filter(game => new Date(game.date) > new Date());
-    const pastGames = games.filter(game => new Date(game.date) <= new Date());
+    const upcomingGames = games.filter(game => new Date(game.gameday?.date || "") > new Date());
+    const pastGames = games.filter(game => new Date(game.gameday?.date || "") <= new Date());
 
-    const upcomingGames = games;
+    // const upcomingGames = games;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
@@ -31,14 +34,14 @@ export default function Show({ location, games = [] }: ShowProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('location.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Locations
+                            {t('backToLocations')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <MapPin className="h-8 w-8" />
-                        {location.name}
+                        {t('location')} - {location.name}
                     </h1>
                     <div className="flex items-center gap-4 text-muted-foreground">
                         <div className="flex items-center gap-2">
@@ -47,7 +50,7 @@ export default function Show({ location, games = [] }: ShowProps) {
                         </div>
                         <div className="flex items-center gap-2">
                             <Building2 className="h-4 w-4" />
-                            <span>Sports Venue</span>
+                            <span>{t('sportsVenue')}</span>
                         </div>
                     </div>
                 </div>
@@ -61,24 +64,24 @@ export default function Show({ location, games = [] }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Building2 className="h-5 w-5" />
-                            Venue Information
+                            {t('venueInformation')}
                         </CardTitle>
                         <CardDescription>
-                            Basic details about this location.
+                            {t('basicDetailsAboutThisLocation')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Venue Name:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('venueName')}:</span>
                                 <span className="font-medium">{location.name}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">City:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('city')}:</span>
                                 <Badge variant="outline">{location.city}</Badge>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Type:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('type')}:</span>
                                 <span className="font-medium">Sports Venue</span>
                             </div>
                         </div>
@@ -89,25 +92,25 @@ export default function Show({ location, games = [] }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Trophy className="h-5 w-5" />
-                            Venue Statistics
+                            {t('venueStatistics')}
                         </CardTitle>
                         <CardDescription>
-                            Overview of venue usage and activity.
+                            {t('overviewOfVenueUsageAndActivity')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4">
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-primary">{games.length}</div>
-                                <div className="text-sm text-muted-foreground">Total Games</div>
+                                <div className="text-sm text-muted-foreground">{t('totalGames')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-secondary">{upcomingGames.length}</div>
-                                <div className="text-sm text-muted-foreground">Upcoming Games</div>
+                                <div className="text-sm text-muted-foreground">{t('upcomingGames')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-accent">{pastGames.length}</div>
-                                <div className="text-sm text-muted-foreground">Past Games</div>
+                                <div className="text-sm text-muted-foreground">{t('pastGames')}</div>
                             </div>
                         </div>
                     </CardContent>
@@ -119,18 +122,18 @@ export default function Show({ location, games = [] }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
-                        Upcoming Games
+                        {t('upcomingGames')}
                     </CardTitle>
                     <CardDescription>
-                        Future games scheduled at this venue.
+                        {t('futureGamesScheduledAtThisVenue')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     {upcomingGames.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">No upcoming games</p>
-                            <p className="text-sm">Games scheduled at this venue will appear here.</p>
+                            <p className="text-lg font-medium">{t('noUpcomingGames')}</p>
+                            <p className="text-sm">{t('gamesScheduledAtThisVenueWillAppearHere')}</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -141,15 +144,15 @@ export default function Show({ location, games = [] }: ShowProps) {
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="text-sm">
-                                            <span className="font-medium">{game.homeTeam?.name || "Team A"}</span>
+                                            <span className="font-medium">{game.home_team?.name || t('teamA')}</span>
                                             <span className="text-muted-foreground mx-2">vs</span>
-                                            <span className="font-medium">{game.awayTeam?.name || "Team B"}</span>
+                                            <span className="font-medium">{game.away_team?.name || t('teamB')}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                         <div className="flex items-center gap-1">
                                             <Calendar className="h-3 w-3" />
-                                            <span>{formatDate(game?.date || "")}</span>
+                                            <span>{formatDate(game.gameday?.date || "")}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <Clock className="h-3 w-3" />
@@ -157,7 +160,7 @@ export default function Show({ location, games = [] }: ShowProps) {
                                         </div>
                                         <Button asChild variant="outline" size="sm">
                                             <Link href={route('game.show', game.id)}>
-                                                View Game
+                                                {t('viewGame')}
                                             </Link>
                                         </Button>
                                     </div>
@@ -167,7 +170,7 @@ export default function Show({ location, games = [] }: ShowProps) {
                                 <div className="text-center pt-2">
                                     <Button asChild variant="ghost" size="sm">
                                         <Link href={route('game.index')}>
-                                            View all {upcomingGames.length} upcoming games
+                                            {t('viewAll')} {upcomingGames.length} {t('upcomingGames')}
                                         </Link>
                                     </Button>
                                 </div>
@@ -182,18 +185,18 @@ export default function Show({ location, games = [] }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Trophy className="h-5 w-5" />
-                        Recent Games
+                        {t('recentGames')}
                     </CardTitle>
                     <CardDescription>
-                        Recently completed games at this venue.
+                        {t('recentlyCompletedGamesAtThisVenue')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     {pastGames.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">No recent games</p>
-                            <p className="text-sm">Completed games at this venue will appear here.</p>
+                            <p className="text-lg font-medium">{t('noRecentGames')}</p>
+                            <p className="text-sm">{t('completedGamesAtThisVenueWillAppearHere')}</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -204,9 +207,9 @@ export default function Show({ location, games = [] }: ShowProps) {
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="text-sm">
-                                            <span className="font-medium">{game.homeTeam?.name || "Team A"}</span>
+                                            <span className="font-medium">{game.home_team?.name || t('teamA')}</span>
                                             <span className="text-muted-foreground mx-2">vs</span>
-                                            <span className="font-medium">{game.awayTeam?.name || "Team B"}</span>
+                                            <span className="font-medium">{game.away_team?.name || t('teamB')}</span>
                                         </div>
                                         {game.home_team_score !== null && game.away_team_score !== null && (
                                             <Badge variant="default" className="text-xs">
@@ -217,11 +220,11 @@ export default function Show({ location, games = [] }: ShowProps) {
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                         <div className="flex items-center gap-1">
                                             <Calendar className="h-3 w-3" />
-                                            <span>{formatDate(game.date)}</span>
+                                            <span>{formatDate(game.gameday?.date || "")}</span>
                                         </div>
                                         <Button asChild variant="outline" size="sm">
                                             <Link href={route('game.show', game.id)}>
-                                                View Game
+                                                {t('viewGame')}
                                             </Link>
                                         </Button>
                                     </div>
@@ -231,7 +234,7 @@ export default function Show({ location, games = [] }: ShowProps) {
                                 <div className="text-center pt-2">
                                     <Button asChild variant="ghost" size="sm">
                                         <Link href={route('game.index')}>
-                                            View all {pastGames.length} past games
+                                            {t('viewAll')} {pastGames.length} {t('pastGames')}
                                         </Link>
                                     </Button>
                                 </div>
@@ -244,9 +247,9 @@ export default function Show({ location, games = [] }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Location Actions</CardTitle>
+                    <CardTitle>{t('locationActions')}</CardTitle>
                     <CardDescription>
-                        Manage location settings and navigation.
+                        {t('manageLocationSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -254,13 +257,13 @@ export default function Show({ location, games = [] }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('location.edit', location.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Location
+                                {t('editLocation')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('location.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Locations
+                                {t('backToLocations')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -270,7 +273,7 @@ export default function Show({ location, games = [] }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Location
+                            {t('deleteLocation')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}
