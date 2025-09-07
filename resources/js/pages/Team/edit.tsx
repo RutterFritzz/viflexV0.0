@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Users, ArrowLeft, Save } from "lucide-react";
+import { t } from "i18next";
 
 export default function Edit({ team }: { team: Team }) {
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -17,17 +18,17 @@ export default function Edit({ team }: { team: Team }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('team.show', team.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Team
+                            {t('backToTeam')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Users className="h-8 w-8" />
-                        Edit Team
+                        {t('editTeam')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the information for <span className="font-medium">{team.name}</span>.
+                        {t('updateTheInformationFor')} <span className="font-medium">{team.name}</span>.
                     </p>
                 </div>
             </div>
@@ -37,27 +38,27 @@ export default function Edit({ team }: { team: Team }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Team Information
+                        {t('teamInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the team details below.
+                        {t('makeChangesToTheTeamDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form action={route('team.update', team.id)} method="post" className="space-y-6">
                         <input type="hidden" name="_token" value={csrf_token} />
                         <input type="hidden" name="_method" value="PUT" />
-                        
+
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                Team Name
+                                {t('teamName')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="name"
-                                type="text" 
-                                name="name" 
-                                placeholder="Enter team name" 
+                                type="text"
+                                name="name"
+                                placeholder={t('enterTeamName')}
                                 defaultValue={team.name}
                                 required
                                 className="w-full"
@@ -67,11 +68,11 @@ export default function Edit({ team }: { team: Team }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Team
+                                {t('updateTeam')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('team.show', team.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>

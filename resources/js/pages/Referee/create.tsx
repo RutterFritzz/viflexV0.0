@@ -9,6 +9,7 @@ import { Gavel, ArrowLeft, Plus, User as UserIcon, Award } from "lucide-react";
 import Search from "@/components/search";
 import { useState } from "react";
 import axios from "axios";
+import { t } from "i18next";
 
 interface CreateProps {
     categories: Category[];
@@ -37,17 +38,17 @@ export default function Create({ categories }: CreateProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('referee.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Referees
+                            {t('backToReferees')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Gavel className="h-8 w-8" />
-                        Add New Referee
+                        {t('addNewReferee')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Register a new referee to officiate competitions and games.
+                        {t('registerANewRefereeToOfficiateCompetitionsAndGames')}
                     </p>
                 </div>
             </div>
@@ -57,10 +58,10 @@ export default function Create({ categories }: CreateProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        Referee Information
+                        {t('refereeInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Select a user and assign their referee category.
+                        {t('selectAUserAndAssignTheirRefereeCategory')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -70,11 +71,11 @@ export default function Create({ categories }: CreateProps) {
                         {!selectedUser ? (<div className="space-y-2">
                             <Label htmlFor="user_id" className="flex items-center gap-2">
                                 <UserIcon className="h-4 w-4" />
-                                Select User
+                                {t('selectUser')}
                             </Label>
                             <Search onSelect={handleUserSelect} type="user" />
                             <p className="text-xs text-muted-foreground">
-                                Choose an existing user to register them as a referee.
+                                {t('chooseAnExistingUserToRegisterThemAsAReferee')}
                             </p>
                         </div>) : (
                             <div className="space-y-2">
@@ -87,11 +88,11 @@ export default function Create({ categories }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Award className="h-4 w-4" />
-                                Referee Category
+                                {t('refereeCategory')}
                             </Label>
                             <Select name="category" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select referee category" />
+                                    <SelectValue placeholder={t('selectRefereeCategory')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -105,18 +106,18 @@ export default function Create({ categories }: CreateProps) {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                Select the category this referee is qualified to officiate.
+                                {t('selectTheCategoryThisRefereeIsQualifiedToOfficiate')}
                             </p>
                         </div>
 
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                Register Referee
+                                {t('registerReferee')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('referee.index')}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -129,8 +130,8 @@ export default function Create({ categories }: CreateProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Gavel className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Referee Registration</p>
-                        <p>Referees must be existing users in the system. They can be assigned to specific categories based on their qualifications and experience level.</p>
+                        <p className="font-medium">{t('refereeRegistration')}</p>
+                        <p>{t('refereesMustBeExistingUsersInTheSystemTheyCanBeAssignedToSpecificCategoriesBasedOnTheirQualificationsAndExperienceLevel')}</p>
                     </div>
                 </CardContent>
             </Card>

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Users, Eye, Building2, ArrowLeft } from "lucide-react";
+import { t } from "i18next";
 
 export default function Index({ teams }: { teams: Team[] }) {
 
@@ -15,7 +16,7 @@ export default function Index({ teams }: { teams: Team[] }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Clubs
+                            {t('backToClubs')}
                         </Link>
                     </Button>
                 </div>
@@ -23,15 +24,15 @@ export default function Index({ teams }: { teams: Team[] }) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Users className="h-8 w-8" />
-                            All Teams
+                            {t('allTeams')}
                         </h1>
                         <p className="text-muted-foreground">
-                            View all teams across your organization.
+                            {t('viewAllTeamsAcrossYourOrganization')}
                         </p>
                     </div>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        {teams.length} {teams.length === 1 ? 'Team' : 'Teams'}
+                        {teams.length} {teams.length === 1 ? t('team') : t('teams')}
                     </Badge>
                 </div>
             </div>
@@ -41,14 +42,14 @@ export default function Index({ teams }: { teams: Team[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <Users className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">No teams yet</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('noTeamsYet')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            Teams will appear here once they are created within clubs.
+                            {t('teamsWillAppearHereOnceTheyAreCreatedWithinClubs')}
                         </p>
                         <Button asChild>
                             <Link href={route('club.index')}>
                                 <Building2 className="h-4 w-4 mr-2" />
-                                Go to Clubs
+                                {t('goToClubs')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -66,18 +67,18 @@ export default function Index({ teams }: { teams: Team[] }) {
                                     <div className="flex flex-wrap gap-2">
                                         {team.players && team.players.length > 0 && (
                                             <Badge variant="outline" className="text-xs">
-                                                {team.players.length} {team.players.length === 1 ? 'player' : 'players'}
+                                                {team.players.length} {team.players.length === 1 ? t('player') : t('players')}
                                             </Badge>
                                         )}
                                         {team.coaches && team.coaches.length > 0 && (
                                             <Badge variant="outline" className="text-xs">
-                                                {team.coaches.length} {team.coaches.length === 1 ? 'coach' : 'coaches'}
+                                                {team.coaches.length} {team.coaches.length === 1 ? t('coach') : t('coaches')}
                                             </Badge>
                                         )}
                                         {(!team.players || team.players.length === 0) &&
                                             (!team.coaches || team.coaches.length === 0) && (
                                                 <Badge variant="secondary" className="text-xs">
-                                                    No members yet
+                                                    {t('noMembersYet')}
                                                 </Badge>
                                             )}
                                     </div>
@@ -87,7 +88,7 @@ export default function Index({ teams }: { teams: Team[] }) {
                                 <Button asChild variant="outline" className="w-full">
                                     <Link href={route('team.show', team.id)}>
                                         <Eye className="h-4 w-4 mr-2" />
-                                        View Team
+                                        {t('viewTeam')}
                                     </Link>
                                 </Button>
                             </CardFooter>

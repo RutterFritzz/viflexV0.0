@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Category, Referee } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Gavel, ArrowLeft, Save, User as UserIcon, Award } from "lucide-react";
+import { t } from "i18next";
 
 interface EditProps {
     referee: Referee;
@@ -23,17 +24,17 @@ export default function Edit({ referee, categories }: EditProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('referee.show', referee.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Referee
+                            {t('backToReferees')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Gavel className="h-8 w-8" />
-                        Edit Referee
+                        {t('editReferee')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Update the details for referee <span className="font-medium">{referee.user?.name}</span>.
+                        {t('updateTheDetailsForReferee')} <span className="font-medium">{referee.user?.name}</span>.
                     </p>
                 </div>
             </div>
@@ -43,10 +44,10 @@ export default function Edit({ referee, categories }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        Referee Information
+                        {t('refereeInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Make changes to the referee details below.
+                        {t('makeChangesToTheRefereeDetailsBelow')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -57,7 +58,7 @@ export default function Edit({ referee, categories }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="user_id" className="flex items-center gap-2">
                                 <UserIcon className="h-4 w-4" />
-                                Referee User
+                                {t('refereeUser')}
                             </Label>
                             <div className="p-3 border rounded-md bg-muted/50">
                                 <div className="flex items-center gap-2">
@@ -67,18 +68,18 @@ export default function Edit({ referee, categories }: EditProps) {
                                 </div>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                                The user associated with this referee cannot be changed.
+                                {t('theUserAssociatedWithThisRefereeCannotBeChanged')}
                             </p>
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Award className="h-4 w-4" />
-                                Referee Category
+                                {t('refereeCategory')}
                             </Label>
                             <Select name="category" defaultValue={referee.category} required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select referee category" />
+                                    <SelectValue placeholder={t('selectRefereeCategory')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -92,18 +93,18 @@ export default function Edit({ referee, categories }: EditProps) {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                Update the category this referee is qualified to officiate.
+                                {t('updateTheCategoryThisRefereeIsQualifiedToOfficiate')}
                             </p>
                         </div>
 
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                Update Referee
+                                {t('updateReferee')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('referee.show', referee.id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
@@ -116,19 +117,19 @@ export default function Edit({ referee, categories }: EditProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Gavel className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Current Values</p>
+                        <p className="font-medium">{t('currentValuesOfTheReferee')}</p>
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
-                                <p className="font-medium text-xs">Referee Name</p>
-                                <p className="text-xs">{referee.user?.name || 'Unknown'}</p>
+                                <p className="font-medium text-xs">{t('refereeName')}</p>
+                                <p className="text-xs">{referee.user?.name || t('unknownReferee')}</p>
                             </div>
                             <div>
-                                <p className="font-medium text-xs">Email</p>
-                                <p className="text-xs">{referee.user?.email || 'N/A'}</p>
+                                <p className="font-medium text-xs">{t('email')}</p>
+                                <p className="text-xs">{referee.user?.email || t('nA')}</p>
                             </div>
                         </div>
                         <div className="text-center">
-                            <p className="font-medium text-xs">Current Category</p>
+                            <p className="font-medium text-xs">{t('refereeCategory')}</p>
                             <Badge variant="outline" className="text-xs mt-1">{referee.category}</Badge>
                         </div>
                     </div>
@@ -140,8 +141,8 @@ export default function Edit({ referee, categories }: EditProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Award className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">Category Management</p>
-                        <p>You can update the referee's category to reflect their current qualifications and certifications. This will affect which games they can be assigned to officiate.</p>
+                        <p className="font-medium">{t('categoryManagement')}</p>
+                        <p>{t('youCanUpdateTheRefereesCategoryToReflectTheirCurrentQualificationsAndCertificationsThisWillAffectWhichGamesTheyCanBeAssignedToOfficiate')}</p>
                     </div>
                 </CardContent>
             </Card>

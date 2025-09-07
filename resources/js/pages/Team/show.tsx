@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Club, Team } from "@/types";
 import { Link } from "@inertiajs/react";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { Users, Building2, ArrowLeft, Edit, Trash2, UserPlus, Crown, User } from "lucide-react";
 import Coach from "@/components/coach";
 import Player from "@/components/player";
+import { t } from "i18next";
 
 interface ShowProps {
     team: Team;
@@ -54,7 +54,7 @@ export default function Show({ team, club }: ShowProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Club
+                            {t('backToClub')}
                         </Link>
                     </Button>
                 </div>
@@ -65,7 +65,7 @@ export default function Show({ team, club }: ShowProps) {
                     </h1>
                     <p className="text-muted-foreground flex items-center gap-2">
                         <Building2 className="h-4 w-4" />
-                        Part of <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
+                        {t('partOf')} <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
                     </p>
                 </div>
             </div>
@@ -79,12 +79,12 @@ export default function Show({ team, club }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Crown className="h-5 w-5" />
-                            Coaches
+                            {t('coaches')}
                         </CardTitle>
                         <CardDescription>
                             {team.coaches?.length === 0
-                                ? "No coaches assigned yet."
-                                : `${team.coaches?.length} ${team.coaches?.length === 1 ? 'coach' : 'coaches'} managing this team.`
+                                ? t('noCoachesAssignedYet')
+                                : `${team.coaches?.length} ${team.coaches?.length === 1 ? t('coach') : t('coaches')} ${t('managingThisTeam')}`
                             }
                         </CardDescription>
                     </CardHeader>
@@ -92,7 +92,7 @@ export default function Show({ team, club }: ShowProps) {
                         {!team.coaches || team.coaches.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <Crown className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                                <p className="text-sm">No coaches yet</p>
+                                <p className="text-sm">{t('noCoachesYet')}</p>
                             </div>
                         ) : (
                             <div className="space-y-2">
@@ -109,12 +109,12 @@ export default function Show({ team, club }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <User className="h-5 w-5" />
-                            Players
+                            {t('players')}
                         </CardTitle>
                         <CardDescription>
                             {team.players?.length === 0
-                                ? "No players assigned yet."
-                                : `${team.players?.length} ${team.players?.length === 1 ? 'player' : 'players'} on this team.`
+                                ? t('noPlayersAssignedYet')
+                                : `${team.players?.length} ${team.players?.length === 1 ? t('player') : t('players')} ${t('onThisTeam')}`
                             }
                         </CardDescription>
                     </CardHeader>
@@ -122,7 +122,7 @@ export default function Show({ team, club }: ShowProps) {
                         {!team.players || team.players.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <User className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                                <p className="text-sm">No players yet</p>
+                                <p className="text-sm">{t('noPlayersYet')}</p>
                             </div>
                         ) : (
                             <div className="space-y-2">
@@ -140,10 +140,10 @@ export default function Show({ team, club }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <UserPlus className="h-5 w-5" />
-                        Add Player
+                        {t('addPlayer')}
                     </CardTitle>
                     <CardDescription>
-                        Search for users to add as players to this team.
+                        {t('searchForUsersToAddAsPlayersToThisTeam')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -156,10 +156,10 @@ export default function Show({ team, club }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Crown className="h-5 w-5" />
-                        Add Coach
+                        {t('addCoach')}
                     </CardTitle>
                     <CardDescription>
-                        Search for users to add as coaches to this team.
+                        {t('searchForUsersToAddAsCoachesToThisTeam')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -170,9 +170,9 @@ export default function Show({ team, club }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Team Actions</CardTitle>
+                    <CardTitle>{t('teamActions')}</CardTitle>
                     <CardDescription>
-                        Manage team settings and navigation.
+                        {t('manageTeamSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -180,13 +180,13 @@ export default function Show({ team, club }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('team.edit', team.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Team
+                                {t('editTeam')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('team.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Teams
+                                {t('backToTeams')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -196,7 +196,7 @@ export default function Show({ team, club }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Team
+                            {t('deleteTeam')}
                         </Button>
                         <DeleteConfirmation dialogOpen={dialogOpen} type="team" name={team.name} onOpenChange={setDialogOpen} id={team.id} />
                     </div>

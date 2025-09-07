@@ -6,18 +6,19 @@ import { Referee } from "@/types";
 import { Link } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
-import { 
-    Gavel, 
-    ArrowLeft, 
-    Edit, 
-    Trash2, 
-    User, 
+import {
+    Gavel,
+    ArrowLeft,
+    Edit,
+    Trash2,
+    User,
     Award,
     Mail,
     Calendar,
     Clock,
     Trophy
 } from "lucide-react";
+import { t } from "i18next";
 
 interface ShowProps {
     referee: Referee;
@@ -47,25 +48,25 @@ export default function Show({ referee }: ShowProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('referee.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Referees
+                            {t('backToReferees')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Gavel className="h-8 w-8" />
-                        {referee.user?.name || 'Unknown Referee'}
+                        {referee.user?.name || t('unknownReferee')}
                     </h1>
                     <div className="flex items-center gap-4 text-muted-foreground">
                         <div className="flex items-center gap-2">
                             <Award className="h-4 w-4" />
                             <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
-                                {referee.category} Referee
+                                {referee.category} {t('referee')}
                             </Badge>
                         </div>
                         <div className="flex items-center gap-2">
                             <Mail className="h-4 w-4" />
-                            <span>{referee.user?.email || 'No email available'}</span>
+                            <span>{referee.user?.email || t('noEmail')}</span>
                         </div>
                     </div>
                 </div>
@@ -79,30 +80,30 @@ export default function Show({ referee }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <User className="h-5 w-5" />
-                            Personal Information
+                            {t('personalInformation')}
                         </CardTitle>
                         <CardDescription>
-                            Basic details about this referee.
+                            {t('basicDetailsAboutThisReferee')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Name:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('name')}:</span>
                                 <span className="font-medium">{referee.user?.name || 'Unknown'}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Email:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('email')}:</span>
                                 <span className="font-medium">{referee.user?.email || 'N/A'}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Category:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('category')}:</span>
                                 <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
                                     {referee.category}
                                 </Badge>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">Referee ID:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('refereeId')}:</span>
                                 <span className="font-medium">#{referee.id}</span>
                             </div>
                         </div>
@@ -113,25 +114,25 @@ export default function Show({ referee }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Trophy className="h-5 w-5" />
-                            Referee Statistics
+                            {t('refereeStatistics')}
                         </CardTitle>
                         <CardDescription>
-                            Overview of referee activity and performance.
+                            {t('overviewOfRefereeActivityAndPerformance')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4">
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-primary">{referee.category}</div>
-                                <div className="text-sm text-muted-foreground">Specialization</div>
+                                <div className="text-sm text-muted-foreground">{t('specialization')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-secondary">Active</div>
-                                <div className="text-sm text-muted-foreground">Status</div>
+                                <div className="text-2xl font-bold text-secondary">{t('active')}</div>
+                                <div className="text-sm text-muted-foreground">{t('status')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-accent">Available</div>
-                                <div className="text-sm text-muted-foreground">Availability</div>
+                                <div className="text-2xl font-bold text-accent">{t('available')}</div>
+                                <div className="text-sm text-muted-foreground">{t('availability')}</div>
                             </div>
                         </div>
                     </CardContent>
@@ -143,10 +144,10 @@ export default function Show({ referee }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Award className="h-5 w-5" />
-                        Qualifications & Experience
+                        {t('qualificationsAndExperience')}
                     </CardTitle>
                     <CardDescription>
-                        Referee certifications and experience details.
+                        {t('refereeCertificationsAndExperienceDetails')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -155,19 +156,19 @@ export default function Show({ referee }: ShowProps) {
                             <div className="p-4 border rounded-lg">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Award className="h-4 w-4 text-primary" />
-                                    <span className="font-medium">Category Certification</span>
+                                    <span className="font-medium">{t('categoryCertification')}</span>
                                 </div>
                                 <p className="text-sm text-muted-foreground">
-                                    Certified to officiate {referee.category} level competitions and games.
+                                    {t('certifiedToOfficiate')} {referee.category} {t('levelCompetitionsAndGames')}
                                 </p>
                             </div>
                             <div className="p-4 border rounded-lg">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Clock className="h-4 w-4 text-primary" />
-                                    <span className="font-medium">Experience Level</span>
+                                    <span className="font-medium">{t('experienceLevel')}</span>
                                 </div>
                                 <p className="text-sm text-muted-foreground">
-                                    Qualified referee with appropriate training and certification.
+                                    {t('qualifiedRefereeWithAppropriateTrainingAndCertification')}
                                 </p>
                             </div>
                         </div>
@@ -175,10 +176,10 @@ export default function Show({ referee }: ShowProps) {
                         <div className="p-4 bg-muted/50 rounded-lg">
                             <div className="flex items-center gap-2 mb-2">
                                 <Calendar className="h-4 w-4 text-primary" />
-                                <span className="font-medium">Registration Date</span>
+                                <span className="font-medium">{t('registrationDate')}</span>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                                This referee has been registered in the system and is available for assignments.
+                                {t('thisRefereeHasBeenRegisteredInTheSystemAndIsAvailableForAssignments')}
                             </p>
                         </div>
                     </div>
@@ -188,9 +189,9 @@ export default function Show({ referee }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Referee Actions</CardTitle>
+                    <CardTitle>{t('refereeActions')}</CardTitle>
                     <CardDescription>
-                        Manage referee settings and navigation.
+                        {t('manageRefereeSettingsAndNavigation')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -198,13 +199,13 @@ export default function Show({ referee }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('referee.edit', referee.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                Edit Referee
+                                {t('editReferee')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('referee.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                Back to Referees
+                                {t('backToReferees')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -214,12 +215,12 @@ export default function Show({ referee }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Referee
+                            {t('deleteReferee')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}
                             type="referee"
-                            name={referee.user?.name || 'Unknown Referee'}
+                            name={referee.user?.name || t('unknownReferee')}
                             onOpenChange={setDialogOpen}
                             id={referee.id}
                         />

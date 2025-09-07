@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@inertiajs/react";
 import { Users, ArrowLeft, Plus } from "lucide-react";
+import { t } from "i18next";
 
 interface CreateProps {
     club_id: number;
@@ -20,17 +21,17 @@ export default function Create({ club_id }: CreateProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club_id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Club
+                            {t('backToClub')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Users className="h-8 w-8" />
-                        Create New Team
+                        {t('createNewTeam')}
                     </h1>
                     <p className="text-muted-foreground">
-                        Add a new team to this club.
+                        {t('addANewTeamToThisClub')}
                     </p>
                 </div>
             </div>
@@ -40,10 +41,10 @@ export default function Create({ club_id }: CreateProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        Team Information
+                        {t('teamInformation')}
                     </CardTitle>
                     <CardDescription>
-                        Enter the basic information for the new team.
+                        {t('enterTheBasicInformationForTheNewTeam')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -54,13 +55,13 @@ export default function Create({ club_id }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                Team Name
+                                {t('teamName')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder="Enter team name (e.g., Senior Team, Youth Squad)"
+                                placeholder={t('enterTeamName')}
                                 required
                                 className="w-full"
                             />
@@ -69,11 +70,11 @@ export default function Create({ club_id }: CreateProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                Create Team
+                                {t('createTeam')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('club.show', club_id)}>
-                                    Cancel
+                                    {t('cancel')}
                                 </Link>
                             </Button>
                         </div>
