@@ -4,20 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Game, Competition } from "@/types";
 import { Link } from "@inertiajs/react";
 import { formatDate } from "@/helpers/format-date";
-import {
-    Calendar,
-    Clock,
-    Trophy,
-    Users,
-    Gavel,
-    User,
-    Award,
-    Building2,
-    ArrowRight,
-    MapPin,
-    Activity,
-} from "lucide-react";
-import { t } from "i18next";
+import { Calendar, Clock, Trophy, Users, Gavel, User, Award, Building2, ArrowRight, MapPin, Activity } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface UserTeamRole {
     id: number;
@@ -53,6 +41,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard({userGames, recentGames, statistics, userTeams, userCompetitions }: DashboardProps) {
+    const { t } = useTranslation();
     // Helper function to get game status badge
     const getGameStatusBadge = (game: Game) => {
         const gameDate = new Date(game.gameday?.date || '');

@@ -6,9 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Category, Competition } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Save, Tag, Calendar } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Edit({ competition, categories }: { competition: Competition, categories: Category[] }) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 10 }, (_, i) => currentYear + i - 2); // From 2 years ago to 7 years in the future

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DeleteConfirmationProps {
     dialogOpen: boolean;
@@ -12,8 +13,8 @@ interface DeleteConfirmationProps {
 }
 
 export default function DeleteConfirmation({ dialogOpen, type, name, onOpenChange, id }: DeleteConfirmationProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-
     const [input, setInput] = useState('');
 
     useEffect(() => {
@@ -24,16 +25,16 @@ export default function DeleteConfirmation({ dialogOpen, type, name, onOpenChang
         <Dialog open={dialogOpen} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Are you sure you want to delete this {type}?</DialogTitle>
-                    <DialogDescription>This action cannot be undone.</DialogDescription>
+                    <DialogTitle>{t('areYouSureYouWantToDeleteThis')} {type}?</DialogTitle>
+                    <DialogDescription>{t('thisActionCannotBeUndone')}</DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col gap-2">
-                    <p>If you are sure you want to delete this {type}, please enter <span className="font-bold">{name}</span> below.</p>
+                    <p>{t('ifYouAreSureYouWantToDeleteThis')} {type}, {t('pleaseEnter')} <span className="font-bold">{name}</span> {t('below')}</p>
                     <Input type="text" placeholder={`${type} name`} value={input} onChange={(e) => setInput(e.target.value)} />
                 </div>
                 <DialogFooter className="flex justify-between gap-2">
                     <DialogClose asChild>
-                        <Button variant="secondary">Cancel</Button>
+                        <Button variant="secondary">{t('cancel')}</Button>
                     </DialogClose>
                     <form action={route(`${type}.destroy`, id)} method="post" className="ml-auto">
                         <input type="hidden" name="_token" value={csrf_token} />

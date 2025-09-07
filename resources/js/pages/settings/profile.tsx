@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -26,8 +27,8 @@ type ProfileForm = {
 };
 
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
+    const { t } = useTranslation();
     const { auth } = usePage<SharedData>().props;
-
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
         name: auth.user.name,
         email: auth.user.email,

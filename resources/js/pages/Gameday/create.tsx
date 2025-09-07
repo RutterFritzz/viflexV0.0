@@ -8,13 +8,14 @@ import { Location } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Calendar, ArrowLeft, Plus, MapPin, Building2 } from "lucide-react";
 import { useState } from "react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface CreateProps {
     locations: Location[];
 }
 
 export default function Create({ locations }: CreateProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     const [date, setDate] = useState<Date | undefined>(undefined);

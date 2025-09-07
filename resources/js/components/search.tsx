@@ -6,7 +6,7 @@ import debounce from "lodash/debounce";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
-
+import { useTranslation } from "react-i18next";
 interface Selected {
     id: number;
     name: string;
@@ -20,6 +20,7 @@ interface SearchProps {
 }
 
 export default function Search({ onSelect, type }: SearchProps) {
+    const { t } = useTranslation();
     const [focus, setFocus] = useState(false);
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -80,7 +81,7 @@ export default function Search({ onSelect, type }: SearchProps) {
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor asChild>
                 <div className="relative">
-                    <Input type="text" name="search" id="search" placeholder={`Search for a ${type}`}
+                    <Input type="text" name="search" id="search" placeholder={`${t('searchForA')} ${type}`}
                         value={inputValue} ref={inputRef} onBlur={() => { setTimeout(() => setFocus(false), 150) }} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 handleSelect(results[0]);
@@ -110,7 +111,7 @@ export default function Search({ onSelect, type }: SearchProps) {
                                     </CommandItem>
                                 ))
                             ) : (
-                                <CommandItem disabled>No results found.</CommandItem>
+                                <CommandItem disabled>{t('noResultsFound')}</CommandItem>
                             ))}
                     </CommandList>
                 </Command>

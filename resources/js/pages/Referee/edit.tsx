@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Category, Referee } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Gavel, ArrowLeft, Save, User as UserIcon, Award } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface EditProps {
     referee: Referee;
@@ -14,6 +14,7 @@ interface EditProps {
 }
 
 export default function Edit({ referee, categories }: EditProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     return (

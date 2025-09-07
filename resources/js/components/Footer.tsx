@@ -1,11 +1,12 @@
 import { Link } from "@inertiajs/react";
 import { Separator } from "./ui/separator";
 import { TrophyIcon, HeartIcon, Building2, Users, Settings, HelpCircle } from "lucide-react";
-import { t } from "i18next";
+import LanguageSwitcher from "./Language-switcher";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
-
+    const { t } = useTranslation();
     return (
         <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-6 py-12">
@@ -18,10 +19,7 @@ export default function Footer() {
                             </div>
                             <span className="text-xl font-bold text-foreground">Viflex</span>
                         </div>
-                        <p className="text-sm text-muted-foreground max-w-xs">
-                            The complete sports management platform for clubs, teams, and athletes.
-                            Streamline your organization and focus on what matters most.
-                        </p>
+                        <LanguageSwitcher />
                         <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                             <span>Made with</span>
                             <HeartIcon className="w-3 h-3 text-red-500 fill-current" />

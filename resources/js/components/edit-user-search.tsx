@@ -7,7 +7,7 @@ import { Command, CommandList, CommandItem } from "./ui/command";
 import debounce from "lodash/debounce";
 import axios from "axios";
 import { User } from "@/types";
-
+import { useTranslation } from "react-i18next";
 interface UserSearchProps {
     focus: boolean;
     setFocus: (focus: boolean) => void;
@@ -22,6 +22,7 @@ interface UserName {
 }
 
 export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId }: UserSearchProps) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -83,7 +84,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor asChild>
                 <div className="relative">
-                    <Input type="text" className="border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none h-full w-full" name="search" id="search" placeholder="Search for a user" 
+                    <Input type="text" className="border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none h-full w-full" name="search" id="search" placeholder={t('searchForAUser')} 
                         value={inputValue} ref={inputRef} onBlur={() => {setTimeout(() => setFocus(false), 150)}} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             handleSelect(results[0]);
@@ -112,7 +113,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
                                     </CommandItem>
                                 ))
                             ) : (
-                                <CommandItem disabled>No results found.</CommandItem>
+                                <CommandItem disabled>{t('noResultsFound')}</CommandItem>
                             ))}
                         </CommandList>
                 </Command>

@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Referee } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Gavel, Plus, ArrowLeft, User, Award, Users } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Index({ referees }: { referees: Referee[] }) {
+    const { t } = useTranslation();
     // Helper function to get category badge color
     const getCategoryBadge = (category: string) => {
         const categoryColors: Record<string, string> = {

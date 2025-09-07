@@ -4,13 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@inertiajs/react";
 import { Users, ArrowLeft, Plus } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface CreateProps {
     club_id: number;
 }
 
 export default function Create({ club_id }: CreateProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     return (

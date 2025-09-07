@@ -5,11 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Club } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Building2, MapPin, ArrowLeft, Save } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Edit({ club }: { club: Club }) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-
     return (
         <div className="max-w-2xl mx-auto space-y-6 p-6">
             {/* Header Section */}

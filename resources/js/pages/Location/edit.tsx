@@ -6,13 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { Location } from "@/types";
 import { Link } from "@inertiajs/react";
 import { MapPin, ArrowLeft, Save, Building2, Map } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface EditProps {
     location: Location;
 }
 
 export default function Edit({ location }: EditProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     return (
@@ -53,17 +54,17 @@ export default function Edit({ location }: EditProps) {
                     <form action={route('location.update', location.id)} method="post" className="space-y-6">
                         <input type="hidden" name="_token" value={csrf_token} />
                         <input type="hidden" name="_method" value="PUT" />
-                        
+
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
                                 {t('venueName')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="name"
-                                type="text" 
-                                name="name" 
-                                placeholder={t('enterVenueName')} 
+                                type="text"
+                                name="name"
+                                placeholder={t('enterVenueName')}
                                 defaultValue={location.name}
                                 required
                                 className="w-full"
@@ -75,11 +76,11 @@ export default function Edit({ location }: EditProps) {
                                 <Map className="h-4 w-4" />
                                 {t('city')}
                             </Label>
-                            <Input 
+                            <Input
                                 id="city"
-                                type="text" 
-                                name="city" 
-                                placeholder={t('enterCityName')} 
+                                type="text"
+                                name="city"
+                                placeholder={t('enterCityName')}
                                 defaultValue={location.city}
                                 required
                                 className="w-full"

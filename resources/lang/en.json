@@ -377,5 +377,18 @@
     "searchForUsersToAddAsCoachesToThisTeam": "Search for users to add as coaches to this team.",
     "partOf": "Part of",
     "managingThisTeam": "managing this team.",
-    "onThisTeam": "on this team."
+    "onThisTeam": "on this team.",
+    "selectLanguage": "Select Language",
+    "areYouSureYouWantToDeleteThis": "Are you sure you want to delete this",
+    "thisActionCannotBeUndone": "This action cannot be undone.",
+    "ifYouAreSureYouWantToDeleteThis": "If you are sure you want to delete this",
+    "below": "below.",
+    "pleaseEnter": "Please enter",
+    "delete": "Delete",
+    "searchOrDropUserHere": "Search or drop user here",
+    "searchForAUser": "Search for a user",
+    "noResultsFound": "No results found.",
+    "presenceSubmit": "Presence Submit",
+    "pleaseSelectThePresenceForTheTeam": "Please select the presence for the team",
+    "submit": "Submit"
 }

@@ -13,7 +13,7 @@ import { formatDate } from "@/helpers/format-date";
 import { closestCorners, DndContext, DragEndEvent, DragStartEvent, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 // import PresenceSubmit from "@/components/presence-submit";
 
 type UserRole = 'home_coach' | 'away_coach' | 'home_team_users' | 'away_team_users' | 'home_referee' | 'away_referee';
@@ -24,6 +24,7 @@ interface ShowProps {
 }
 
 export default function Show({ gameday, games = [] }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [gameList, setGameList] = useState<Game[]>(games);
     const [isDraggingUser, setIsDraggingUser] = useState(false);

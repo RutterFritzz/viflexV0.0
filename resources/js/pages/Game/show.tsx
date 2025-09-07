@@ -13,13 +13,14 @@ import Coach from "@/components/coach";
 import Player from "@/components/player";
 import PresenceSubmit from "@/components/presence-submit";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     game: Game;
 }
 
 export default function Show({ game }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [homeTeamPresences, setHomeTeamPresences] = useState(game.homeTeamPresences);
     const [awayTeamPresences, setAwayTeamPresences] = useState(game.awayTeamPresences);

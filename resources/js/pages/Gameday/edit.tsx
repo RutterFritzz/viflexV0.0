@@ -10,7 +10,7 @@ import { Calendar, ArrowLeft, Save, MapPin, Building2 } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
 import { useState } from "react";
 import { Calendar22 } from "@/components/calender";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface EditProps {
     gameday: Gameday;
@@ -18,6 +18,7 @@ interface EditProps {
 }
 
 export default function Edit({ gameday, locations }: EditProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [date, setDate] = useState<Date | undefined>(new Date(gameday.date));
 

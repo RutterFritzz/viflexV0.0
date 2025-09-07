@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogTrigger, Dialog
 import { Team, PresenceData } from "@/types";
 import { CheckIcon, CircleCheck, CircleAlert, Loader2, XIcon } from "lucide-react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface PresenceSubmitProps {
     team: Team;
@@ -13,6 +14,7 @@ interface PresenceSubmitProps {
 }
 
 export default function PresenceSubmit({ team, onSubmit, presences, disabled = false }: PresenceSubmitProps) {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [allCoaches, setAllCoaches] = useState<{ id: number, name: string }[]>([]);
@@ -78,10 +80,10 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Presence Submit</DialogTitle>
+                    <DialogTitle>{t('presenceSubmit')}</DialogTitle>
                 </DialogHeader>
                 <DialogDescription>
-                    Please select the presence for the team {team.name}
+                    {t('pleaseSelectThePresenceForTheTeam')} {team.name}
                 </DialogDescription>
                 {isLoading && (
                     <div className="flex justify-center items-center h-full">
@@ -92,7 +94,7 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
                     <div className="flex flex-col gap-2 mb-5 overflow-y-auto max-h-[500px]">
                         {allCoaches.length > 0 && (
                             <>
-                                <p className="text-sm text-muted-foreground">Coach{allCoaches.length === 1 ? '' : 'es'}</p>
+                                <p className="text-sm text-muted-foreground">{t('coach')}{allCoaches.length === 1 ? '' : 'es'}</p>
                                 {allCoaches.map((coach) => (
                                     <div key={coach.id} className="flex items-center gap-2">
                                         <div className="flex gap-2">
@@ -121,7 +123,7 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
 
                         {allPlayers.length > 0 && (
                             <>
-                                <p className="text-sm text-muted-foreground">Players</p>
+                                <p className="text-sm text-muted-foreground">{t('player')}{allPlayers.length === 1 ? '' : 's'}</p>
                                 {allPlayers.map((player) => (
                                     <div key={player.id} className="flex items-center gap-2">
                                         <div className="flex gap-2">
@@ -150,10 +152,10 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsOpen(false)} type="button">
-                            Cancel
+                            {t('cancel')}
                         </Button>
                         <Button type="submit" disabled={isLoading || !isFormValid || disabled}>
-                            Submit
+                            {t('submit')}
                         </Button>
                     </DialogFooter>
                 </form>

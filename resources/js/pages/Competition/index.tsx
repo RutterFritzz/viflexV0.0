@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Competition } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, Calendar, Tag, Plus, Eye, ArrowLeft } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Index({ competitions }: { competitions: Competition[] }) {
+    const { t } = useTranslation();
     // Group competitions by year for better organization
     const competitionsByYear = competitions.reduce((acc, competition) => {
         const year = competition.year;

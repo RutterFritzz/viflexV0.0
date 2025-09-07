@@ -5,12 +5,13 @@ import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { t } from 'i18next';
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,6 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Password() {
+    const { t } = useTranslation();
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 

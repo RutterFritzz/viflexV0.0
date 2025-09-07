@@ -377,5 +377,18 @@
     "searchForUsersToAddAsCoachesToThisTeam": "Zoek naar gebruikers om ze als coaches toe te voegen aan dit team.",
     "partOf": "Deel van",
     "managingThisTeam": "beheert dit team.",
-    "onThisTeam": "op dit team."
+    "onThisTeam": "op dit team.",
+    "selectLanguage": "Selecteer taal",
+    "areYouSureYouWantToDeleteThis": "Weet je zeker dat je dit wilt verwijderen?",
+    "thisActionCannotBeUndone": "Dit kan niet ongedaan worden gemaakt.",
+    "ifYouAreSureYouWantToDeleteThis": "Als je zeker bent dat je dit wilt verwijderen, voer dan de naam",
+    "below": "hieronder in.",
+    "pleaseEnter": "Voer",
+    "delete": "Verwijder",
+    "searchOrDropUserHere": "Zoek of sleep gebruiker hier",
+    "searchForAUser": "Zoek naar een gebruiker",
+    "noResultsFound": "Geen resultaten gevonden.",
+    "presenceSubmit": "Aanwezigheidsindeling",
+    "pleaseSelectThePresenceForTheTeam": "Selecteer de aanwezigheid voor het team",
+    "submit": "Verzenden"
 }

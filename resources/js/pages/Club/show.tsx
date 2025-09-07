@@ -7,7 +7,7 @@ import { Link } from "@inertiajs/react";
 import { MapPin, Users, Plus, Edit, ArrowLeft, Trash2 } from "lucide-react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     club: Club;
@@ -15,7 +15,7 @@ interface ShowProps {
 }
 
 export default function Show({ club, teams }: ShowProps) {
-
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     return (
@@ -26,7 +26,7 @@ export default function Show({ club, teams }: ShowProps) {
                     <h1 className="text-3xl font-bold tracking-tight">{club.name}</h1>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        {teams.length} {teams.length === 1 ? 'Team' : 'Teams'}
+                        {teams.length} {teams.length === 1 ? t('team') : t('teams')}
                     </Badge>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">

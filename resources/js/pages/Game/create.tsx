@@ -8,7 +8,7 @@ import { Competition, Location, Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Plus, Calendar, Clock, MapPin, Users } from "lucide-react";
 import { useState } from "react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface CreateProps {
     competition: Competition;
@@ -18,6 +18,7 @@ interface CreateProps {
 }
 
 export default function Create({ competition, teams, locations, errors }: CreateProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [time, setTime] = useState<string | undefined>('00:00');

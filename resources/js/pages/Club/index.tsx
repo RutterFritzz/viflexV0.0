@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Club } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Building2, MapPin, Plus, Eye } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Index({ clubs }: { clubs: Club[] }) {
+    const { t } = useTranslation();
     return (
         <div className="max-w-6xl mx-auto space-y-6 p-6">
             {/* Header Section */}

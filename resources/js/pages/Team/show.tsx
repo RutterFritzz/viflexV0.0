@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Users, Building2, ArrowLeft, Edit, Trash2, UserPlus, Crown, User } from "lucide-react";
 import Coach from "@/components/coach";
 import Player from "@/components/player";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     team: Team;
@@ -18,6 +18,7 @@ interface ShowProps {
 }
 
 export default function Show({ team, club }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleUserSelect = (userId: number) => {

@@ -10,7 +10,7 @@ import { Trophy, Calendar, Tag, ArrowLeft, Edit, Trash2, Users, Award, Calendar 
 import Search from "@/components/search";
 import axios from "axios";
 import { formatDate } from "@/helpers/format-date";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     competition: Competition;
@@ -19,6 +19,7 @@ interface ShowProps {
 }
 
 export default function Show({ competition, teams, games }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [showAddTeam, setShowAddTeam] = useState(false);
 

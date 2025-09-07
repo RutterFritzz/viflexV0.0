@@ -4,7 +4,7 @@ import { useDroppable } from "@dnd-kit/core";
 import DraggableUser from "@/components/draggable-user";
 import { useState } from "react";
 import EditUserSearch from "./edit-user-search";
-
+import { useTranslation } from "react-i18next";
 interface DroppableUserProps {
     user: User | null;
     role: 'home_coach' | 'away_coach' | 'home_referee' | 'away_referee';
@@ -14,6 +14,7 @@ interface DroppableUserProps {
 }
 
 export default function DroppableUser({ user, role, gameId, label, onUserAssign }: DroppableUserProps) {
+    const { t } = useTranslation();
     const [focus, setFocus] = useState(false);
     const { setNodeRef, isOver } = useDroppable({
         id: `slot-${gameId}-${role}`,
@@ -47,7 +48,7 @@ export default function DroppableUser({ user, role, gameId, label, onUserAssign 
                     ) : (
                         <div className="flex items-center p-2 gap-2 text-gray-400">
                             <CircleUser />
-                            <p>Search or drop user here</p>
+                            <p>{t('searchOrDropUserHere')}</p>
                         </div>
                     )
                 )}

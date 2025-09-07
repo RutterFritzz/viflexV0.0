@@ -9,13 +9,14 @@ import { Gavel, ArrowLeft, Plus, User as UserIcon, Award } from "lucide-react";
 import Search from "@/components/search";
 import { useState } from "react";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface CreateProps {
     categories: Category[];
 }
 
 export default function Create({ categories }: CreateProps) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
 

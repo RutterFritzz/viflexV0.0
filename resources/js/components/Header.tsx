@@ -9,9 +9,10 @@ import { SharedData } from "@/types";
 import { useEffect, useState } from "react";
 import CtrlShortcut from "./ctrl-shortcut";
 import AppLogoIcon from "./app-logo-icon";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export function Header() {
+    const { t } = useTranslation();
     const { auth } = usePage<SharedData>().props;
     const [searchOpen, setSearchOpen] = useState(false);
 

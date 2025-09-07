@@ -5,9 +5,10 @@ import { Game } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Trophy, Calendar, MapPin, Eye, ArrowLeft, Clock, Users, Award } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Index({ games }: { games: Game[] }) {
+    const { t } = useTranslation();
     // Group games by competition for better organization
     const gamesByCompetition = games.reduce((acc, game) => {
         const competitionName = game.competition?.name || 'Unknown Competition';

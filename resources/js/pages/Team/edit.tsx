@@ -5,9 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Users, ArrowLeft, Save } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Edit({ team }: { team: Team }) {
+    const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     return (

@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function ForgotPassword({ status }: { status?: string }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
         email: '',
     });

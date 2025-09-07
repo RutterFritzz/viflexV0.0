@@ -8,7 +8,7 @@ import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
 import { MapPin, ArrowLeft, Edit, Trash2, Building2, Map, Calendar, Trophy, Clock } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     location: Location;
@@ -17,6 +17,7 @@ interface ShowProps {
 
 
 export default function Show({ location, games = [] }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     
     console.log(games);

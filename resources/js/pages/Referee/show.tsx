@@ -6,25 +6,15 @@ import { Referee } from "@/types";
 import { Link } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
-import {
-    Gavel,
-    ArrowLeft,
-    Edit,
-    Trash2,
-    User,
-    Award,
-    Mail,
-    Calendar,
-    Clock,
-    Trophy
-} from "lucide-react";
-import { t } from "i18next";
+import { Gavel, ArrowLeft, Edit, Trash2, User, Award, Mail, Calendar, Clock, Trophy } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ShowProps {
     referee: Referee;
 }
 
 export default function Show({ referee }: ShowProps) {
+    const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     // Helper function to get category badge color

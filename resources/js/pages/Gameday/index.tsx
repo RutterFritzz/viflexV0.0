@@ -5,9 +5,10 @@ import { Gameday } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Calendar, Plus, ArrowLeft, MapPin, Trophy, Clock } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Index({ gamedays }: { gamedays: Gameday[] }) {
+    const { t } = useTranslation();
     // Helper function to get status badge
     const getStatusBadge = (date: Date) => {
         const today = new Date();
