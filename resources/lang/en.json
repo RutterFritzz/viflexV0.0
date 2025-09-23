@@ -390,5 +390,7 @@
     "noResultsFound": "No results found.",
     "presenceSubmit": "Presence Submit",
     "pleaseSelectThePresenceForTheTeam": "Please select the presence for the team",
-    "submit": "Submit"
+    "submit": "Submit",
+    "searchForA": "Search for a",
+    "matchesAndFixtures": "Matches & Fixtures"
 }

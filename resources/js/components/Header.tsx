@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { HomeIcon, UsersIcon, TrophyIcon, UserIcon, SettingsIcon, LogOutIcon, SearchIcon } from "lucide-react";
+import { HomeIcon, UsersIcon, TrophyIcon, UserIcon, SettingsIcon, LogOutIcon, SearchIcon, Calendar, MapPin, Gavel } from "lucide-react";
 import { SharedData } from "@/types";
 import { useEffect, useState } from "react";
 import CtrlShortcut from "./ctrl-shortcut";
@@ -172,20 +172,6 @@ export function Header() {
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>
-                                    </NavigationMenuContent>
-                                </NavigationMenuItem>
-                            </NavigationMenuList>
-                        </NavigationMenu>
-
-                        {/* Clubs Menu */}
-                        <NavigationMenu>
-                            <NavigationMenuList>
-                                <NavigationMenuItem>
-                                    <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
-                                        <TrophyIcon className="w-4 h-4 mr-2" />
-                                        {t('clubs')}
-                                    </NavigationMenuTrigger>
-                                    <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
@@ -194,6 +180,75 @@ export function Header() {
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('allClubs')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </div>
+                                        <div className="grid gap-3 p-4 w-48">
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/competition"
+                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <TrophyIcon className="w-4 h-4" />
+                                                    <span>{t('competitions')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </div>
+                                        <div className="grid gap-3 p-4 w-48">
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/referee"
+                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <Gavel className="w-4 h-4" />
+                                                    <span>{t('referees')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </div>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
+                            </NavigationMenuList>
+                        </NavigationMenu>
+
+                        {/* Games Menu */}
+                        <NavigationMenu>
+                            <NavigationMenuList>
+                                <NavigationMenuItem>
+                                    <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
+                                        <TrophyIcon className="w-4 h-4 mr-2" />
+                                        {t('games')}
+                                    </NavigationMenuTrigger>
+                                    <NavigationMenuContent>
+                                        <div className="grid gap-3 p-4 w-48">
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/game"
+                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <TrophyIcon className="w-4 h-4" />
+                                                    <span>{t('games')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </div>
+                                        <div className="grid gap-3 p-4 w-48">
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/gameday"
+                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <Calendar className="w-4 h-4" />
+                                                    <span>{t('gamedays')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </div>
+                                        <div className="grid gap-3 p-4 w-48">
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/location"
+                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <MapPin className="w-4 h-4" />
+                                                    <span>{t('locations')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>

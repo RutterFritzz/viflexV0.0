@@ -390,5 +390,7 @@
     "noResultsFound": "Geen resultaten gevonden.",
     "presenceSubmit": "Aanwezigheidsindeling",
     "pleaseSelectThePresenceForTheTeam": "Selecteer de aanwezigheid voor het team",
-    "submit": "Verzenden"
+    "submit": "Verzenden",
+    "searchForA": "Zoek naar een",
+    "matchesAndFixtures": "Wedstrijden en wedstrijdfixtures"
 }
