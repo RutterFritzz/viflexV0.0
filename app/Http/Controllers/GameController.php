@@ -10,6 +10,7 @@ use App\Models\GameCoach;
 use App\Models\GamePlayer;
 use App\Models\Location;
 use App\Models\Team;
+use App\Http\Requests\Game\GameRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -45,9 +46,7 @@ class GameController extends Controller
     public function index()
     {
         $games = Game::with(['competition', 'homeTeam', 'awayTeam', 'location', 'gameday'])->get();
-        return Inertia::render('Game/index', [
-            'games' => $games,
-        ]);
+        return Inertia::render('Game/index', compact('games'));
     }
 
     public function show(Game $game)
@@ -56,9 +55,7 @@ class GameController extends Controller
             'awayReferee', 'homeTeam.players', 'awayTeam.players', 'homeTeam.coaches', 'awayTeam.coaches']);
         $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
         $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
-        return Inertia::render('Game/show', [
-            'game' => $game,
-        ]);
+        return Inertia::render('Game/show', compact('game'));
     }
 
     public function create(Competition $competition)
@@ -71,15 +68,9 @@ class GameController extends Controller
         ]);
     }
 
-    public function store(Request $request, Competition $competition)
+    public function store(GameRequest $request, Competition $competition)
     {
-        $validated = $request->validate([
-            'home_team_id' => 'required|exists:teams,id',
-            'away_team_id' => 'required|exists:teams,id',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
-            'location_id' => 'required|exists:locations,id',
-        ]);
+        $validated = $request->validated();
         $validated['competition_id'] = $competition->id;
         $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
         $validated['time'] = Carbon::parse($validated['time'])->format('H:i');
@@ -112,15 +103,9 @@ class GameController extends Controller
         ]);
     }
 
-    public function update(Request $request, Game $game)
+    public function update(GameRequest $request, Game $game)
     {
-        $validated = $request->validate([
-            'home_team_id' => 'required|exists:teams,id',
-            'away_team_id' => 'required|exists:teams,id',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
-            'location' => 'required|string|max:255',
-        ]);
+        $validated = $request->validated();
         $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
 
         if ($validated['home_team_id'] !== $game->home_team_id) {

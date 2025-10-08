@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Gameday\GamedayRequest;
+use App\Http\Requests\Gameday\SubmitPresenceRequest;
 use App\Models\Game;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Gameday;
 use App\Models\Location;
 use App\Models\Team;
 use App\Models\GamePlayer;
 use App\Models\GameCoach;
-use App\Models\User;
 
 class GamedayController extends Controller
 {
     public function index()
     {
         $gamedays = Gameday::with('location')->withCount('games')->get();
-        return Inertia::render('Gameday/index', [
-            'gamedays' => $gamedays,
-        ]);
+        return Inertia::render('Gameday/index', compact('gamedays'));
     }
 
     public function show(Gameday $gameday)
@@ -47,12 +45,9 @@ class GamedayController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(GamedayRequest $request)
     {
-        $validated = $request->validate([
-            'location_id' => 'required|exists:locations,id',
-            'date' => 'required|date',
-        ]);
+        $validated = $request->validated();
         Gameday::create($validated);
         return redirect()->route('gameday.index');
     }
@@ -67,12 +62,9 @@ class GamedayController extends Controller
         ]);
     }
 
-    public function update(Request $request, Gameday $gameday)
+    public function update(GamedayRequest $request, Gameday $gameday)
     {
-        $gameday->update($request->validate([
-            'location_id' => 'required|exists:locations,id',
-            'date' => 'required|date',
-        ]));
+        $gameday->update($request->validated());
         return redirect()->route('gameday.index');
     }
     public function destroy(Gameday $gameday)
@@ -81,14 +73,9 @@ class GamedayController extends Controller
         return redirect()->route('gameday.index');
     }
 
-    public function submitPresence(Request $request, Gameday $gameday)
+    public function submitPresence(SubmitPresenceRequest $request, Gameday $gameday)
     {
-        $validated = $request->validate([
-            'team_id' => 'required|exists:teams,id',
-            'presence' => 'required|array',
-            'presence.coaches' => 'sometimes|array',
-            'presence.players' => 'sometimes|array',
-        ]);
+        $validated = $request->validated();
 
         $team = Team::find($validated['team_id']);
         $games = Game::where('gameday_id', $gameday->id)->pluck('id');

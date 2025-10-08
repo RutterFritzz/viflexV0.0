@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Models\Referee;
-use Illuminate\Http\Request;
+use App\Http\Requests\Referee\StoreRefereeRequest;
+use App\Http\Requests\Referee\UpdateRefereeRequest;
 use Inertia\Inertia;
 
 class RefereeController extends Controller
@@ -12,17 +13,13 @@ class RefereeController extends Controller
     public function index()
     {
         $referees = Referee::with('user')->get();
-        return Inertia::render('Referee/index', [
-            'referees' => $referees,
-        ]);
+        return Inertia::render('Referee/index', compact('referees'));
     }
 
     public function show(Referee $referee)
     {
         $referee->load('user');
-        return Inertia::render('Referee/show', [
-            'referee' => $referee,
-        ]);
+        return Inertia::render('Referee/show', compact('referee'));
     }
     public function create()
     {
@@ -31,12 +28,9 @@ class RefereeController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRefereeRequest $request)
     {
-        $validated = $request->validate([
-            'category' => 'required|string|max:255',
-            'user_id' => 'required|exists:users,id',
-        ]);
+        $validated = $request->validated();
         Referee::create($validated);
         return redirect()->route('referee.index');
     }
@@ -50,11 +44,9 @@ class RefereeController extends Controller
         ]);
     }
 
-    public function update(Request $request, Referee $referee)
+    public function update(UpdateRefereeRequest $request, Referee $referee)
     {
-        $referee->update($request->validate([
-            'category' => 'required|string|max:255',
-        ]));
+        $referee->update($request->validated());
         return redirect()->route('referee.index');
     }
 

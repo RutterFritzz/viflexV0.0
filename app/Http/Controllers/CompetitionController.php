@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Models\Competition;
 use App\Models\CompetitionTeam;
+use App\Http\Requests\Competition\CompetitionRequest;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -13,19 +14,15 @@ class CompetitionController extends Controller
     public function index()
     {
         $competitions = Competition::all();
-        return Inertia::render('Competition/index', [
-            'competitions' => $competitions,
-        ]);
+        return Inertia::render('Competition/index', compact('competitions'));
     }
 
     public function show(Competition $competition)
     {
         $competition->load('teams', 'games', 'teams.players', 'teams.coaches', 'games.location', 'games.gameday', 'games.homeTeam', 'games.awayTeam');
-        return Inertia::render('Competition/show', [
-            'competition' => $competition,
-            'teams' => $competition->teams,
-            'games' => $competition->games,
-        ]);
+        $teams = $competition->teams;
+        $games = $competition->games;
+        return Inertia::render('Competition/show', compact('competition', 'teams', 'games'));
     }
 
     public function create()
@@ -35,13 +32,9 @@ class CompetitionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CompetitionRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'year' => 'required|integer',
-        ]);
+        $validated = $request->validated();
         Competition::create($validated);
         return redirect()->route('competition.index');
     }
@@ -54,13 +47,9 @@ class CompetitionController extends Controller
         ]);
     }
 
-    public function update(Request $request, Competition $competition)
+    public function update(CompetitionRequest $request, Competition $competition)
     {
-        $competition->update($request->validate([
-            'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'year' => 'required|integer',
-        ]));
+        $competition->update($request->validated());
         return redirect()->route('competition.index');
     }
 

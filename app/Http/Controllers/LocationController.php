@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Location\LocationRequest;
 use App\Models\Location;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class LocationController extends Controller
@@ -11,9 +11,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        return Inertia::render('Location/index', [
-            'locations' => $locations,
-        ]);
+        return Inertia::render('Location/index', compact('locations'));
     }
 
     public function show(Location $location)
@@ -32,28 +30,21 @@ class LocationController extends Controller
         return Inertia::render('Location/create');
     }
 
-    public function store(Request $request)
+    public function store(LocationRequest $request)
     {
-        Location::create($request->validate([
-            'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-        ]));
+        $validated = $request->validated();
+        Location::create($validated);
         return redirect()->route('location.index');
     }
 
     public function edit(Location $location)
     {
-        return Inertia::render('Location/edit', [
-            'location' => $location,
-        ]);
+        return Inertia::render('Location/edit', compact('location'));
     }
 
-    public function update(Request $request, Location $location)
+    public function update(LocationRequest $request, Location $location)
     {
-        $location->update($request->validate([
-            'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-        ]));
+        $location->update($request->validated());
         return redirect()->route('location.index');
     }
 

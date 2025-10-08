@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Team\AddCoachRequest;
+use App\Http\Requests\Team\AddPlayerRequest;
+use App\Http\Requests\Team\StoreTeamRequest;
+use App\Http\Requests\Team\UpdateTeamRequest;
 use App\Models\Club;
 use App\Models\Team;
 use App\Models\UserTeamRole;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
     public function index()
     {
         $teams = Team::with('players', 'coaches')->get();
-        return Inertia::render('Team/index', [
-            'teams' => $teams,
-        ]);
+        return Inertia::render('Team/index', compact('teams'));
     }
 
     public function show(Team $team)
@@ -23,10 +24,8 @@ class TeamController extends Controller
         $team->load(['club' => function ($query) {
             $query->select('id', 'name');
         }, 'players', 'coaches']);
-        return Inertia::render('Team/show', [
-            'team' => $team,
-            'club' => $team->club,
-        ]);
+        $club = $team->club;
+        return Inertia::render('Team/show', compact('team', 'club'));
     }
 
     public function create(Club $club)
@@ -36,11 +35,9 @@ class TeamController extends Controller
         ]);
     }
 
-    public function store(Request $request, Club $club)
+    public function store(StoreTeamRequest $request, Club $club)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validated();
         $validated['club_id'] = $club->id;
         Team::create($validated);
         return redirect()->route('club.show', $club);
@@ -48,16 +45,12 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
-        return Inertia::render('Team/edit', [
-            'team' => $team,
-        ]);
+        return Inertia::render('Team/edit', compact('team'));
     }
 
-    public function update(Request $request, Team $team)
+    public function update(UpdateTeamRequest $request, Team $team)
     {
-        $team->update($request->validate([
-            'name' => 'required|string|max:255',
-        ]));
+        $team->update($request->validated());
         return redirect()->route('team.index');
     }
 
@@ -67,22 +60,14 @@ class TeamController extends Controller
         return redirect()->route('team.index');
     }
 
-    public function addPlayer(Request $request)
+    public function addPlayer(AddPlayerRequest $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_id' => 'required|exists:roles,id',
-            'team_id' => 'required|exists:teams,id',
-        ]);
+        $validated = $request->validated();
         UserTeamRole::create($validated);
     }
-    public function addCoach(Request $request)
+    public function addCoach(AddCoachRequest $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_id' => 'required|exists:roles,id',
-            'team_id' => 'required|exists:teams,id',
-        ]);
+        $validated = $request->validated();
         UserTeamRole::create($validated);
     }
 

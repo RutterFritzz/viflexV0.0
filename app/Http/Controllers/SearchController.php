@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\User;
-use App\Models\Referee;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
