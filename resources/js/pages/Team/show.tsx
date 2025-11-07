@@ -1,16 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Club, Team } from "@/types";
+import { Club, Team, TeamValue } from "@/types";
 import { Link } from "@inertiajs/react";
 import Search from "@/components/search";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import axios from "axios";
-import { useState } from "react";
-import { Users, Building2, ArrowLeft, Edit, Trash2, UserPlus, Crown, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Users, Building2, ArrowLeft, Edit, Trash2, UserPlus, Crown, User, X } from "lucide-react";
 import Coach from "@/components/coach";
 import Player from "@/components/player";
 import { useTranslation } from "react-i18next";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { AddValue } from "./Components/AddValue";
+import { Badge } from "@/components/ui/badge";
 
 interface ShowProps {
     team: Team;
@@ -20,6 +24,7 @@ interface ShowProps {
 export default function Show({ team, club }: ShowProps) {
     const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
+    const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     const handleUserSelect = (userId: number) => {
         const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -31,7 +36,7 @@ export default function Show({ team, club }: ShowProps) {
             headers: {
                 'X-CSRF-TOKEN': csrf_token
             }
-        });
+        })
     }
 
     const handleCoachSelect = (userId: number) => {
@@ -44,7 +49,11 @@ export default function Show({ team, club }: ShowProps) {
             headers: {
                 'X-CSRF-TOKEN': csrf_token
             }
-        });
+        })
+    }
+
+    const handleTeamValueDelete = (teamValue: TeamValue) => {
+        axios.delete(route('team.teamValue.destroy', [team, teamValue]));
     }
 
     return (
@@ -165,6 +174,36 @@ export default function Show({ team, club }: ShowProps) {
                 </CardHeader>
                 <CardContent>
                     <Search onSelect={handleCoachSelect} type="user" />
+                </CardContent>
+            </Card>
+
+            {/* Add Velden Section */}
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Crown className="h-5 w-5" />
+                        Velden
+                    </CardTitle>
+                    <CardDescription>
+                       <AddValue team={team} />
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    { team?.values?.map((tv) => (
+                        <div className="group flex items-center space-x-2">
+                            <p>{tv.value}</p>
+
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="opacity-0 group-hover:opacity-100 hover:bg-transparent transition-opacity"
+                                onClick={ e => { handleTeamValueDelete(tv) }}
+                            >
+                                <X className="h-4 w-4 text-muted-foreground hover:text-destructive cursor-pointer" />
+                            </Button>
+                        </div>
+                    ))}
+                    {/* <Search onSelect={handleCoachSelect} type="user" /> */}
                 </CardContent>
             </Card>
 

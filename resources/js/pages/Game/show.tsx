@@ -14,6 +14,7 @@ import Player from "@/components/player";
 import PresenceSubmit from "@/components/presence-submit";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { ContextCard } from "./Components/ContextCard";
 
 interface ShowProps {
     game: Game;
@@ -65,6 +66,8 @@ export default function Show({ game }: ShowProps) {
         setAwayTeamPresences(true);
         router.reload();
     }
+
+    // console.log(game.home_team?.values?.length)
 
 
     return (
@@ -264,6 +267,16 @@ export default function Show({ game }: ShowProps) {
                         )}
                     </CardContent>
                 </Card>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+                { game.home_team?.values && game.home_team?.values?.length > 0 &&
+                    <ContextCard game={game} team={game?.home_team}></ContextCard>
+                }
+
+                { game.away_team?.values && game.away_team?.values?.length > 0 &&
+                    <ContextCard game={game} team={game?.away_team}></ContextCard>
+                }
             </div>
 
             {/* Competition Context */}

@@ -49,10 +49,14 @@ class GameController extends Controller
         return Inertia::render('Game/index', compact('games'));
     }
 
-    public function show(Game $game)
+    public function show(Competition $competition, Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'awayTeam', 'location', 'gameday', 'homeReferee',
-            'awayReferee', 'homeTeam.players', 'awayTeam.players', 'homeTeam.coaches', 'awayTeam.coaches']);
+        $game->load([
+            'competition', 'location', 'gameday', 'homeReferee', 'awayReferee',
+            'homeTeam.players', 'homeTeam.values', 'homeTeam.gameValues.teamValue', 'homeTeam.coaches',
+            'awayTeam.players', 'awayTeam.values', 'awayTeam.gameValues.teamValue', 'awayTeam.coaches'
+        ]);
+
         $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
         $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
         return Inertia::render('Game/show', compact('game'));
@@ -94,7 +98,9 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'awayTeam', 'competition.teams', 'location', 'gameday']);
+        $game->load(['competition', 'homeTeam', 'awayTeam', 'competition.teams', 'location', 'gameday',
+        'gameInfo', 'gamePlayers', 'gamePlayers.user']);
+
         return Inertia::render('Game/edit', [
             'game' => $game,
             'competition' => $game->competition,

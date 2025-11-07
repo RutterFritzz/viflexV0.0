@@ -82,6 +82,16 @@ class Team extends Model
         return $this->hasMany(GameCoach::class);
     }
 
+    public function values(): HasMany
+    {
+        return $this->hasMany(TeamValue::class);
+    }
+
+    public function gameValues(): HasMany
+    {
+        return $this->hasMany(GameTeamValue::class, 'team_id');
+    }
+
     // check if the team has presences filled in for a game
     public function hasPresences(Game $game): bool
     {

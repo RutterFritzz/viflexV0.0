@@ -4,9 +4,11 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GamedayController;
+use App\Http\Controllers\GameTeamValueController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\RefereeController;
+use App\Http\Controllers\TeamValueController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -50,16 +52,25 @@ Route::post('team/{team}/add-player', [TeamController::class, 'addPlayer'])->nam
 Route::post('team/{team}/add-coach', [TeamController::class, 'addCoach'])->name('team.add-coach');
 Route::get('team/{team}/get-members', [TeamController::class, 'getMembers'])->name('team.get-members');
 
+Route::post('team/{team}/add-value', [TeamValueController::class, 'add'])->name('team.teamValue.add');
+Route::get('team/{team}/value/{teamValue}/delete', [TeamValueController::class, 'delete'])->name('team.teamValue.destroy');
+
 // Competitions
 Route::resource('competition', CompetitionController::class);
 Route::post('competition/add-team', [CompetitionController::class, 'addTeam'])->name('competition.add-team');
 
 // Games
+
 Route::post('game/update-time', [GameController::class, 'updateTime'])->name('game.update-time');
 Route::post('game/update-users', [GameController::class, 'updateUsers'])->name('game.update-users');
 Route::resource('game', GameController::class)->except(['create', 'store']);
 Route::get('game/create/{competition}', [GameController::class, 'create'])->name('game.create');
 Route::post('game/{competition}', [GameController::class, 'store'])->name('game.store');
+Route::get('competition/{competition}/game/{game}', [GameController::class, 'show'])->name('competition.game.show');
+
+Route::post('competition/{competition}/game/{game}/teamvalues/store', [GameTeamValueController::class, 'store'])->name('competition.game.teamvalues.store');
+Route::post('competition/{competition}/game/{game}/teamvalues/{team}/update', [GameTeamValueController::class, 'update'])->name('competition.game.teamvalues.update');
+
 Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
 
 // Locations

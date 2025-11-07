@@ -5,8 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { Competition, Game, Team } from "@/types";
 import { Link } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
-import { useState } from "react";
-import { Trophy, Calendar, Tag, ArrowLeft, Edit, Trash2, Users, Award, Calendar as CalendarIcon, Plus, Building2, User, UserCheck, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Trophy, Calendar, Tag, ArrowLeft, Edit, Trash2, Users, Award, Calendar as CalendarIcon, Plus, Building2, User, UserCheck, X, Eye } from "lucide-react";
 import Search from "@/components/search";
 import axios from "axios";
 import { formatDate } from "@/helpers/format-date";
@@ -263,6 +263,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                                         <span className="text-muted-foreground">{t('vs')}</span>
                                         <span className="font-semibold">{game.away_team?.name || t('teamB')}</span>
                                     </div>
+
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                         <span>
                                             <CalendarIcon className="inline h-4 w-4 mr-1" />
@@ -278,7 +279,12 @@ export default function Show({ competition, teams, games }: ShowProps) {
                                             </span>
                                         )}
                                     </div>
+
+                                    <Link href={ route('competition.game.show', [competition, game]) }>
+                                        <Eye className="h-4 w-4 mr-2" />
+                                    </Link>
                                 </div>
+
                             ))}
                         </div>
                     ) : (

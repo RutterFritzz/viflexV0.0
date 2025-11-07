@@ -1,4 +1,5 @@
 import { Calendar22 } from "@/components/calender";
+import Player from "@/components/player";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Badge } from "@/components/ui/badge";
 
 interface EditProps {
     game: Game;
@@ -217,6 +219,62 @@ export default function Edit({ game, teams, locations }: EditProps) {
                                 <Target className="h-4 w-4 mr-2" />
                                 {t('updateScore')}
                             </Button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
+
+            {/* extra info Section */}
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Target className="h-5 w-5" />
+                        {t('enterTheExtraInformationForTheCompetition')}
+                    </CardTitle>
+                    <CardDescription>
+                        {t('recordTheFinalScoreForThisMatch')}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form action={route('competition.game.info.store', [game.competition, game])} method="post" className="space-y-6">
+                        <input type="hidden" name="_token" value={csrf_token} />
+
+                        <div className="grid gap-6 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <Label htmlFor="name" className="flex items-center gap-2">
+                                    <Users className="h-4 w-4" />
+                                    Naam
+                                </Label>
+
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    className="w-full"
+                                />
+
+
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="value" className="flex items-center gap-2">
+                                    <Users className="h-4 w-4" />
+                                    Value
+                                </Label>
+                                <Input
+                                    id="value"
+                                    type="text"
+                                    name="value"
+                                    className="w-full"
+                                />
+                            </div>
+
+                            <div className="flex justify-self-end col-span-1 col-start-2 gap-3 w-fit">
+                                <Button type="submit" className="flex-1">
+                                    <Target className="h-4 w-4 mr-2" />
+                                    Toevoegen
+                                </Button>
+                            </div>
                         </div>
                     </form>
                 </CardContent>

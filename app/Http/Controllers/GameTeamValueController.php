@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\Competition;
+use App\Models\Game;
+use App\Models\GameInfo;
+use App\Models\GameTeamValue;
+use App\Models\Team;
+use Illuminate\Http\Request;
+
+class GameTeamValueController extends Controller
+{
+    public function store(Request $request, Competition $competition, Game $game) {
+        $teamValue = new GameTeamValue();
+
+        $teamValue->game_id = $game->id;
+        $teamValue->name = $request->name;
+        $teamValue->value = $request->value;
+
+        $teamValue->save();
+
+        return redirect()->back()->with('success', 'Veld is toegevoegd');
+    }
+
+    public function update(Request $request, Competition $competition, Game $game, Team $team) {
+        foreach($team->values as $tv) {
+            GameTeamValue::updateOrCreate(
+                ['game_id' => $game->id, 'team_id' => $team->id, 'team_value_id' => $tv->id],
+                ['value' => $request->fields[strtolower($tv->value)]]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Velden is aangepast');
+
+    }
+}

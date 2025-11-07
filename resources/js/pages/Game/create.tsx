@@ -23,8 +23,6 @@ export default function Create({ competition, teams, locations, errors }: Create
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [time, setTime] = useState<string | undefined>('00:00');
 
-    console.log(errors);
-
     return (
         <div className="max-w-2xl mx-auto space-y-6 p-6">
             {/* Header Section */}

@@ -19,8 +19,7 @@ interface ShowProps {
 export default function Show({ location, games = [] }: ShowProps) {
     const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
-    
-    console.log(games);
+
     // Get upcoming games
     const upcomingGames = games.filter(game => new Date(game.gameday?.date || "") > new Date());
     const pastGames = games.filter(game => new Date(game.gameday?.date || "") <= new Date());

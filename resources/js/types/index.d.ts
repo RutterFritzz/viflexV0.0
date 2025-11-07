@@ -50,7 +50,17 @@ export interface Team {
     players: User[] | null;
     coaches: User[] | null;
     category: Category;
+    game_values?: GameTeamValue[];
+    values?: TeamValue[];
     hasPresences?: boolean;
+}
+
+export interface TeamValue {
+    id: number;
+    team_id: number;
+    value: string;
+
+    team: Team;
 }
 
 export type Category = "Men" | "Women" | "U10" | "U12" | "U14" | "U18";
@@ -79,6 +89,19 @@ export interface Gameday {
     teams?: Team[];
 }
 
+export interface GameTeamValue {
+    id: number;
+    game_id: number;
+    team_id: number;
+    team_value_id: number;
+
+    value: string;
+
+    game: Game;
+    team: Team;
+    team_value: TeamValue;
+}
+
 export interface Game {
     id: number;
     competition_id: number;
@@ -89,6 +112,7 @@ export interface Game {
     location_id: number;
     time: string;
     competition?: Competition;
+    game_players?: User[];
     home_team?: Team;
     away_team?: Team;
     homeTeam?: Team;
