@@ -11,7 +11,7 @@ export function AddValue({ team }: { team: Team }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route("team.add-value", [team]));
+        post(route("team.teamValue.add", [team]));
     };
 
     return (
@@ -25,6 +25,7 @@ export function AddValue({ team }: { team: Team }) {
                     type="text"
                     name="value"
                     className="w-full"
+                    onChange={e => setData('value', e.target.value)}
                 />
             </div>
 
