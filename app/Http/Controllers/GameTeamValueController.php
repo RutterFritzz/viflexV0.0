@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Competition;
 use App\Models\Game;
-use App\Models\GameInfo;
 use App\Models\GameTeamValue;
 use App\Models\Team;
 use Illuminate\Http\Request;

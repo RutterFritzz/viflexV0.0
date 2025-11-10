@@ -224,62 +224,6 @@ export default function Edit({ game, teams, locations }: EditProps) {
                 </CardContent>
             </Card>
 
-            {/* extra info Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Target className="h-5 w-5" />
-                        {t('enterTheExtraInformationForTheCompetition')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('recordTheFinalScoreForThisMatch')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form action={route('competition.game.info.store', [game.competition, game])} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="name" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    Naam
-                                </Label>
-
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    className="w-full"
-                                />
-
-
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="value" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    Value
-                                </Label>
-                                <Input
-                                    id="value"
-                                    type="text"
-                                    name="value"
-                                    className="w-full"
-                                />
-                            </div>
-
-                            <div className="flex justify-self-end col-span-1 col-start-2 gap-3 w-fit">
-                                <Button type="submit" className="flex-1">
-                                    <Target className="h-4 w-4 mr-2" />
-                                    Toevoegen
-                                </Button>
-                            </div>
-                        </div>
-                    </form>
-                </CardContent>
-            </Card>
-
             {/* Current Values Display */}
             <Card className="border-dashed border-muted-foreground/25">
                 <CardContent className="pt-6">

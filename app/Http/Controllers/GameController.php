@@ -98,8 +98,8 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'awayTeam', 'competition.teams', 'location', 'gameday',
-        'gameInfo', 'gamePlayers', 'gamePlayers.user']);
+        $game->load(['competition', 'homeTeam', 'awayTeam', 'competition.teams', 'location',
+        'gameday', 'gamePlayers', 'gamePlayers.user']);
 
         return Inertia::render('Game/edit', [
             'game' => $game,

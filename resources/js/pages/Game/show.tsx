@@ -67,6 +67,8 @@ export default function Show({ game }: ShowProps) {
         router.reload();
     }
 
+    console.log(game)
+
     // console.log(game.home_team?.values?.length)
 
 
