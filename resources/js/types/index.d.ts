@@ -47,12 +47,15 @@ export interface User {
 export interface Team {
     id: number;
     name: string;
+    category: Category;
+    logo?: File;
+    game_values?: GameTeamValue[];
+    hasPresences?: boolean;
+
+    values?: TeamValue[];
     players: User[] | null;
     coaches: User[] | null;
-    category: Category;
-    game_values?: GameTeamValue[];
-    values?: TeamValue[];
-    hasPresences?: boolean;
+    logo_cache: string;
 }
 
 export interface TeamValue {

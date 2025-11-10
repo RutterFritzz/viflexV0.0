@@ -51,6 +51,7 @@ Route::post('team/{club}', [TeamController::class, 'store'])->name('team.store')
 Route::post('team/{team}/add-player', [TeamController::class, 'addPlayer'])->name('team.add-player');
 Route::post('team/{team}/add-coach', [TeamController::class, 'addCoach'])->name('team.add-coach');
 Route::get('team/{team}/get-members', [TeamController::class, 'getMembers'])->name('team.get-members');
+Route::post('team/{team}/update', [TeamController::class, 'update'])->name('team.update');
 
 Route::post('team/{team}/add-value', [TeamValueController::class, 'add'])->name('team.teamValue.add');
 Route::get('team/{team}/value/{teamValue}/delete', [TeamValueController::class, 'delete'])->name('team.teamValue.destroy');

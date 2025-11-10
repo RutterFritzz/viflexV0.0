@@ -68,15 +68,25 @@ export default function Show({ team, club }: ShowProps) {
                         </Link>
                     </Button>
                 </div>
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                        <Users className="h-8 w-8" />
-                        {team.name}
-                    </h1>
-                    <p className="text-muted-foreground flex items-center gap-2">
-                        <Building2 className="h-4 w-4" />
-                        {t('partOf')} <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
-                    </p>
+
+                <div className="flex items-center space-x-4">
+
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                            <Users className="h-8 w-8" />
+                            {team.name}
+                        </h1>
+                        <p className="text-muted-foreground flex items-center gap-2">
+                            <Building2 className="h-4 w-4" />
+                            {t('partOf')} <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
+                        </p>
+                    </div>
+
+                    {(team.logo) && (
+                        <div className="relative h-auto w-auto max-w-12 overflow-hidden mb-2">
+                            <img src={String(team.logo_cache)} alt="Preview" className="object-cover" />
+                        </div>
+                    )}
                 </div>
             </div>
 

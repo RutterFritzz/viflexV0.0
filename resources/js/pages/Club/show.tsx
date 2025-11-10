@@ -65,7 +65,7 @@ export default function Show({ club, teams }: ShowProps) {
                                     key={team.id}
                                     className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
                                 >
-                                    <div>
+                                    <div className="flex space-x-4">
                                         <Link
                                             href={route('team.show', team.id)}
                                             className="font-medium hover:text-primary transition-colors"

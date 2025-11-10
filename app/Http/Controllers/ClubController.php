@@ -16,9 +16,7 @@ class ClubController extends Controller
 
     public function show(Club $club)
     {
-        $club->load(['teams' => function ($query) {
-            $query->select('id', 'name', 'club_id')->with('players');
-        }]);
+        $club->load('teams', 'teams.players');
         $teams = $club->teams;
         return Inertia::render('Club/show', compact('club', 'teams'));
     }

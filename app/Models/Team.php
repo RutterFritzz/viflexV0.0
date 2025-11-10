@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
+
+use App\Facades\ImageHelper;
 
 class Team extends Model
 {
@@ -17,11 +20,15 @@ class Team extends Model
 
     protected $fillable = ['name', 'club_id', 'category'];
 
+    public $appends = [
+        'logo_cache'
+    ];
+
     // get the category of the team
     public function category(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Category::from($value)->label(),
+            get: fn($value) => Category::from($value)->label(),
         );
     }
 
@@ -102,5 +109,29 @@ class Team extends Model
             return false;
         }
         return true;
+    }
+
+    public function getImagePathAttribute()
+    {
+        $path = 'teams/' . $this->id . '/';
+
+        return $path;
+    }
+
+    public function getFullLogoPathAttribute()
+    {
+        $path = $this->logoPath . $this->logo;
+
+        return Storage::exists($path) && $this->logo !== null ? 'images/' . $path : null;
+    }
+
+    protected function logoCache(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) =>
+                $attributes['logo'] !== null
+                    ? asset(ImageHelper::checkImage($attributes['logo'], 'medium', "teams/$this->id"))
+                    : null,
+        );
     }
 }

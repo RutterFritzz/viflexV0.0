@@ -6,12 +6,16 @@ use App\Http\Requests\Team\AddCoachRequest;
 use App\Http\Requests\Team\AddPlayerRequest;
 use App\Http\Requests\Team\StoreTeamRequest;
 use App\Http\Requests\Team\UpdateTeamRequest;
+
 use App\Models\Club;
 use App\Models\Team;
 use App\Models\TeamValue;
 use App\Models\UserTeamRole;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class TeamController extends Controller
 {
@@ -39,9 +43,22 @@ class TeamController extends Controller
 
     public function store(StoreTeamRequest $request, Club $club)
     {
-        $validated = $request->validated();
-        $validated['club_id'] = $club->id;
-        Team::create($validated);
+        $team = new Team();
+        $team->name = $request->name;
+        // $team->category = $request->category;
+        $team->club_id = $request->club_id;
+
+        $team->save();
+
+        if ($request->hasFile('logo')) {
+            $uploadedFile = $request->file('logo');
+            $filename = uniqid() . '-' . $uploadedFile->getClientOriginalName();
+            $uploadedFile->move(public_path('images/teams/' . $team->id), $filename);
+
+            $team->logo = $filename;
+            $team->save();
+        }
+
         return redirect()->route('club.show', $club);
     }
 
@@ -52,7 +69,25 @@ class TeamController extends Controller
 
     public function update(UpdateTeamRequest $request, Team $team)
     {
-        $team->update($request->validated());
+        $team->name = $request->name;
+        // $team->category = $request->category;
+
+        // dd($request->logo);
+
+        if ($request->hasFile('logo')) {
+            if ($team->logo) {
+                Storage::delete('images/teams/' . $team->id . '/' . $team->logo);
+            }
+
+            $logo = $request->file('logo');
+            $logoName =  uniqid() . "-" . Str::slug($team->name) . "." . $logo->extension();
+            $logo->storeAs('images/teams/' . $team->id . '/', $logoName);
+
+            $team->logo = $logoName;
+        }
+
+        $team->save();
+
         return redirect()->route('team.index');
     }
 

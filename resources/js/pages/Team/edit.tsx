@@ -1,15 +1,47 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Team } from "@/types";
-import { Link } from "@inertiajs/react";
+import { Category, Team } from "@/types";
+import { Link, useForm } from "@inertiajs/react";
 import { Users, ArrowLeft, Save } from "lucide-react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function Edit({ team }: { team: Team }) {
     const { t } = useTranslation();
-    const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [logoPreview, setLogoPreview] = useState<string | null>(team.logo_cache);
+    const categories = ["Men", "Women", "U10", "U12", "U14", "U18"]
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: team.name,
+        category: team.category,
+        logo: (team.logo_cache as unknown) as File
+    });
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setData("logo", file);
+                setLogoPreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleSelectImage = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('team.update', [team]));
+    };
 
     return (
         <div className="max-w-2xl mx-auto space-y-6 p-6">
@@ -46,9 +78,7 @@ export default function Edit({ team }: { team: Team }) {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={route('team.update', team.id)} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-                        <input type="hidden" name="_method" value="PUT" />
+                    <form onSubmit={handleSubmit} method="post" className="space-y-6">
 
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
@@ -61,9 +91,48 @@ export default function Edit({ team }: { team: Team }) {
                                 name="name"
                                 placeholder={t('enterTeamName')}
                                 defaultValue={team.name}
+                                onChange={(e) => setData("name", e.target.value)}
                                 required
                                 className="w-full"
                             />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="category" className="flex items-center gap-2">
+                                Categorie
+                            </Label>
+                            <Select
+                                value={data.category}
+                                onValueChange={(value: Category) => setData("category", value)}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Selecteer een category">
+                                        {categories?.find((category: any) => category.id === data.category)}
+                                    </SelectValue>
+                                </SelectTrigger>
+
+                                <SelectContent>
+                                    {categories.map((category) => (
+                                        <SelectItem key={`category_${category}`} value={category}>{category}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="space-x-4 space-y-4">
+                            <Label htmlFor="logo" className="mb-2">Logo</Label>
+
+                            <Input id="logo" type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageChange} />
+
+                            <Button type="button" variant="outline" onClick={handleSelectImage} className="w-fit">
+                                Logo selecteren
+                            </Button>
+
+                            {(logoPreview || data.logo) && (
+                                <div className="relative h-auto w-auto max-w-24 border rounded-md overflow-hidden mb-2">
+                                    <img src={logoPreview ?? String(data.logo)} alt="Preview" className="object-cover" />
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex gap-3 pt-4">
