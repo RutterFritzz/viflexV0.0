@@ -13,21 +13,19 @@ import { useEffect, useState } from "react";
 export function ContextCard({ game, team }: { game: Game, team?: Team }) {
     const { t } = useTranslation();
 
-    const { data, setData, post, reset, errors } = useForm<{ fields: Record<any, any[]> }>({
+    const { data, setData, post, reset, errors } = useForm<{ fields: Record<any, any> }>({
         fields: {},
     });
 
-
-    const addValueToData = (key: any, value: any) => {
+    const addValueToData = (key: any, value: any, id: any) => {
         const fields = data.fields;
         key = snakeCase(key);
-        fields[key] = value;
+        fields[key] = {
+            team_value_id: id,
+            value: value
+        };
         setData((prev) => ({ ...prev, fields }));
-
-        // console.log(data)
     };
-
-    // console.log(team?.values)
 
     function snakeCase(string: string): string {
         return string.replace(/\W+/g, " ").split(/ |\B(?=[A-Z])/).map((word) => word.toLowerCase()).join("_");
@@ -35,18 +33,20 @@ export function ContextCard({ game, team }: { game: Game, team?: Team }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route("competition.game.teamvalues.update", [game.competition, game, team]));
+        post(route("competition.game.teamvalues.update", [game.competition, game, team]), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset();
+            }
+        });
     };
-
-    // console.log(game, team);
 
     useEffect(() => {
         team?.game_values?.map((gv: GameTeamValue) => {
-            addValueToData(gv.team_value.value, gv.value)
+            addValueToData(gv.team_value.value, gv.value, gv.team_value_id)
         })
     }, [team?.game_values])
 
-    console.log(data);
     return (
         <Card>
             <CardContent>
@@ -57,8 +57,8 @@ export function ContextCard({ game, team }: { game: Game, team?: Team }) {
                             <Input
                                 id={tv.value}
                                 name={tv.value}
-                                value={data.fields[snakeCase(tv.value)] ?? ''}
-                                onChange={(e) => addValueToData(tv.value, e.target.value)}
+                                value={data.fields[snakeCase(tv.value)]?.value ?? ''}
+                                onChange={(e) => addValueToData(tv.value, e.target.value, tv.id)}
                             />
                         </div>
                     ))}

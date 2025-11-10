@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('team_value_id')->constrained('team_values')
             ->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->string('value');
+            $table->string('value')->nullable();
 
             $table->timestamps();
         });

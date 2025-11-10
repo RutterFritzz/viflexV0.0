@@ -190,7 +190,7 @@ export default function Show({ team, club }: ShowProps) {
                 </CardHeader>
                 <CardContent>
                     { team?.values?.map((tv) => (
-                        <div className="group flex items-center space-x-2">
+                        <div key={tv.id} className="group flex items-center space-x-2">
                             <p>{tv.value}</p>
 
                             <Button

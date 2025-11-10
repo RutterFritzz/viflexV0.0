@@ -25,14 +25,14 @@ class GameTeamValueController extends Controller
     }
 
     public function update(Request $request, Competition $competition, Game $game, Team $team) {
-        foreach($team->values as $tv) {
+        foreach($request->fields as $field) {
             GameTeamValue::updateOrCreate(
-                ['game_id' => $game->id, 'team_id' => $team->id, 'team_value_id' => $tv->id],
-                ['value' => $request->fields[strtolower($tv->value)]]
+                ['game_id' => $game->id, 'team_id' => $team->id, 'team_value_id' => $field['team_value_id']],
+                ['value' => $field['value']]
             );
         }
 
-        return redirect()->back()->with('success', 'Velden is aangepast');
+        return redirect()->back()->with('info', 'Velden is aangepast');
 
     }
 }
