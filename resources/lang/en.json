@@ -393,5 +393,7 @@
     "submit": "Submit",
     "searchForA": "Search for a",
     "matchesAndFixtures": "Matches & Fixtures",
-    "locations": "Locations"
+    "locations": "Locations",
+    "travelTime": "Travel time",
+    "arrivalTime": "Arrival time"
 }

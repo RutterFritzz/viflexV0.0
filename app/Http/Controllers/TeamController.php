@@ -8,6 +8,7 @@ use App\Http\Requests\Team\StoreTeamRequest;
 use App\Http\Requests\Team\UpdateTeamRequest;
 
 use App\Models\Club;
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\TeamValue;
 use App\Models\UserTeamRole;
@@ -31,7 +32,9 @@ class TeamController extends Controller
             $query->select('id', 'name');
         }, 'players', 'coaches', 'values']);
         $club = $team->club;
-        return Inertia::render('Team/show', compact('team', 'club'));
+        $roles = Role::orderBy('name')->get();
+
+        return Inertia::render('Team/show', compact('team', 'club', 'roles'));
     }
 
     public function create(Club $club)
@@ -47,6 +50,7 @@ class TeamController extends Controller
         $team->name = $request->name;
         // $team->category = $request->category;
         $team->club_id = $request->club_id;
+        $team->travel_time = $request->travel_time;
 
         $team->save();
 
@@ -71,6 +75,7 @@ class TeamController extends Controller
     {
         $team->name = $request->name;
         // $team->category = $request->category;
+        $team->travel_time = $request->travel_time;
 
         // dd($request->logo);
 
@@ -99,6 +104,7 @@ class TeamController extends Controller
 
     public function addPlayer(AddPlayerRequest $request)
     {
+        $userTeam = new UserTeamRole();
         $validated = $request->validated();
         UserTeamRole::create($validated);
     }

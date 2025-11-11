@@ -398,5 +398,8 @@
     "submit": "Verzenden",
     "searchForA": "Zoek naar een",
     "matchesAndFixtures": "Wedstrijden en wedstrijdfixtures",
-    "locations": "Locaties"
+    "locations": "Locaties",
+    "travelTime": "Reistijd",
+    "arrivalTime": "Aanvangstijd"
+
 }

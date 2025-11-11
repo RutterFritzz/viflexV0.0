@@ -46,17 +46,19 @@ Route::resource('club', ClubController::class);
 
 // Teams
 Route::controller(TeamController::class)->prefix('team')->name('team')->group(function() {
-    Route::get(null, 'index');
+    Route::get(null, 'index')->name('.index');
     Route::get('create/{club}', 'create')->name('.create');
     Route::post('team/{club}', 'store')->name('.store');
 
     Route::prefix('{team}')->group(function() {
         Route::get(null, 'show')->name('.show');
+        Route::get('edit', 'edit')->name('.edit');
         Route::post('add-player', 'addPlayer')->name('.add-player');
         Route::post('add-coach', 'addCoach')->name('.add-coach');
         Route::get('get-members', 'getMembers')->name('.get-members');
 
         Route::post('update', 'update')->name('.update');
+        Route::delete('destroy', 'destroy')->name('.destroy');
 
         Route::controller(TeamValueController::class)->prefix('value')->name('.teamValue.')->group(function() {
             Route::post('add-value', 'add')->name('add');
@@ -84,7 +86,7 @@ Route::post('competition/{competition}/game/{game}/teamvalues/store', [GameTeamV
 Route::post('competition/{competition}/game/{game}/teamvalues/{team}/update', [GameTeamValueController::class, 'update'])->name('competition.game.teamvalues.update');
 
 Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
-Route::put('game/{game}/team/{competitionTeam}/update-teamtime', [GameController::class, 'updateTeamTime'])->name('game.updateTeamTime');
+Route::put('game/{game}/updateScore', [GameController::class, 'updateScore'])->name('game.updateScore');
 
 // Locations
 Route::resource('location', LocationController::class);

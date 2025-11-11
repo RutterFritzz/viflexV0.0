@@ -44,6 +44,11 @@ export interface User {
     email_verified_at: Date | null;
 }
 
+export interface Role {
+    id: number;
+    name: string;
+}
+
 export interface Team {
     id: number;
     name: string;
@@ -52,7 +57,6 @@ export interface Team {
     game_values?: GameTeamValue[];
     hasPresences?: boolean;
     travel_time?: string;
-    arrival_time?: string;
 
     values?: TeamValue[];
     players: User[] | null;
@@ -116,6 +120,8 @@ export interface Game {
     away_team_score: number | null;
     location_id: number;
     time: string;
+    arrival_time: string;
+
     competition?: Competition;
     game_players?: User[];
     home_team?: Team;

@@ -67,11 +67,6 @@ export default function Show({ game }: ShowProps) {
         router.reload();
     }
 
-    console.log(game)
-
-    // console.log(game.home_team?.values?.length)
-
-
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
             {/* Header Section */}
@@ -130,6 +125,10 @@ export default function Show({ game }: ShowProps) {
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-muted-foreground">{t('location')}:</span>
                                 <span className="font-medium">{game.location?.name || 'Unknown Location'}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-muted-foreground">{t('arrivalTime')}:</span>
+                                <span className="font-medium">{game.arrival_time} minuten</span>
                             </div>
                         </div>
                     </CardContent>

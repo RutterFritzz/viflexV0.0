@@ -1,21 +1,13 @@
-import { Calendar22 } from "@/components/calender";
-import Player from "@/components/player";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { InputGroup, InputGroupInput, InputGroupText } from "@/components/ui/input-group";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
 
 import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { Game, Location, Team } from "@/types";
-import TeamTravelCard from "./Components/TeamTravelCard";
+import UpdateGame from "./Components/UpdateGame";
+import UpdateScore from "./Components/UpdateScore";
 interface EditProps {
     game: Game;
     teams: Team[];
@@ -24,6 +16,7 @@ interface EditProps {
 }
 
 export default function Edit({ game, teams, locations, competitionTeams }: EditProps) {
+    console.log(teams)
     const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [date, setDate] = useState<Date | undefined>(game.gameday?.date ? new Date(game.gameday?.date) : undefined);
@@ -64,115 +57,9 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={route('game.update', game.id)} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-                        <input type="hidden" name="_method" value="PUT" />
-
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="home_team_id" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {t('homeTeam')}
-                                </Label>
-                                <Select name="home_team_id" required defaultValue={game.home_team_id.toString()}>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder={t('selectHomeTeam')} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {teams.map((team) => (
-                                            <SelectItem key={team.id} value={team.id.toString()}>
-                                                {team.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="away_team_id" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {t('away_team')}
-                                </Label>
-                                <Select name="away_team_id" required defaultValue={game.away_team_id.toString()}>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder={t('selectAway_team')} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {teams.map((team) => (
-                                            <SelectItem key={team.id} value={team.id.toString()}>
-                                                {team.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="location" className="flex items-center gap-2">
-                                <MapPin className="h-4 w-4" />
-                                {t('location')}
-                            </Label>
-                            <Select name="location" required defaultValue={game.gameday?.location_id.toString()}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder={t('selectLocation')} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {locations.map((location) => (
-                                        <SelectItem key={location.id} value={location.id.toString()}>
-                                            {location.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="date" className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4" />
-                                    {t('date')}
-                                </Label>
-                                <Calendar22 date={date} setDate={setDate} />
-                                <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="time" className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4" />
-                                    {t('time')}
-                                </Label>
-                                <Input
-                                    id="time"
-                                    type="time"
-                                    name="time"
-                                    defaultValue={time}
-                                    onChange={(e) => setTime(e.target.value)}
-                                    required
-                                    className="w-full"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3 pt-4">
-                            <Button type="submit" className="flex-1">
-                                <Save className="h-4 w-4 mr-2" />
-                                {t('updateGame')}
-                            </Button>
-                            <Button asChild variant="outline" type="button">
-                                <Link href={route('game.show', game.id)}>
-                                    {t('cancel')}
-                                </Link>
-                            </Button>
-                        </div>
-                    </form>
+                    <UpdateGame game={game} teams={teams} locations={locations}/>
                 </CardContent>
             </Card>
-
-            <div className="grid grid-cols-2 gap-4">
-                <TeamTravelCard game={game} competitionTeam={competitionTeams.home_team}/>
-                <TeamTravelCard game={game} competitionTeam={competitionTeams.away_team}/>
-            </div>
 
             {/* Score Update Section */}
             <Card>
@@ -186,51 +73,7 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={route('game.update', game.id)} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-                        <input type="hidden" name="_method" value="PUT" />
-
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="home_team_score" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {game.home_team?.name} {t('score')}
-                                </Label>
-                                <Input
-                                    id="home_team_score"
-                                    type="number"
-                                    name="home_team_score"
-                                    placeholder="0"
-                                    defaultValue={game.home_team_score || ''}
-                                    min="0"
-                                    className="w-full"
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="away_team_score" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {game.away_team?.name || t('teamB')} {t('score')}
-                                </Label>
-                                <Input
-                                    id="away_team_score"
-                                    type="number"
-                                    name="away_team_score"
-                                    placeholder="0"
-                                    defaultValue={game.away_team_score || ''}
-                                    min="0"
-                                    className="w-full"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3 pt-4">
-                            <Button type="submit" className="flex-1">
-                                <Target className="h-4 w-4 mr-2" />
-                                {t('updateScore')}
-                            </Button>
-                        </div>
-                    </form>
+                    <UpdateScore game={game} />
                 </CardContent>
             </Card>
 

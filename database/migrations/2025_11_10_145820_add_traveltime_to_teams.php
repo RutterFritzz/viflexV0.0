@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('competition_teams', function (Blueprint $table) {
-            $table->string('travel_time')->nullable()->after('team_id');
-            $table->string('arrival_time')->nullable()->after('travel_time');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->string('travel_time')->nullable()->after('club_id');
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('competition_teams', function (Blueprint $table) {
+        Schema::table('teams', function (Blueprint $table) {
             $table->dropColumn('travel_time');
-            $table->dropColumn('arrival_time');
         });
     }
 };

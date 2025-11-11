@@ -18,7 +18,7 @@ class Team extends Model
     /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'club_id', 'category'];
+    protected $fillable = ['name', 'club_id', 'category', 'travel_time'];
 
     public $appends = [
         'logo_cache'

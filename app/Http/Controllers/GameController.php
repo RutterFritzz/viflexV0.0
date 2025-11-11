@@ -121,19 +121,25 @@ class GameController extends Controller
 
     public function update(GameRequest $request, Game $game)
     {
-        $validated = $request->validated();
-        $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
+        $game->home_team_id = $request->home_team_id;
+        $game->away_team_id = $request->away_team_id;
+        // $game->location_id = $request->location_id;
+        // $game->date = $request->date;
+        $game->time = $request->time;
+        $game->arrival_time = $request->arrival_time;
 
-        if ($validated['home_team_id'] !== $game->home_team_id) {
+        if ($request->home_team_id !== $game->home_team_id) {
             $this->removePlayersAndCoachesFromGame($game, Team::find($game->home_team_id));
-            $this->addPlayersAndCoachesToGame($game, Team::find($validated['home_team_id']));
-        }
-        if ($validated['away_team_id'] !== $game->away_team_id) {
-            $this->removePlayersAndCoachesFromGame($game, Team::find($game->away_team_id));
-            $this->addPlayersAndCoachesToGame($game, Team::find($validated['away_team_id']));
+            $this->addPlayersAndCoachesToGame($game, Team::find($request->home_team_id));
         }
 
-        $game->update($validated);
+        if ($request->away_team_id !== $game->away_team_id) {
+            $this->removePlayersAndCoachesFromGame($game, Team::find($game->away_team_id));
+            $this->addPlayersAndCoachesToGame($game, Team::find($request->away_team_id));
+        }
+
+        $game->save();
+
         return redirect()->route('game.index');
     }
 
@@ -183,6 +189,16 @@ class GameController extends Controller
         return response()->json(['message' => 'Users updated successfully']);
     }
 
+    public function updateScore(Request $request, Game $game) {
+        $game->home_team_score = $request->home_team_score;
+        $game->away_team_score = $request->away_team_score;
+
+        $game->save();
+
+        return redirect()->back()->with('success', 'Score is bijgewerkt');
+    }
+
+
     public function submitPresence(Request $request, Game $game)
     {
         $validated = $request->validate([
@@ -215,14 +231,5 @@ class GameController extends Controller
         }
 
         return response()->json(['message' => 'Presence updated successfully']);
-    }
-
-    public function updateTeamTime(Request $request, Game $game, CompetitionTeam $competitionTeam) {
-        $competitionTeam->travel_time = $request->travel_time;
-        $competitionTeam->arrival_time = $request->arrival_time;
-
-        $competitionTeam->save();
-
-        return redirect()->back()->with('success', 'Tijden zijn aangepast');
     }
 }

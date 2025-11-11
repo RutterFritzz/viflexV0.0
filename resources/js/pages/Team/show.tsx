@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { Club, Team, TeamValue } from "@/types";
+import { Club, Team, TeamValue, Role } from "@/types";
 import { Link } from "@inertiajs/react";
 import Search from "@/components/search";
 import DeleteConfirmation from "@/components/delete-confirmation";
@@ -15,13 +16,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { AddValue } from "./Components/AddValue";
 import { Badge } from "@/components/ui/badge";
+import { AddUser } from "./Components/AddUser";
 
 interface ShowProps {
     team: Team;
     club: Club;
+    roles: Role[];
 }
 
-export default function Show({ team, club }: ShowProps) {
+export default function Show({ team, club, roles }: ShowProps) {
     const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -182,8 +185,9 @@ export default function Show({ team, club }: ShowProps) {
                         {t('searchForUsersToAddAsCoachesToThisTeam')}
                     </CardDescription>
                 </CardHeader>
+
                 <CardContent>
-                    <Search onSelect={handleCoachSelect} type="user" />
+                    <AddUser team={team} roles={roles} />
                 </CardContent>
             </Card>
 

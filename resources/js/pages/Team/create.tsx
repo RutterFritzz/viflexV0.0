@@ -25,6 +25,7 @@ export default function Create({ club_id }: CreateProps) {
         name: "",
         category: "",
         club_id: club_id,
+        travel_time: "",
         logo: null as File | null
     });
 
@@ -86,9 +87,6 @@ export default function Create({ club_id }: CreateProps) {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-                        <input type="hidden" name="club_id" value={club_id} />
-
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
@@ -102,6 +100,21 @@ export default function Create({ club_id }: CreateProps) {
                                 onChange={(e) => setData("name", e.target.value)}
                                 placeholder={t('enterTeamName')}
                                 required
+                                className="w-full"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="flex items-center gap-2">
+                                <Users className="h-4 w-4" />
+                                {t('travelTime')}
+                            </Label>
+                            <Input
+                                id="travel_time"
+                                type="text"
+                                name="travel_time"
+                                value={data.travel_time}
+                                onChange={(e) => setData("travel_time", e.target.value)}
                                 className="w-full"
                             />
                         </div>

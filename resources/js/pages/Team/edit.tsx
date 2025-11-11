@@ -19,6 +19,7 @@ export default function Edit({ team }: { team: Team }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: team.name,
         category: team.category,
+        travel_time: team.travel_time,
         logo: (team.logo_cache as unknown) as File
     });
 
@@ -93,6 +94,21 @@ export default function Edit({ team }: { team: Team }) {
                                 defaultValue={team.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 required
+                                className="w-full"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="flex items-center gap-2">
+                                <Users className="h-4 w-4" />
+                                {t('travelTime')}
+                            </Label>
+                            <Input
+                                id="travel_time"
+                                type="text"
+                                name="travel_time"
+                                defaultValue={team.travel_time}
+                                onChange={(e) => setData("travel_time", e.target.value)}
                                 className="w-full"
                             />
                         </div>
