@@ -14,7 +14,10 @@ class Game extends Model
     /** @use HasFactory<\Database\Factories\GameFactory> */
     use HasFactory;
 
-    protected $fillable = ['gameday_id', 'competition_id', 'home_team_id', 'away_team_id', 'home_referee_id', 'away_referee_id', 'home_team_score', 'away_team_score', 'time'];
+    protected $fillable = [
+        'gameday_id', 'competition_id', 'home_team_id', 'away_team_id', 'home_referee_id',
+        'away_referee_id', 'home_team_score', 'away_team_score', 'time'
+    ];
 
     protected $casts = [
         'time' => 'datetime:H:i',
@@ -79,5 +82,12 @@ class Game extends Model
             return false;
         }
         return true;
+    }
+
+    public function competitionTeam($teamId) {
+        return CompetitionTeam::where([
+            'competition_id' => $this->competition_id,
+            'team_id' => $teamId
+        ])->first();
     }
 }

@@ -111,20 +111,6 @@ class Team extends Model
         return true;
     }
 
-    public function getImagePathAttribute()
-    {
-        $path = 'teams/' . $this->id . '/';
-
-        return $path;
-    }
-
-    public function getFullLogoPathAttribute()
-    {
-        $path = $this->logoPath . $this->logo;
-
-        return Storage::exists($path) && $this->logo !== null ? 'images/' . $path : null;
-    }
-
     protected function logoCache(): Attribute
     {
         return Attribute::make(

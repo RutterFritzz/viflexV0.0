@@ -51,6 +51,8 @@ export interface Team {
     logo?: File;
     game_values?: GameTeamValue[];
     hasPresences?: boolean;
+    travel_time?: string;
+    arrival_time?: string;
 
     values?: TeamValue[];
     players: User[] | null;

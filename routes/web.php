@@ -45,16 +45,27 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::resource('club', ClubController::class);
 
 // Teams
-Route::resource('team', TeamController::class)->except(['create', 'store']);
-Route::get('team/create/{club}', [TeamController::class, 'create'])->name('team.create');
-Route::post('team/{club}', [TeamController::class, 'store'])->name('team.store');
-Route::post('team/{team}/add-player', [TeamController::class, 'addPlayer'])->name('team.add-player');
-Route::post('team/{team}/add-coach', [TeamController::class, 'addCoach'])->name('team.add-coach');
-Route::get('team/{team}/get-members', [TeamController::class, 'getMembers'])->name('team.get-members');
-Route::post('team/{team}/update', [TeamController::class, 'update'])->name('team.update');
+Route::controller(TeamController::class)->prefix('team')->name('team')->group(function() {
+    Route::get(null, 'index');
+    Route::get('create/{club}', 'create')->name('.create');
+    Route::post('team/{club}', 'store')->name('.store');
 
-Route::post('team/{team}/add-value', [TeamValueController::class, 'add'])->name('team.teamValue.add');
-Route::get('team/{team}/value/{teamValue}/delete', [TeamValueController::class, 'delete'])->name('team.teamValue.destroy');
+    Route::prefix('{team}')->group(function() {
+        Route::get(null, 'show')->name('.show');
+        Route::post('add-player', 'addPlayer')->name('.add-player');
+        Route::post('add-coach', 'addCoach')->name('.add-coach');
+        Route::get('get-members', 'getMembers')->name('.get-members');
+
+        Route::post('update', 'update')->name('.update');
+
+        Route::controller(TeamValueController::class)->prefix('value')->name('.teamValue.')->group(function() {
+            Route::post('add-value', 'add')->name('add');
+            Route::get('{teamValue}/delete', 'delete')->name('destroy');
+        });
+    });
+});
+
+// Route::resource('team', TeamController::class)->except(['create', 'store']);
 
 // Competitions
 Route::resource('competition', CompetitionController::class);
@@ -73,6 +84,7 @@ Route::post('competition/{competition}/game/{game}/teamvalues/store', [GameTeamV
 Route::post('competition/{competition}/game/{game}/teamvalues/{team}/update', [GameTeamValueController::class, 'update'])->name('competition.game.teamvalues.update');
 
 Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
+Route::put('game/{game}/team/{competitionTeam}/update-teamtime', [GameController::class, 'updateTeamTime'])->name('game.updateTeamTime');
 
 // Locations
 Route::resource('location', LocationController::class);

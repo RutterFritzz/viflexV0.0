@@ -87,7 +87,7 @@ export default function Show({ club, teams }: ShowProps) {
                 </CardContent>
                 <CardFooter>
                     <Button asChild className="w-full">
-                        <Link href={route('team.create', club.id)}>
+                        <Link href={route('team.create', [club])}>
                             <Plus className="h-4 w-4 mr-2" />
                             {t('createNewTeam')}
                         </Link>

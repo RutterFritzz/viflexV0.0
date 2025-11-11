@@ -199,20 +199,22 @@ export default function Show({ team, club }: ShowProps) {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    { team?.values?.map((tv) => (
-                        <div key={tv.id} className="group flex items-center space-x-2">
-                            <p>{tv.value}</p>
+                    <div className="grid grid-cols-4">
+                        { team?.values?.map((tv) => (
+                            <div key={tv.id} className="group flex items-center w-fit">
+                                <p>{tv.value}</p>
 
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                className="opacity-0 group-hover:opacity-100 hover:bg-transparent transition-opacity"
-                                onClick={ e => { handleTeamValueDelete(tv) }}
-                            >
-                                <X className="h-4 w-4 text-muted-foreground hover:text-destructive cursor-pointer" />
-                            </Button>
-                        </div>
-                    ))}
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="opacity-0 group-hover:opacity-100 hover:bg-transparent transition-opacity"
+                                    onClick={ e => { handleTeamValueDelete(tv) }}
+                                >
+                                    <X className="h-4 w-4 text-muted-foreground hover:text-destructive cursor-pointer" />
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
                     {/* <Search onSelect={handleCoachSelect} type="user" /> */}
                 </CardContent>
             </Card>

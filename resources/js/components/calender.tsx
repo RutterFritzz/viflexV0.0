@@ -24,7 +24,7 @@ export function Calendar22({ date, setDate, className, disabled = false }: Calen
                         variant="outline"
                         id="date"
                         disabled={disabled}
-                        className={cn("w-48 justify-between font-normal not-dark:bg-white", className)}
+                        className={cn("justify-between font-normal not-dark:bg-white", className)}
                     >
                         {date ? formatDate(date) : "Select date"}
                         <ChevronDownIcon />

@@ -1,24 +1,29 @@
 import { Calendar22 } from "@/components/calender";
 import Player from "@/components/player";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { InputGroup, InputGroupInput, InputGroupText } from "@/components/ui/input-group";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Game, Location, Team } from "@/types";
-import { Link } from "@inertiajs/react";
-import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Badge } from "@/components/ui/badge";
 
+
+import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Link } from "@inertiajs/react";
+import { Game, Location, Team } from "@/types";
+import TeamTravelCard from "./Components/TeamTravelCard";
 interface EditProps {
     game: Game;
     teams: Team[];
     locations: Location[];
+    competitionTeams: any;
 }
 
-export default function Edit({ game, teams, locations }: EditProps) {
+export default function Edit({ game, teams, locations, competitionTeams }: EditProps) {
     const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [date, setDate] = useState<Date | undefined>(game.gameday?.date ? new Date(game.gameday?.date) : undefined);
@@ -42,7 +47,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                         {t('editGame')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheDetailsFor')} <span className="font-medium">{game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}</span>.
+                        {t('updateTheDetailsFor')} <span className="font-medium">{game.home_team?.name} vs {game.away_team?.name}</span>.
                     </p>
                 </div>
             </div>
@@ -86,11 +91,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="away_team_id" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {t('awayTeam')}
+                                    {t('away_team')}
                                 </Label>
                                 <Select name="away_team_id" required defaultValue={game.away_team_id.toString()}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder={t('selectAwayTeam')} />
+                                        <SelectValue placeholder={t('selectAway_team')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {teams.map((team) => (
@@ -164,6 +169,11 @@ export default function Edit({ game, teams, locations }: EditProps) {
                 </CardContent>
             </Card>
 
+            <div className="grid grid-cols-2 gap-4">
+                <TeamTravelCard game={game} competitionTeam={competitionTeams.home_team}/>
+                <TeamTravelCard game={game} competitionTeam={competitionTeams.away_team}/>
+            </div>
+
             {/* Score Update Section */}
             <Card>
                 <CardHeader>
@@ -184,7 +194,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="home_team_score" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {game.homeTeam?.name || t('teamA')} {t('score')}
+                                    {game.home_team?.name} {t('score')}
                                 </Label>
                                 <Input
                                     id="home_team_score"
@@ -200,7 +210,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div className="space-y-2">
                                 <Label htmlFor="away_team_score" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {game.awayTeam?.name || t('teamB')} {t('score')}
+                                    {game.away_team?.name || t('teamB')} {t('score')}
                                 </Label>
                                 <Input
                                     id="away_team_score"
@@ -232,7 +242,7 @@ export default function Edit({ game, teams, locations }: EditProps) {
                             <div>
                                 <Users className="h-4 w-4 mx-auto opacity-50 mb-1" />
                                 <p className="font-medium text-xs">{t('currentTeams')}</p>
-                                <p className="text-xs">{game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}</p>
+                                <p className="text-xs">{game.home_team?.name} vs {game.away_team?.name}</p>
                             </div>
                             <div>
                                 <Target className="h-4 w-4 mx-auto opacity-50 mb-1" />

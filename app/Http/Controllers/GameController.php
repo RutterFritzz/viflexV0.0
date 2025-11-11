@@ -11,6 +11,7 @@ use App\Models\GamePlayer;
 use App\Models\Location;
 use App\Models\Team;
 use App\Http\Requests\Game\GameRequest;
+use App\Models\CompetitionTeam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -59,6 +60,7 @@ class GameController extends Controller
 
         $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
         $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
+
         return Inertia::render('Game/show', compact('game'));
     }
 
@@ -98,14 +100,22 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'awayTeam', 'competition.teams', 'location',
+        $game->load(['competition', 'homeTeam', 'homeTeam', 'awayTeam', 'competition.teams', 'location',
         'gameday', 'gamePlayers', 'gamePlayers.user']);
+
+        // dd($game);
+
+        $competitionTeams = [
+            'home_team' => (object) $game->competitionTeam($game->homeTeam->id),
+            'away_team' => (object) $game->competitionTeam($game->awayTeam->id)
+        ];
 
         return Inertia::render('Game/edit', [
             'game' => $game,
             'competition' => $game->competition,
             'teams' => $game->competition->teams,
             'locations' => Location::all(),
+            'competitionTeams' => $competitionTeams
         ]);
     }
 
@@ -205,5 +215,14 @@ class GameController extends Controller
         }
 
         return response()->json(['message' => 'Presence updated successfully']);
+    }
+
+    public function updateTeamTime(Request $request, Game $game, CompetitionTeam $competitionTeam) {
+        $competitionTeam->travel_time = $request->travel_time;
+        $competitionTeam->arrival_time = $request->arrival_time;
+
+        $competitionTeam->save();
+
+        return redirect()->back()->with('success', 'Tijden zijn aangepast');
     }
 }
