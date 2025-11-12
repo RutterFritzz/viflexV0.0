@@ -2,20 +2,39 @@
 
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\Settings\MessageTemplateController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
-    Route::redirect('settings', 'settings/profile');
 
-    Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('settings')->name('settings')->group(function() {
+        Route::redirect(null, 'settings/profile');
 
-    Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
-    Route::put('settings/password', [PasswordController::class, 'update'])->name('password.update');
+        Route::controller(ProfileController::class)->prefix('profile')->name('.profile')->group(function() {
+            Route::get(null, 'edit');
+            Route::patch('update', 'update')->name('.update');
+            Route::delete('destroy', 'destroy')->name('.destroy');
+        });
 
-    Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
-    })->name('appearance');
+        Route::controller(PasswordController::class)->prefix('password')->name('.password.')->group(function() {
+            Route::get(null, 'edit')->name('edit');
+            Route::put('update', 'update')->name('update');
+        });
+
+        Route::controller(MessageTemplateController::class)->prefix('templates')->name('.templates')->group(function() {
+            Route::get(null, 'index');
+            Route::post('store', 'store')->name('.store');
+
+            Route::prefix('{messageTemplate}')->group(function() {
+                Route::get('edit', 'edit')->name('.edit');
+                Route::post('update', 'update')->name('.update');
+                Route::delete('delete', 'delete')->name('.delete');
+            });
+        });
+
+        Route::get('appearance', function () {
+            return Inertia::render('settings/appearance');
+        })->name('appearance');
+    });
 });
