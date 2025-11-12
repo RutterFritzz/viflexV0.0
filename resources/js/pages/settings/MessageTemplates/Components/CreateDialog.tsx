@@ -125,24 +125,20 @@ export default function CreateDialog() {
                     <table>
                         <tbody>
                             <tr>
-                                <td className="pe-12">Ticket id</td>
-                                <td>[ISSUEID]</td>
+                                <td className="pe-12">Thuis team</td>
+                                <td>[HOMETEAM]</td>
                             </tr>
                             <tr>
-                                <td className="pe-12">Klant naam</td>
-                                <td>[CUSTOMERNAME]</td>
+                                <td className="pe-12">Uit team</td>
+                                <td>[AWAYTEAM]</td>
                             </tr>
                             <tr>
-                                <td className="pe-12">Username</td>
-                                <td>[USERNAME]</td>
+                                <td className="pe-12">Locatie</td>
+                                <td>[LOCATION]</td>
                             </tr>
                             <tr>
-                                <td className="pe-12">Medewerker naam</td>
-                                <td>[EMPLOYEENAME]</td>
-                            </tr>
-                            <tr>
-                                <td className="pe-12">Project naam</td>
-                                <td>[PROJECTNAME]</td>
+                                <td className="pe-12">Aanvangstijd</td>
+                                <td>[ARRIVALTIME]</td>
                             </tr>
                             <tr>
                                 <td className="pe-12">Datum</td>

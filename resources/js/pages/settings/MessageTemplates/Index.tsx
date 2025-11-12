@@ -1,4 +1,3 @@
-import SettingsLayout from "@/layouts/settings/layout";
 import { MessageTemplate } from "@/types/settings";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -11,15 +10,11 @@ import Heading from '@/components/heading';
 
 import { Edit2 } from "lucide-react";
 import DeleteDialog from "@/components/Assets/DeleteDialog";
+import AdminLayout from "@/layouts/AdminLayout";
 
 export default function Index({ messageTemplates }: { messageTemplates: MessageTemplate[] }) {
     return (
-        <SettingsLayout header={
-            <div className="flex justify-between px-2">
-                <Heading title="Templates" />
-                <CreateDialog />
-            </div>
-        }>
+        <AdminLayout title="templates">
             <Card>
                 <CardContent className="pt-6">
                     <Table>
@@ -49,6 +44,6 @@ export default function Index({ messageTemplates }: { messageTemplates: MessageT
                     {/* <Paginator data={messageTemplates} /> */}
                 </CardContent>
             </Card>
-        </SettingsLayout>
+        </AdminLayout>
     )
 }

@@ -43,12 +43,11 @@ export default function SettingsLayout({ children, header }: PropsWithChildren<{
 
     return (
         <div className="px-4 py-6">
-            {header}
             {/* <Heading title="Settings" description="Manage your profile and account settings" /> */}
 
             <div className="grid md:grid-cols-5 gap-4 my-4">
-                <aside className="w-full max-w-xl lg:w-48">
-                    <nav className="flex flex-col space-y-1 space-x-0">
+                <aside className="w-full border-r-2 border-black">
+                    <nav className="flex flex-col space-y-2">
                         {sidebarNavItems.map((item, index) => (
                             <Button
                                 key={`${item.href}-${index}`}
@@ -70,6 +69,7 @@ export default function SettingsLayout({ children, header }: PropsWithChildren<{
                 <Separator className="my-6 md:hidden" />
 
                 <div className="md:col-span-4 overflow-auto">
+                    {header}
                     <section>{children}</section>
                 </div>
             </div>
