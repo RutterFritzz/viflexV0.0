@@ -1,3 +1,4 @@
+import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,7 +14,7 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('team.add-player', team.id), {
+        post(route('team.add-player', [team]), {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
@@ -21,20 +22,14 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
         });
     };
 
+    console.log(data)
+
     return (
         <form onSubmit={handleSubmit} method="post" className="grid grid-cols-2 items-center gap-4">
             <div className="grid gap-y-2">
-                <Label htmlFor="user_id" className="flex items-center gap-2">
-                    Gebruiker
-                </Label>
-                <Input
-                    id="user_id"
-                    type="text"
-                    name="value"
-                    value={data.user_id}
-                    className="w-full"
-                    onChange={e => setData('user_id', e.target.value)}
-                />
+                <Label htmlFor="user_id" className="mb-1">Gebruiker</Label>
+
+                <Search onSelect={(value) => setData('user_id', value.toString()) } type="user" />
             </div>
 
             <div className="grid gap-y-2">

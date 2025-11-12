@@ -19,7 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { AddUser } from "./Components/AddUser";
 
 interface ShowProps {
-    team: Team;
+    team: Team,
     club: Club;
     roles: Role[];
 }
@@ -28,12 +28,13 @@ export default function Show({ team, club, roles }: ShowProps) {
     const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const [initialTeam, setInitialTeam] = useState(team);
 
     const handleUserSelect = (userId: number) => {
         const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-        axios.post(route('team.add-player', team.id), {
+        axios.post(route('team.add-player', [team]), {
             user_id: userId,
-            team_id: team.id,
+            team_id: team?.id,
             role_id: 1,
         }, {
             headers: {
@@ -44,20 +45,26 @@ export default function Show({ team, club, roles }: ShowProps) {
 
     const handleCoachSelect = (userId: number) => {
         const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-        axios.post(route('team.add-coach', team.id), {
-            user_id: userId,
-            team_id: team.id,
-            role_id: 2,
-        }, {
-            headers: {
-                'X-CSRF-TOKEN': csrf_token
-            }
-        })
+        console.log(userId);
+
+        // axios.post(route('team?.add-coach', team?.id), {
+        //     user_id: userId,
+        //     team_id: team?.id,
+        //     role_id: 2,
+        // }, {
+        //     headers: {
+        //         'X-CSRF-TOKEN': csrf_token
+        //     }
+        // })
     }
 
     const handleTeamValueDelete = (teamValue: TeamValue) => {
-        axios.delete(route('team.teamValue.destroy', [team, teamValue]));
+        axios.delete(route('team?.teamValue.destroy', [team, teamValue]));
     }
+
+    useEffect(() => {
+        setInitialTeam(team);
+    }, [team]);
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
@@ -77,7 +84,7 @@ export default function Show({ team, club, roles }: ShowProps) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Users className="h-8 w-8" />
-                            {team.name}
+                            {team?.name}
                         </h1>
                         <p className="text-muted-foreground flex items-center gap-2">
                             <Building2 className="h-4 w-4" />
@@ -85,9 +92,9 @@ export default function Show({ team, club, roles }: ShowProps) {
                         </p>
                     </div>
 
-                    {(team.logo) && (
+                    {(team?.logo) && (
                         <div className="relative h-auto w-auto max-w-12 overflow-hidden mb-2">
-                            <img src={String(team.logo_cache)} alt="Preview" className="object-cover" />
+                            <img src={String(team?.logo_cache)} alt="Preview" className="object-cover" />
                         </div>
                     )}
                 </div>
@@ -105,21 +112,21 @@ export default function Show({ team, club, roles }: ShowProps) {
                             {t('coaches')}
                         </CardTitle>
                         <CardDescription>
-                            {team.coaches?.length === 0
+                            {team?.coaches?.length === 0
                                 ? t('noCoachesAssignedYet')
-                                : `${team.coaches?.length} ${team.coaches?.length === 1 ? t('coach') : t('coaches')} ${t('managingThisTeam')}`
+                                : `${team?.coaches?.length} ${team?.coaches?.length === 1 ? t('coach') : t('coaches')} ${t('managingThisTeam')}`
                             }
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {!team.coaches || team.coaches.length === 0 ? (
+                        {!team?.coaches || team?.coaches.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <Crown className="h-10 w-10 mx-auto mb-3 opacity-50" />
                                 <p className="text-sm">{t('noCoachesYet')}</p>
                             </div>
                         ) : (
                             <div className="space-y-2">
-                                {team.coaches.map((coach) => (
+                                {team?.coaches.map((coach) => (
                                     <Coach key={coach.id} name={coach.name} />
                                 ))}
                             </div>
@@ -135,21 +142,21 @@ export default function Show({ team, club, roles }: ShowProps) {
                             {t('players')}
                         </CardTitle>
                         <CardDescription>
-                            {team.players?.length === 0
+                            {team?.players?.length === 0
                                 ? t('noPlayersAssignedYet')
-                                : `${team.players?.length} ${team.players?.length === 1 ? t('player') : t('players')} ${t('onThisTeam')}`
+                                : `${team?.players?.length} ${team?.players?.length === 1 ? t('player') : t('players')} ${t('onThisTeam')}`
                             }
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {!team.players || team.players.length === 0 ? (
+                        {!team?.players || team?.players.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <User className="h-10 w-10 mx-auto mb-3 opacity-50" />
                                 <p className="text-sm">{t('noPlayersYet')}</p>
                             </div>
                         ) : (
                             <div className="space-y-2">
-                                {team.players.map((player) => (
+                                {team?.players.map((player) => (
                                     <Player key={player.id} name={player.name} />
                                 ))}
                             </div>
@@ -234,7 +241,7 @@ export default function Show({ team, club, roles }: ShowProps) {
                 <CardContent>
                     <div className="flex flex-wrap gap-3">
                         <Button asChild variant="default">
-                            <Link href={route('team.edit', team.id)}>
+                            <Link href={route('team.edit', [team])}>
                                 <Edit className="h-4 w-4 mr-2" />
                                 {t('editTeam')}
                             </Link>
@@ -254,7 +261,7 @@ export default function Show({ team, club, roles }: ShowProps) {
                             <Trash2 className="h-4 w-4 mr-2" />
                             {t('deleteTeam')}
                         </Button>
-                        <DeleteConfirmation dialogOpen={dialogOpen} type="team" name={team.name} onOpenChange={setDialogOpen} id={team.id} />
+                        <DeleteConfirmation dialogOpen={dialogOpen} type="team" name={team?.name} onOpenChange={setDialogOpen} id={team?.id} />
                     </div>
                 </CardContent>
             </Card>

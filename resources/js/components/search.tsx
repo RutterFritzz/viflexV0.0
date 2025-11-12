@@ -63,7 +63,9 @@ export default function Search({ onSelect, type }: SearchProps) {
 
     const handleSelect = (selected: Selected) => {
         onSelect(selected.id);
-        setInputValue('');
+        setInputValue(selected.name);
+        setOpen(false);
+        setFocus(false);
         setResults([]);
     }
 

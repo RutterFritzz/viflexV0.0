@@ -102,11 +102,17 @@ class TeamController extends Controller
         return redirect()->route('team.index');
     }
 
-    public function addPlayer(AddPlayerRequest $request)
+    public function addPlayer(AddPlayerRequest $request, Team $team)
     {
         $userTeam = new UserTeamRole();
-        $validated = $request->validated();
-        UserTeamRole::create($validated);
+        $userTeam->user_id = $request->user_id;
+        $userTeam->team_id = $team->id;
+        $userTeam->role_id = $request->role_id;
+
+        $userTeam->save();
+
+        return redirect()->back()->with('success', 'Persoon is toegevoegd');
+
     }
     public function addCoach(AddCoachRequest $request)
     {
