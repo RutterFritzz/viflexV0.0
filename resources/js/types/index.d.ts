@@ -62,6 +62,10 @@ export interface Team {
     players: User[] | null;
     coaches: User[] | null;
     logo_cache: string;
+    games: Game[];
+    upcoming_games?: Game[];
+    last_results?: Game[];
+    competitions?: Competition[];
 }
 
 export interface TeamValue {

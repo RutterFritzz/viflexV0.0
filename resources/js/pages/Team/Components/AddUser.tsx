@@ -1,13 +1,13 @@
 import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Role, Team } from "@/types";
 import { useForm } from "@inertiajs/react";
-
+import { useTranslation } from "react-i18next";
 export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
-    const { data, setData, post, reset, errors } = useForm({
+    const { t } = useTranslation();
+    const { data, setData, post, reset } = useForm({
         user_id: "",
         role_id: ""
     });
@@ -25,20 +25,20 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
     return (
         <form onSubmit={handleSubmit} method="post" className="grid grid-cols-2 items-center gap-4">
             <div className="grid gap-y-2">
-                <Label htmlFor="user_id" className="mb-1">Gebruiker</Label>
+                <Label htmlFor="user_id" className="mb-1">{t('user')}</Label>
 
                 <Search onSelect={(value) => setData('user_id', value.toString()) } type="user" />
             </div>
 
             <div className="grid gap-y-2">
-                <Label htmlFor="role_id" className="mb-1">Rol</Label>
+                <Label htmlFor="role_id" className="mb-1">{t('role')}</Label>
                 <Select
                     value={data.role_id}
                     onValueChange={(value) => setData("role_id", value)}
                 >
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Selecteer een rol">
-                            {roles?.find((role: any) => role.id === Number(data.role_id))?.name}
+                        <SelectValue placeholder={t('selectRole')}>
+                            {roles?.find((role: Role) => role.id === Number(data.role_id))?.name}
                         </SelectValue>
                     </SelectTrigger>
 
@@ -52,7 +52,7 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
 
             <div className="col-span-2">
                 <Button variant="default" size="sm" className="mt-2 flex justify-self-end">
-                    Toevoegen
+                    {t('add')}
                 </Button>
             </div>
         </form>

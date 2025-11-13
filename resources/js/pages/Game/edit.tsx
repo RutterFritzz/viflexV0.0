@@ -16,6 +16,7 @@ interface EditProps {
 }
 
 export default function Edit({ game, teams, locations, competitionTeams }: EditProps) {
+
     const { t } = useTranslation();
     const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const [date, setDate] = useState<Date | undefined>(game.gameday?.date ? new Date(game.gameday?.date) : undefined);

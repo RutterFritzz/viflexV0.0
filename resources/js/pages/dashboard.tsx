@@ -40,7 +40,7 @@ interface DashboardProps {
     };
 }
 
-export default function Dashboard({userGames, recentGames, statistics, userTeams, userCompetitions }: DashboardProps) {
+export default function Dashboard({ userGames, recentGames, statistics, userTeams, userCompetitions }: DashboardProps) {
     const { t } = useTranslation();
     // Helper function to get game status badge
     const getGameStatusBadge = (game: Game) => {
@@ -151,6 +151,156 @@ export default function Dashboard({userGames, recentGames, statistics, userTeams
                 </Card>
             </div>
 
+            {/* Upcoming Games Section */}
+            <div className="grid gap-6">
+                {/* Games as Player */}
+                {userGames.asPlayer.length > 0 && (
+                    <Card>
+                        <CardHeader>
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <User className="h-5 w-5" />
+                                        {t('games')}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {t('yourUpcomingGamesAsAPlayer')}
+                                    </CardDescription>
+                                </div>
+                                <Badge variant="secondary">{userGames.asPlayer.length}</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-3">
+                                {userGames.asPlayer.slice(0, 5).map((game) => (
+                                    <div
+                                        key={game.id}
+                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+                                    >
+                                        <div className="font-medium flex items-center justify-between w-full gap-1">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex items-center gap-1">
+                                                <Calendar className="h-3 w-3" />
+                                                <span>{formatDate(game.gameday?.date || '')}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <Clock className="h-3 w-3" />
+                                                    <span>{game.time}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <MapPin className="h-3 w-3" />
+                                                    <span>
+                                                        {game.gameday?.location?.city || t('unknownLocation')}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <span>
+                                                    {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-6 h-6" />}
+                                                </span>
+                                                <span>
+                                                    {game.home_team?.name || t('teamA')}
+                                                </span>
+                                                <span className="mx-2">
+                                                    vs
+                                                </span>
+                                                <span>
+                                                    {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-6 h-6" />}
+                                                </span>
+                                                <span>
+                                                    {game.away_team?.name || t('teamB')}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                                {getGameStatusBadge(game)}
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link href={route('game.show', game.id)}>
+                                                        <ArrowRight className="h-3 w-3" />
+                                                    </Link>
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                {userGames.asPlayer.length > 5 && (
+                                    <Button asChild variant="outline" size="sm" className="w-full">
+                                        <Link href={route('game.index')}>
+                                            {t('viewAllPlayerGames')}
+                                        </Link>
+                                    </Button>
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+
+                {/* Games as Coach */}
+                {userGames.asCoach.length > 0 && (
+                    <Card>
+                        <CardHeader>
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <Award className="h-5 w-5" />
+                                        {t('gamesAsCoach')}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {t('yourUpcomingGamesAsACoach')}
+                                    </CardDescription>
+                                </div>
+                                <Badge variant="secondary">{userGames.asCoach.length}</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-3">
+                                {userGames.asCoach.slice(0, 5).map((game) => (
+                                    <div
+                                        key={game.id}
+                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-sm">
+                                                <div className="font-medium">
+                                                    {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
+                                                </div>
+                                                <div className="text-muted-foreground text-xs">
+                                                    {game.competition?.name}
+                                                </div>
+                                                {game.gameday?.location && (
+                                                    <div className="text-muted-foreground text-xs flex items-center gap-1">
+                                                        <MapPin className="h-3 w-3" />
+                                                        {game.gameday.location.name}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                            <div className="flex items-center gap-1">
+                                                <Clock className="h-3 w-3" />
+                                                <span>{game.time}</span>
+                                            </div>
+                                            {getGameStatusBadge(game)}
+                                            <Button asChild variant="outline" size="sm">
+                                                <Link href={route('game.show', game.id)}>
+                                                    <ArrowRight className="h-3 w-3" />
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ))}
+                                {userGames.asCoach.length > 5 && (
+                                    <Button asChild variant="outline" size="sm" className="w-full">
+                                        <Link href={route('game.index')}>
+                                            {t('viewAllCoachGames')}
+                                        </Link>
+                                    </Button>
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
+
             {/* My Teams Section */}
             {userTeams.length > 0 && (
                 <Card>
@@ -247,141 +397,6 @@ export default function Dashboard({userGames, recentGames, statistics, userTeams
                     </CardContent>
                 </Card>
             )}
-
-            {/* Upcoming Games Section */}
-            <div className="grid gap-6 lg:grid-cols-2">
-                {/* Games as Player */}
-                {userGames.asPlayer.length > 0 && (
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <User className="h-5 w-5" />
-                                        {t('gamesAsPlayer')}
-                                    </CardTitle>
-                                    <CardDescription>
-                                        {t('yourUpcomingGamesAsAPlayer')}
-                                    </CardDescription>
-                                </div>
-                                <Badge variant="secondary">{userGames.asPlayer.length}</Badge>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3">
-                                {userGames.asPlayer.slice(0, 5).map((game) => (
-                                    <div
-                                        key={game.id}
-                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <div className="text-sm">
-                                                <div className="font-medium">
-                                                    {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
-                                                </div>
-                                                <div className="text-muted-foreground text-xs">
-                                                    {game.competition?.name}
-                                                </div>
-                                                {game.gameday?.location && (
-                                                    <div className="text-muted-foreground text-xs flex items-center gap-1">
-                                                        <MapPin className="h-3 w-3" />
-                                                        {game.gameday.location.name}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                            <div className="flex items-center gap-1">
-                                                <Clock className="h-3 w-3" />
-                                                <span>{game.time}</span>
-                                            </div>
-                                            {getGameStatusBadge(game)}
-                                            <Button asChild variant="outline" size="sm">
-                                                <Link href={route('game.show', game.id)}>
-                                                    <ArrowRight className="h-3 w-3" />
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                ))}
-                                {userGames.asPlayer.length > 5 && (
-                                    <Button asChild variant="outline" size="sm" className="w-full">
-                                        <Link href={route('game.index')}>
-                                            {t('viewAllPlayerGames')}
-                                        </Link>
-                                    </Button>
-                                )}
-                            </div>
-                        </CardContent>
-                    </Card>
-                )}
-
-                {/* Games as Coach */}
-                {userGames.asCoach.length > 0 && (
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <Award className="h-5 w-5" />
-                                        {t('gamesAsCoach')}
-                                    </CardTitle>
-                                    <CardDescription>
-                                        {t('yourUpcomingGamesAsACoach')}
-                                    </CardDescription>
-                                </div>
-                                <Badge variant="secondary">{userGames.asCoach.length}</Badge>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3">
-                                {userGames.asCoach.slice(0, 5).map((game) => (
-                                    <div
-                                        key={game.id}
-                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <div className="text-sm">
-                                                <div className="font-medium">
-                                                    {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
-                                                </div>
-                                                <div className="text-muted-foreground text-xs">
-                                                    {game.competition?.name}
-                                                </div>
-                                                {game.gameday?.location && (
-                                                    <div className="text-muted-foreground text-xs flex items-center gap-1">
-                                                        <MapPin className="h-3 w-3" />
-                                                        {game.gameday.location.name}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                            <div className="flex items-center gap-1">
-                                                <Clock className="h-3 w-3" />
-                                                <span>{game.time}</span>
-                                            </div>
-                                            {getGameStatusBadge(game)}
-                                            <Button asChild variant="outline" size="sm">
-                                                <Link href={route('game.show', game.id)}>
-                                                    <ArrowRight className="h-3 w-3" />
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                ))}
-                                {userGames.asCoach.length > 5 && (
-                                    <Button asChild variant="outline" size="sm" className="w-full">
-                                        <Link href={route('game.index')}>
-                                            {t('viewAllCoachGames')}
-                                        </Link>
-                                    </Button>
-                                )}
-                            </div>
-                        </CardContent>
-                    </Card>
-                )}
-            </div>
 
             {/* Games as Referee */}
             {userGames.asReferee.length > 0 && (

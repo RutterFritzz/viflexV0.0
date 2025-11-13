@@ -30,7 +30,7 @@ class TeamController extends Controller
     {
         $team->load(['club' => function ($query) {
             $query->select('id', 'name');
-        }, 'players', 'coaches', 'values']);
+        }, 'players', 'coaches', 'values', 'upcomingGames', 'lastResults', 'competitions']);
         $club = $team->club;
         $roles = Role::orderBy('name')->get();
 
@@ -77,8 +77,6 @@ class TeamController extends Controller
         // $team->category = $request->category;
         $team->travel_time = $request->travel_time;
 
-        // dd($request->logo);
-
         if ($request->hasFile('logo')) {
             if ($team->logo) {
                 Storage::delete('images/teams/' . $team->id . '/' . $team->logo);
@@ -114,10 +112,19 @@ class TeamController extends Controller
         return redirect()->back()->with('success', 'Persoon is toegevoegd');
 
     }
-    public function addCoach(AddCoachRequest $request)
+
+    public function removePlayer(Team $team, int $userId)
     {
-        $validated = $request->validated();
-        UserTeamRole::create($validated);
+        $userTeam = UserTeamRole::where('team_id', $team->id)->where('user_id', $userId)->first();
+        $userTeam->delete();
+        return redirect()->back()->with('success', 'Persoon is verwijderd');
+    }
+
+    public function removeCoach(Team $team, int $userId)
+    {
+        $userTeam = UserTeamRole::where('team_id', $team->id)->where('user_id', $userId)->first();
+        $userTeam->delete();
+        return redirect()->back()->with('success', 'Persoon is verwijderd');
     }
 
     public function addValue(Request $request, Team $team)

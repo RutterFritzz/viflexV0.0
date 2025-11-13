@@ -400,6 +400,23 @@
     "matchesAndFixtures": "Wedstrijden en wedstrijdfixtures",
     "locations": "Locaties",
     "travelTime": "Reistijd",
-    "arrivalTime": "Aanvangstijd"
-
+    "arrivalTime": "Aanvangstijd",
+    "noCoachesAssignedYet": "Geen coaches toegewezen",
+    "noCoachesYet": "Geen coaches",
+    "noPlayersAssignedYet": "Geen spelers toegewezen",
+    "noPlayersYet": "Geen spelers",
+    "teamMembers": "Team leden",
+    "manageTeamMembers": "Beheer team leden",
+    "addUser": "Voeg gebruiker toe",
+    "searchForUsersToAddToThisTeam": "Zoek naar gebruikers om ze toe te voegen aan dit team.",
+    "user": "Gebruiker",
+    "role": "Rol",
+    "selectRole": "Selecteer rol",
+    "add": "Toevoegen",
+    "yourUpcomingGames": "Je komende wedstrijden",
+    "lastResults": "Recente resultaten",
+    "yourLastResults": "Je recente resultaten",
+    "viewAllLastResults": "Bekijk alle recente resultaten",
+    "noLastResults": "Geen recente resultaten",
+    "competitionsThisTeamIsParticipatingIn": "Competities waar dit team deelnemt."
 }

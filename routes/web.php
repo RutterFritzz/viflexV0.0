@@ -56,13 +56,15 @@ Route::controller(TeamController::class)->prefix('team')->name('team')->group(fu
         Route::post('add-player', 'addPlayer')->name('.add-player');
         Route::post('add-coach', 'addCoach')->name('.add-coach');
         Route::get('get-members', 'getMembers')->name('.get-members');
+        Route::delete('remove-player/{player}', 'removePlayer')->name('.remove-player');
+        Route::delete('remove-coach/{coach}', 'removeCoach')->name('.remove-coach');
 
         Route::post('update', 'update')->name('.update');
         Route::delete('destroy', 'destroy')->name('.destroy');
 
         Route::controller(TeamValueController::class)->prefix('value')->name('.teamValue.')->group(function() {
             Route::post('add-value', 'add')->name('add');
-            Route::get('{teamValue}/delete', 'delete')->name('destroy');
+            Route::delete('{teamValue}/delete', 'delete')->name('destroy');
         });
     });
 });
