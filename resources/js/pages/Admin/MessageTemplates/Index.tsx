@@ -1,20 +1,24 @@
-import { MessageTemplate } from "@/types";
+import Header from "@/components/Admin/Header";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-// import DeleteDialog from "@/Components/Assets/DeleteDialog";
-
 import { Card, CardContent } from "@/components/ui/card";
+
 import EditDialog from "./Components/EditDialog";
 import CreateDialog from "./Components/CreateDialog";
-import Heading from '@/components/heading';
+import DeleteDialog from "@/components/Assets/DeleteDialog";
 
 import { Edit2 } from "lucide-react";
-import DeleteDialog from "@/components/Assets/DeleteDialog";
-import AdminLayout from "@/layouts/AdminLayout";
+import { MessageTemplate } from "@/types";
 
 export default function Index({ messageTemplates }: { messageTemplates: MessageTemplate[] }) {
     return (
-        <AdminLayout title="templates">
+        <div>
+            <Header title="Templates" modelName="template" />
+
+            <div className="my-8 flex justify-end">
+                <CreateDialog />
+            </div>
+
             <Card>
                 <CardContent className="pt-6">
                     <Table>
@@ -44,6 +48,6 @@ export default function Index({ messageTemplates }: { messageTemplates: MessageT
                     {/* <Paginator data={messageTemplates} /> */}
                 </CardContent>
             </Card>
-        </AdminLayout>
+        </div>
     )
 }

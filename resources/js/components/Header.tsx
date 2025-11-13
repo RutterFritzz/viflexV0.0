@@ -303,6 +303,15 @@ export function Header() {
                                                         <span>{t('settings')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
+                                                <NavigationMenuLink asChild>
+                                                    <Link
+                                                        href="/admin/templates"
+                                                        className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    >
+                                                        <SettingsIcon className="w-4 h-4" />
+                                                        <span>{t('Admin')}</span>
+                                                    </Link>
+                                                </NavigationMenuLink>
                                                 <Separator />
                                                 <NavigationMenuLink asChild>
                                                     <Link

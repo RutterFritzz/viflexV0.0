@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
@@ -18,7 +18,7 @@ class MessageTemplateController extends Controller
     {
         $messageTemplates = MessageTemplate::get();
 
-        return Inertia::render('settings/MessageTemplates/Index', compact('messageTemplates'));
+        return Inertia::render('Admin/MessageTemplates/Index', compact('messageTemplates'));
     }
 
     public function create()

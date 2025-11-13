@@ -147,6 +147,16 @@ export interface Referee {
     user?: User;
 }
 
+export interface MessageTemplate {
+    id: number;
+    name: string;
+    subject: string;
+    to_name: string;
+    to_email: string;
+    bcc: boolean;
+    content: string;
+}
+
 export type PageModule = {
     default: React.ComponentType<Record<string, unknown>> & {
         layout?: (pageContent: JSX.Element) => JSX.Element;
