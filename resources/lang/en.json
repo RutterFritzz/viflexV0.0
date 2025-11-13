@@ -413,5 +413,6 @@
     "yourLastResults": "Your last results",
     "viewAllLastResults": "View all last results",
     "noLastResults": "No last results",
-    "competitionsThisTeamIsParticipatingIn": "Competitions this team is participating in."
+    "competitionsThisTeamIsParticipatingIn": "Competitions this team is participating in.",
+    "messages": "Messages"
 }

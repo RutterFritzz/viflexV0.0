@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -6,18 +7,22 @@ import { Label } from '@/components/ui/label';
 
 import { Crown, User, Users, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Team, Message } from '@/types';
+import { Team, Message, MessageTemplate } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 import EditMessageDialog from './EditMessageDialog';
 import CustomCKEditor from '@/components/Assets/ckeditor';
+import InputError from '@/components/input-error';
+import { useEffect } from 'react';
+import DeleteDialog from '@/components/Assets/DeleteDialog';
 
 // import CustomCKEditor from '@/Components/Assets/ckeditor';
 
-export default function Messages({ team }: { team: Team }) {
+export default function Messages({ team, templates }: { team: Team, templates: MessageTemplate[] }) {
     const { t } = useTranslation();
 
     const { data, setData, post, errors, reset } = useForm({
+        template: '',
         content: ''
     });
 
@@ -33,13 +38,35 @@ export default function Messages({ team }: { team: Team }) {
         });
     };
 
+    useEffect(() => {
+        const template = templates?.find((template) => template.id === Number(data.template))
+        setData('content', template?.content ?? '')
+    }, [data.template])
+
     return (
         <Card>
-            <CardContent className="pt-6">
+            <CardContent className="space-y-4">
                 <form onSubmit={handleSubmit} method="post" className="space-y-2">
-                    <Label htmlFor="content" className="text-left">
-                        Berichten
-                    </Label>
+                    <div className="mb-4">
+                        <Label htmlFor="template" className="mb-1">Template</Label>
+                        <Select
+                            value={data.template}
+                            onValueChange={(value) => setData("template", value)}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Selecteer een template">
+                                    {templates?.find((template: MessageTemplate) => template.id === Number(data.template))?.name}
+                                </SelectValue>
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                {templates.map((template: MessageTemplate) => (
+                                    <SelectItem key={`template_${template.id}`} value={String(template.id)}>{template.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.template} className="mt-2" />
+                    </div>
 
                     <CustomCKEditor height="400px" value={data.content} onChange={e => setData('content', e)} />
 
@@ -58,6 +85,7 @@ export default function Messages({ team }: { team: Team }) {
                                     <span>{message.created_at}</span>
 
                                     <EditMessageDialog team={team} message={message} />
+                                    <DeleteDialog routeName="team.message.delete" model={message} />
                                 </div>
                                 {/* {!message.visable && <EyeOff className="h-4 w-4" />} */}
                             </div>

@@ -31,4 +31,11 @@ class TeamMessageController extends Controller
 
         return redirect()->back()->with('success', 'Het bericht is aangepast');
     }
+
+    public function delete(Request $request, Team $team, Message $message)
+    {
+        $message->delete();
+
+        return redirect()->back()->with('success', 'Het bericht is verwijderdw');
+    }
 }

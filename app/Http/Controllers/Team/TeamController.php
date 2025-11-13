@@ -9,6 +9,7 @@ use App\Http\Requests\Team\StoreTeamRequest;
 use App\Http\Requests\Team\UpdateTeamRequest;
 
 use App\Models\Club;
+use App\Models\MessageTemplate;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\TeamValue;
@@ -34,8 +35,9 @@ class TeamController extends Controller
         }, 'players', 'coaches', 'values', 'upcomingGames', 'lastResults', 'competitions', 'messages.user']);
         $club = $team->club;
         $roles = Role::orderBy('name')->get();
+        $templates = MessageTemplate::orderBy('name')->get();
 
-        return Inertia::render('Team/show', compact('team', 'club', 'roles'));
+        return Inertia::render('Team/show', compact('team', 'club', 'roles', 'templates'));
     }
 
     public function create(Club $club)

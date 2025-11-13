@@ -62,7 +62,11 @@ Route::controller(TeamController::class)->prefix('team')->name('team')->group(fu
 
         Route::controller(TeamMessageController::class)->prefix('message')->name('.message.')->group(function() {
             Route::post('send', 'send')->name('send');
-            Route::post('{message}/update', 'update')->name('update');
+
+            Route::prefix('{message}')->group(function() {
+                Route::post('update', 'update')->name('update');
+                Route::delete('delete', 'delete')->name('delete');
+            });
         });
 
         Route::post('update', 'update')->name('.update');

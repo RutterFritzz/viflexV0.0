@@ -9,10 +9,11 @@ import DeleteDialog from "@/components/Assets/DeleteDialog";
 
 import { Edit2 } from "lucide-react";
 import { MessageTemplate } from "@/types";
+import AdminLayout from "@/layouts/AdminLayout";
 
 export default function Index({ messageTemplates }: { messageTemplates: MessageTemplate[] }) {
     return (
-        <div>
+        <AdminLayout>
             <Header title="Templates" modelName="template" />
 
             <div className="my-8 flex justify-end">
@@ -48,6 +49,6 @@ export default function Index({ messageTemplates }: { messageTemplates: MessageT
                     {/* <Paginator data={messageTemplates} /> */}
                 </CardContent>
             </Card>
-        </div>
+        </AdminLayout>
     )
 }
