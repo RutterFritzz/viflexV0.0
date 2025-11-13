@@ -4,6 +4,7 @@ import { Sidebar as SidebarUi, SidebarContent, SidebarFooter, SidebarHeader, Sid
 import { type NavItem } from '@/types';
 import { MessageCircleCodeIcon, UserCogIcon, UserIcon } from 'lucide-react';
 import AppLogo from '../app-logo';
+import { Link } from '@inertiajs/react';
 
 const mainNavItems: NavItem[] = [
     { href: route('admin.templates'), title: 'Templates', icon: MessageCircleCodeIcon },
@@ -18,7 +19,9 @@ export default function Sidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <AppLogo />
+                            <Link href={ route('dashboard') }>
+                                <AppLogo />
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

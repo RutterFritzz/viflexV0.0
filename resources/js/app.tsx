@@ -32,8 +32,6 @@ createInertiaApp({
         );
         const page: PageModule = typeof pageModule === 'function' ? await pageModule() : pageModule;
 
-        console.log(name.startsWith('Admin'))
-
         // Add default layout if none is set
         page.default.layout ??= (pageContent: JSX.Element) => (
             !!!name.startsWith('Admin')

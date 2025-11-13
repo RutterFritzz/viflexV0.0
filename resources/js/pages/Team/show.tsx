@@ -45,7 +45,6 @@ export default function Show({ team, club, roles }: ShowProps) {
 
     const handleCoachSelect = (userId: number) => {
         const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-        console.log(userId);
 
         // axios.post(route('team?.add-coach', team?.id), {
         //     user_id: userId,

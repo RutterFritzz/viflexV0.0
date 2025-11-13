@@ -5,6 +5,8 @@ import { SharedData } from "@/types";
 import { Button } from "../ui/button";
 // import Searchbar from "../Assets/Searchbar";
 import { SidebarTrigger } from "../ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useInitials } from '@/hooks/use-initials';
 
 interface HeaderProps {
     user?: string,
@@ -16,6 +18,7 @@ interface HeaderProps {
 
 export default function Header({ title, modelName }: HeaderProps) {
     const user = usePage<SharedData>().props.auth.user;
+    const getInitials = useInitials();
 
     const menuItems = [
         { path: "settings.profile", url: "profile", label: "Profiel", icon: User2 },
@@ -74,8 +77,13 @@ export default function Header({ title, modelName }: HeaderProps) {
             <div className="col-start-12 hidden md:flex justify-end">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline">
-                            <User />
+                        <Button variant="ghost" className="size-10 rounded-full p-1">
+                            <Avatar className="size-8 overflow-hidden rounded-full">
+                                <AvatarImage src={user?.avatar} alt={user.name} />
+                                <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                    {getInitials(user.name)}
+                                </AvatarFallback>
+                            </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">

@@ -22,8 +22,6 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
         });
     };
 
-    console.log(data)
-
     return (
         <form onSubmit={handleSubmit} method="post" className="grid grid-cols-2 items-center gap-4">
             <div className="grid gap-y-2">

@@ -47,7 +47,6 @@ export default function Create({ club_id }: CreateProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data)
         post(route('team.store', club_id));
     };
 
