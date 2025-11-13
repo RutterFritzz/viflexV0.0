@@ -95,6 +95,7 @@ class GameController extends Controller
         $this->addPlayersAndCoachesToGame($game, $homeTeam);
         $awayTeam = Team::find($validated['away_team_id']);
         $this->addPlayersAndCoachesToGame($game, $awayTeam);
+        $game->teams()->attach([$homeTeam->id, $awayTeam->id]);
         return redirect()->route('competition.show', $competition);
     }
 
@@ -102,8 +103,6 @@ class GameController extends Controller
     {
         $game->load(['competition', 'homeTeam', 'homeTeam', 'awayTeam', 'competition.teams', 'location',
         'gameday', 'gamePlayers', 'gamePlayers.user']);
-
-        // dd($game);
 
         $competitionTeams = [
             'home_team' => (object) $game->competitionTeam($game->homeTeam->id),

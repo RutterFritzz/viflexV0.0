@@ -7,7 +7,7 @@ import { Link, router } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
-import { Trophy, Calendar, ArrowLeft, Edit, Trash2, Users, Award, Target, Building2 } from "lucide-react";
+import { Trophy, Calendar, ArrowLeft, Edit, Trash2, Users, Award, Target, Building2, MapPin } from "lucide-react";
 // import Captain from "@/components/captain";
 import Coach from "@/components/coach";
 import Player from "@/components/player";
@@ -137,35 +137,20 @@ export default function Show({ game }: ShowProps) {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Target className="h-5 w-5" />
-                            {t('matchResult')}
+                            <MapPin className="h-5 w-5" />
+                            {t('location')}
                         </CardTitle>
                         <CardDescription>
-                            {t('finalScoreAndOutcome')}
+                            {game.location?.city} - {game.location?.name}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {game.home_team_score !== null && game.away_team_score !== null ? (
-                            <div className="text-center space-y-4">
-                                <div className="text-4xl font-bold">
-                                    {game.home_team_score} - {game.away_team_score}
-                                </div>
-                                <div className="text-sm text-muted-foreground">
-                                    {game.home_team_score > game.away_team_score
-                                        ? `${game.home_team?.name || t('teamA')} wins`
-                                        : game.home_team_score < game.away_team_score
-                                            ? `${game.away_team?.name || t('teamB')} wins`
-                                            : t('draw')
-                                    }
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="text-center py-8 text-muted-foreground">
-                                <Target className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                                <p className="text-lg font-medium">{t('noResultYet')}</p>
-                                <p className="text-sm">{t('scoreWillBeUpdatedAfterTheMatch')}</p>
-                            </div>
-                        )}
+                        <div className="w-full">
+                            <iframe width="100%" height="600"
+                                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Geertsemaweg%203a,%209751%20XA%20Haren+(Scharlakenhof)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                                <a href="https://www.mapsdirections.info/it/calcola-la-popolazione-su-una-mappa/">città più popolate Italia mappa</a>
+                            </iframe>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
@@ -178,10 +163,10 @@ export default function Show({ game }: ShowProps) {
                 <CardContent>
                     <div className="flex flex-col gap-3">
                         <div className="grid grid-cols-2 gap-3">
-                            { game.home_team && (
+                            {game.home_team && (
                                 <PresenceSubmit team={game.home_team} onSubmit={handlePresenceSubmit} presences={game.homeTeamPresences} disabled={game.homeTeamPresences} />
                             )}
-                            { game.away_team && (
+                            {game.away_team && (
                                 <PresenceSubmit team={game.away_team} onSubmit={handlePresenceSubmit} presences={game.awayTeamPresences} disabled={game.awayTeamPresences} />
                             )}
                         </div>
@@ -203,29 +188,29 @@ export default function Show({ game }: ShowProps) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                    {game.homeTeam ? (
+                        {game.homeTeam ? (
                             <div className="text-center py-6">
-                            <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Users className="h-8 w-8 text-secondary" />
+                                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Users className="h-8 w-8 text-secondary" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">{t('teamA')}</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    {t('playingHome')}
+                                </p>
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">{t('teamA')}</h3>
-                            <p className="text-sm text-muted-foreground">
-                                {t('playingHome')}
-                            </p>
-                        </div>
                         ) : (
-                        <div className="flex flex-col gap-2">
                             <div className="flex flex-col gap-2">
-                                {game.home_team?.coaches?.map((coach) => (
-                                    <Coach key={coach.id} name={coach.name} />
-                                ))}
+                                <div className="flex flex-col gap-2">
+                                    {game.home_team?.coaches?.map((coach) => (
+                                        <Coach key={coach.id} coach={coach} />
+                                    ))}
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    {game.home_team?.players?.map((player) => (
+                                        <Player key={player.id} player={player} />
+                                    ))}
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                {game.home_team?.players?.map((player) => (
-                                    <Player key={player.id} name={player.name} />
-                                ))}
-                            </div>
-                        </div>
                         )}
                     </CardContent>
                 </Card>
@@ -244,38 +229,38 @@ export default function Show({ game }: ShowProps) {
                     <CardContent>
                         {game.awayTeam ? (
                             <div className="text-center py-6">
-                            <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Users className="h-8 w-8 text-secondary" />
+                                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Users className="h-8 w-8 text-secondary" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">{t('teamB')}</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    {t('playingAway')}
+                                </p>
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">{t('teamB')}</h3>
-                            <p className="text-sm text-muted-foreground">
-                                {t('playingAway')}
-                            </p>
-                        </div>
                         ) : (
-                        <div className="flex flex-col gap-2">
                             <div className="flex flex-col gap-2">
-                                {game.away_team?.coaches?.map((coach) => (
-                                    <Coach key={coach.id} name={coach.name} />
-                                ))}
+                                <div className="flex flex-col gap-2">
+                                    {game.away_team?.coaches?.map((coach) => (
+                                        <Coach key={coach.id} coach={coach} />
+                                    ))}
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    {game.away_team?.players?.map((player) => (
+                                        <Player key={player.id} player={player} />
+                                    ))}
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                {game.away_team?.players?.map((player) => (
-                                    <Player key={player.id} name={player.name} />
-                                ))}
-                            </div>
-                        </div>
                         )}
                     </CardContent>
                 </Card>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
-                { game.home_team?.values && game.home_team?.values?.length > 0 &&
+                {game.home_team?.values && game.home_team?.values?.length > 0 &&
                     <ContextCard game={game} team={game?.home_team}></ContextCard>
                 }
 
-                { game.away_team?.values && game.away_team?.values?.length > 0 &&
+                {game.away_team?.values && game.away_team?.values?.length > 0 &&
                     <ContextCard game={game} team={game?.away_team}></ContextCard>
                 }
             </div>

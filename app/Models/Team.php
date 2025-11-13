@@ -111,13 +111,39 @@ class Team extends Model
         return true;
     }
 
+    public function games(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class, 'game_team');
+    }
+
+    public function upcomingGames(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class, 'game_team')->whereHas('gameday', function ($query) {
+            $query->where('date', '>=', now());
+            $query->orderBy('date', 'asc');
+        })->with(['gameday', 'gameday.location', 'homeTeam', 'awayTeam']);
+    }
+
+    public function lastResults(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class, 'game_team')->whereHas('gameday', function ($query) {
+            $query->where('date', '<', now());
+            $query->orderBy('date', 'asc');
+        })->with(['gameday', 'gameday.location', 'homeTeam', 'awayTeam']);
+    }
+
+    public function competitions(): BelongsToMany
+    {
+        return $this->belongsToMany(Competition::class, 'competition_teams');
+    }
+
     protected function logoCache(): Attribute
     {
         return Attribute::make(
             get: fn($value, $attributes) =>
-                $attributes['logo'] !== null
-                    ? asset(ImageHelper::checkImage($attributes['logo'], 'medium', "teams/$this->id"))
-                    : null,
+            $attributes['logo'] !== null
+                ? asset(ImageHelper::checkImage($attributes['logo'], 'medium', "teams/$this->id"))
+                : null,
         );
     }
 }

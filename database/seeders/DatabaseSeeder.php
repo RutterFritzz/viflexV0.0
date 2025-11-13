@@ -240,6 +240,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $this->addPlayersAndCoachesToGame($game, $game->homeTeam);
             $this->addPlayersAndCoachesToGame($game, $game->awayTeam);
+            $game->teams()->attach([$game->homeTeam->id, $game->awayTeam->id]);
         }
     }
 }

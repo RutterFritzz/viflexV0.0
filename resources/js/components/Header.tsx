@@ -131,7 +131,7 @@ export function Header() {
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <HomeIcon className="w-4 h-4" />
                                                     <span>{t('overview')}</span>
@@ -140,7 +140,7 @@ export function Header() {
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/dashboard"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('myActivities')}</span>
@@ -165,40 +165,34 @@ export function Header() {
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/team"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <UsersIcon className="w-4 h-4" />
                                                     <span>{t('allTeams')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
-                                        </div>
-                                        <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/club"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('allClubs')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
-                                        </div>
-                                        <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/competition"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('competitions')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
-                                        </div>
-                                        <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/referee"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <Gavel className="w-4 h-4" />
                                                     <span>{t('referees')}</span>
@@ -223,29 +217,25 @@ export function Header() {
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/game"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('games')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
-                                        </div>
-                                        <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/gameday"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <Calendar className="w-4 h-4" />
                                                     <span>{t('gamedays')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
-                                        </div>
-                                        <div className="grid gap-3 p-4 w-48">
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href="/location"
-                                                    className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <MapPin className="w-4 h-4" />
                                                     <span>{t('locations')}</span>
@@ -288,7 +278,7 @@ export function Header() {
                                                 <NavigationMenuLink asChild>
                                                     <Link
                                                         href="/settings/profile"
-                                                        className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <UserIcon className="w-4 h-4" />
                                                         <span>{t('profile')}</span>
@@ -297,7 +287,7 @@ export function Header() {
                                                 <NavigationMenuLink asChild>
                                                     <Link
                                                         href="/settings"
-                                                        className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <SettingsIcon className="w-4 h-4" />
                                                         <span>{t('settings')}</span>
@@ -309,7 +299,7 @@ export function Header() {
                                                         href="/logout"
                                                         method="post"
                                                         as="button"
-                                                        className="flex items-center space-x-2 p-2 rounded-md hover:bg-destructive hover:text-destructive-foreground transition-colors text-left w-full"
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-destructive hover:text-destructive-foreground transition-colors text-left w-full"
                                                     >
                                                         <LogOutIcon className="w-4 h-4" />
                                                         <span>{t('logout')}</span>
