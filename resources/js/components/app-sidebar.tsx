@@ -13,6 +13,11 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'Mail templates',
+        href: '/settings/templates',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

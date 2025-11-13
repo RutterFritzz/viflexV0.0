@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Team;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\AddCoachRequest;
 use App\Http\Requests\Team\AddPlayerRequest;
 use App\Http\Requests\Team\StoreTeamRequest;
@@ -30,7 +31,7 @@ class TeamController extends Controller
     {
         $team->load(['club' => function ($query) {
             $query->select('id', 'name');
-        }, 'players', 'coaches', 'values', 'upcomingGames', 'lastResults', 'competitions']);
+        }, 'players', 'coaches', 'values', 'upcomingGames', 'lastResults', 'competitions', 'messages.user']);
         $club = $team->club;
         $roles = Role::orderBy('name')->get();
 

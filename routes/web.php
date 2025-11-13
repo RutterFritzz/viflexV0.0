@@ -6,9 +6,10 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\GamedayController;
 use App\Http\Controllers\GameTeamValueController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\TeamController;
 use App\Http\Controllers\RefereeController;
-use App\Http\Controllers\TeamValueController;
+use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\Team\TeamValueController;
+use App\Http\Controllers\Team\TeamMessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -59,6 +60,11 @@ Route::controller(TeamController::class)->prefix('team')->name('team')->group(fu
         Route::delete('remove-player/{player}', 'removePlayer')->name('.remove-player');
         Route::delete('remove-coach/{coach}', 'removeCoach')->name('.remove-coach');
 
+        Route::controller(TeamMessageController::class)->prefix('message')->name('.message.')->group(function() {
+            Route::post('send', 'send')->name('send');
+            Route::post('{message}/update', 'update')->name('update');
+        });
+
         Route::post('update', 'update')->name('.update');
         Route::delete('destroy', 'destroy')->name('.destroy');
 
@@ -101,4 +107,5 @@ Route::resource('gameday', GamedayController::class);
 Route::resource('referee', RefereeController::class);
 
 require __DIR__.'/settings.php';
+require __DIR__.'/admin.php';
 require __DIR__.'/auth.php';

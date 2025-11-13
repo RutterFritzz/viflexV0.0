@@ -1,14 +1,20 @@
-import AppLogoIcon from './app-logo-icon';
 
-export default function AppLogo() {
+import { cn } from "@/lib/utils"
+type LogoVariant = 'oranje' | 'wit';
+
+interface ApplicationLogoProps {
+    variant?: LogoVariant;
+    className?: string;
+    alt?: string;
+}
+
+export default function AppLogo({
+    variant = 'oranje',
+    className = 'h-9',
+    alt = 'Logo CustomWebsite'
+}: ApplicationLogoProps) {
+    const logoSrc = '/images/logos/logo_' + variant + '.png';
     return (
-        <>
-            <div className="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-                <AppLogoIcon className="size-5 fill-current text-white dark:text-black" />
-            </div>
-            <div className="ml-1 grid flex-1 text-left text-sm">
-                <span className="mb-0.5 truncate leading-tight font-semibold">Laravel Starter Kit</span>
-            </div>
-        </>
+        <img src={logoSrc} alt={alt} className={cn('flex object-cover', className)} />
     );
 }
