@@ -87,6 +87,21 @@ export default function Edit({ location }: EditProps) {
                             />
                         </div>
 
+                        <div className="space-y-2">
+                            <Label htmlFor="address" className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4" />
+                                {t('address')}
+                            </Label>
+                            <Input
+                                id="address"
+                                type="text"
+                                name="address"
+                                placeholder={t('enterAddress')}
+                                defaultValue={location.address}
+                                className="w-full"
+                            />
+                        </div>
+
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />

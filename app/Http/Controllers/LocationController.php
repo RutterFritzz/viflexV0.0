@@ -16,13 +16,8 @@ class LocationController extends Controller
 
     public function show(Location $location)
     {
-        $location->load('gamedays.games.gameday', 'gamedays.games.homeTeam', 'gamedays.games.awayTeam');
-        return Inertia::render('Location/show', [
-            'location' => $location,
-            'games' => $location->gamedays->flatMap(function ($gameday) {
-                return $gameday->games;
-            }),
-        ]);
+        $location->load('upcomingGames', 'pastGames');
+        return Inertia::render('Location/show', compact('location'));
     }
 
     public function create()

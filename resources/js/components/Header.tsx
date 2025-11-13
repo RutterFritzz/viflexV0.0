@@ -156,9 +156,9 @@ export function Header() {
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
-                                    <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
+                                    <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent capitalize">
                                         <UsersIcon className="w-4 h-4 mr-2" />
-                                        {t('teams')}
+                                        {t('players')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
@@ -178,15 +178,6 @@ export function Header() {
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
                                                     <span>{t('allClubs')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/competition"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('competitions')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
@@ -230,6 +221,15 @@ export function Header() {
                                                 >
                                                     <Calendar className="w-4 h-4" />
                                                     <span>{t('gamedays')}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/competition"
+                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                >
+                                                    <TrophyIcon className="w-4 h-4" />
+                                                    <span>{t('competitions')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>

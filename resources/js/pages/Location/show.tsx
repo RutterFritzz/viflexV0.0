@@ -2,29 +2,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Location, Game } from "@/types";
+import { Location } from "@/types";
 import { Link } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
 import { MapPin, ArrowLeft, Edit, Trash2, Building2, Map, Calendar, Trophy, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import UpcommingGames from "@/components/Games/UpcommingGames";
+import LastReasults from "@/components/Games/LastReasults";
 
 interface ShowProps {
     location: Location;
-    games?: Game[];
 }
 
 
-export default function Show({ location, games = [] }: ShowProps) {
+export default function Show({ location }: ShowProps) {
+    console.log(location);
+    const upcomingGames = location.upcoming_games || [];
+    const pastGames = location.past_games || [];
     const { t } = useTranslation();
     const [dialogOpen, setDialogOpen] = useState(false);
-
-    // Get upcoming games
-    const upcomingGames = games.filter(game => new Date(game.gameday?.date || "") > new Date());
-    const pastGames = games.filter(game => new Date(game.gameday?.date || "") <= new Date());
-
-    // const upcomingGames = games;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 p-6">
@@ -81,8 +79,8 @@ export default function Show({ location, games = [] }: ShowProps) {
                                 <Badge variant="outline">{location.city}</Badge>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('type')}:</span>
-                                <span className="font-medium">Sports Venue</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('address')}:</span>
+                                <span className="font-medium">{location.address || t('notAvailable')}</span>
                             </div>
                         </div>
                     </CardContent>
@@ -101,148 +99,25 @@ export default function Show({ location, games = [] }: ShowProps) {
                     <CardContent>
                         <div className="grid gap-4">
                             <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-primary">{games.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('totalGames')}</div>
+                                <div className="text-2xl font-bold text-primary">{upcomingGames.length + pastGames.length}</div>
+                                <div className="text-sm text-muted-foreground">{t('totalGamesPlayed')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-secondary">{upcomingGames.length}</div>
+                                <div className="text-2xl font-bold text-secondary">{pastGames.length}</div>
+                                <div className="text-sm text-muted-foreground">{t('upcomingGamesPlayed')}</div>
+                            </div>
+                            <div className="text-center p-4 border rounded-lg">
+                                <div className="text-2xl font-bold text-accent">{upcomingGames.length}</div>
                                 <div className="text-sm text-muted-foreground">{t('upcomingGames')}</div>
-                            </div>
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-accent">{pastGames.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('pastGames')}</div>
                             </div>
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
-            {/* Upcoming Games Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5" />
-                        {t('upcomingGames')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('futureGamesScheduledAtThisVenue')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    {upcomingGames.length === 0 ? (
-                        <div className="text-center py-8 text-muted-foreground">
-                            <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">{t('noUpcomingGames')}</p>
-                            <p className="text-sm">{t('gamesScheduledAtThisVenueWillAppearHere')}</p>
-                        </div>
-                    ) : (
-                        <div className="space-y-3">
-                            {upcomingGames.slice(0, 5).map((game) => (
-                                <div
-                                    key={game.id}
-                                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                                >
-                                    <div className="flex items-center gap-4">
-                                        <div className="text-sm">
-                                            <span className="font-medium">{game.home_team?.name || t('teamA')}</span>
-                                            <span className="text-muted-foreground mx-2">vs</span>
-                                            <span className="font-medium">{game.away_team?.name || t('teamB')}</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                        <div className="flex items-center gap-1">
-                                            <Calendar className="h-3 w-3" />
-                                            <span>{formatDate(game.gameday?.date || "")}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Clock className="h-3 w-3" />
-                                            <span>{game.time}</span>
-                                        </div>
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href={route('game.show', game.id)}>
-                                                {t('viewGame')}
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))}
-                            {upcomingGames.length > 5 && (
-                                <div className="text-center pt-2">
-                                    <Button asChild variant="ghost" size="sm">
-                                        <Link href={route('game.index')}>
-                                            {t('viewAll')} {upcomingGames.length} {t('upcomingGames')}
-                                        </Link>
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
+            <UpcommingGames upcomingGames={upcomingGames} />
 
-            {/* Recent Games Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Trophy className="h-5 w-5" />
-                        {t('recentGames')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('recentlyCompletedGamesAtThisVenue')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    {pastGames.length === 0 ? (
-                        <div className="text-center py-8 text-muted-foreground">
-                            <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">{t('noRecentGames')}</p>
-                            <p className="text-sm">{t('completedGamesAtThisVenueWillAppearHere')}</p>
-                        </div>
-                    ) : (
-                        <div className="space-y-3">
-                            {pastGames.slice(0, 5).map((game) => (
-                                <div
-                                    key={game.id}
-                                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                                >
-                                    <div className="flex items-center gap-4">
-                                        <div className="text-sm">
-                                            <span className="font-medium">{game.home_team?.name || t('teamA')}</span>
-                                            <span className="text-muted-foreground mx-2">vs</span>
-                                            <span className="font-medium">{game.away_team?.name || t('teamB')}</span>
-                                        </div>
-                                        {game.home_team_score !== null && game.away_team_score !== null && (
-                                            <Badge variant="default" className="text-xs">
-                                                {game.home_team_score} - {game.away_team_score}
-                                            </Badge>
-                                        )}
-                                    </div>
-                                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                        <div className="flex items-center gap-1">
-                                            <Calendar className="h-3 w-3" />
-                                            <span>{formatDate(game.gameday?.date || "")}</span>
-                                        </div>
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href={route('game.show', game.id)}>
-                                                {t('viewGame')}
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))}
-                            {pastGames.length > 5 && (
-                                <div className="text-center pt-2">
-                                    <Button asChild variant="ghost" size="sm">
-                                        <Link href={route('game.index')}>
-                                            {t('viewAll')} {pastGames.length} {t('pastGames')}
-                                        </Link>
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
+            <LastReasults lastResults={pastGames} />
 
             {/* Actions Section */}
             <Card>

@@ -68,11 +68,13 @@ class DatabaseSeeder extends Seeder
         // Create 4 locations
         $locationNames = ['Sportcentrum ScharlakenHof', 'Sporthal Leeuwenborg', 'Topsporthal', 'Op Roakeldaishal'];
         $locationCities = ['Haren', 'Groningen', 'Leek', 'Warffum'];
+        $locationAddresses = ['Geertsemaweg 3a, 9751 XA Haren', 'Kajuit 323, 9733 CX Groningen', 'De Schelp 35a, 9351 NV Leek', 'Oostervalge 52a, 9989 EL Warffum'];
         $locations = collect();
         for ($i = 0; $i < 4; $i++) {
             $locations->push(Location::create([
                 'name' => $locationNames[$i],
                 'city' => $locationCities[$i],
+                'address' => $locationAddresses[$i],
             ]));
         }
 

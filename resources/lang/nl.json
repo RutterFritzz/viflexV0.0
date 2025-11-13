@@ -418,5 +418,10 @@
     "yourLastResults": "Je recente resultaten",
     "viewAllLastResults": "Bekijk alle recente resultaten",
     "noLastResults": "Geen recente resultaten",
-    "competitionsThisTeamIsParticipatingIn": "Competities waar dit team deelnemt."
+    "competitionsThisTeamIsParticipatingIn": "Competities waar dit team deelnemt.",
+    "address": "Adres",
+    "notAvailable": "Niet beschikbaar",
+    "enterAddress": "Voer adres in",
+    "completedGamesWillAppearHere": "Voltooide wedstrijden zullen hier worden getoond.",
+    "upcomingGamesWillAppearHere": "Komende wedstrijden zullen hier worden getoond."
 }

@@ -6,6 +6,7 @@ import { Link } from "@inertiajs/react";
 import { formatDate } from "@/helpers/format-date";
 import { Calendar, Clock, Trophy, Users, Gavel, User, Award, Building2, ArrowRight, MapPin, Activity } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import UpcommingGames from "@/components/Games/UpcommingGames";
 
 interface UserTeamRole {
     id: number;
@@ -153,86 +154,8 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
 
             {/* Upcoming Games Section */}
             <div className="grid gap-6">
-                {/* Games as Player */}
-                {userGames.asPlayer.length > 0 && (
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <User className="h-5 w-5" />
-                                        {t('games')}
-                                    </CardTitle>
-                                    <CardDescription>
-                                        {t('yourUpcomingGamesAsAPlayer')}
-                                    </CardDescription>
-                                </div>
-                                <Badge variant="secondary">{userGames.asPlayer.length}</Badge>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3">
-                                {userGames.asPlayer.slice(0, 5).map((game) => (
-                                    <div
-                                        key={game.id}
-                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                                    >
-                                        <div className="font-medium flex items-center justify-between w-full gap-1">
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex items-center gap-1">
-                                                <Calendar className="h-3 w-3" />
-                                                <span>{formatDate(game.gameday?.date || '')}</span>
-                                                </div>
-                                                <div className="flex items-center gap-1">
-                                                    <Clock className="h-3 w-3" />
-                                                    <span>{game.time}</span>
-                                                </div>
-                                                <div className="flex items-center gap-1">
-                                                    <MapPin className="h-3 w-3" />
-                                                    <span>
-                                                        {game.gameday?.location?.city || t('unknownLocation')}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-1">
-                                                <span>
-                                                    {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-6 h-6" />}
-                                                </span>
-                                                <span>
-                                                    {game.home_team?.name || t('teamA')}
-                                                </span>
-                                                <span className="mx-2">
-                                                    vs
-                                                </span>
-                                                <span>
-                                                    {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-6 h-6" />}
-                                                </span>
-                                                <span>
-                                                    {game.away_team?.name || t('teamB')}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                                {getGameStatusBadge(game)}
-                                                <Button asChild variant="outline" size="sm">
-                                                    <Link href={route('game.show', game.id)}>
-                                                        <ArrowRight className="h-3 w-3" />
-                                                    </Link>
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                                {userGames.asPlayer.length > 5 && (
-                                    <Button asChild variant="outline" size="sm" className="w-full">
-                                        <Link href={route('game.index')}>
-                                            {t('viewAllPlayerGames')}
-                                        </Link>
-                                    </Button>
-                                )}
-                            </div>
-                        </CardContent>
-                    </Card>
-                )}
+                <UpcommingGames upcomingGames={userGames.asPlayer} />
+
 
                 {/* Games as Coach */}
                 {userGames.asCoach.length > 0 && (

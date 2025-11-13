@@ -78,6 +78,21 @@ export default function Create() {
                             />
                         </div>
 
+                        <div className="space-y-2">
+                            <Label htmlFor="address" className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4" />
+                                {t('address')}
+                            </Label>
+                            <Input
+                                id="address"
+                                type="text"
+                                name="address"
+                                placeholder={t('enterAddress')}
+                                className="w-full"
+                            />
+                        </div>
+
+
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />

@@ -1,7 +1,6 @@
 import { Game } from "@/types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Trophy } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@inertiajs/react";
 import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
@@ -18,7 +17,7 @@ export default function UpcommingGames({ upcomingGames }: { upcomingGames: Game[
                 <div className="flex items-center justify-between">
                     <div>
                         <CardTitle className="flex items-center gap-2">
-                            <Trophy className="h-5 w-5" />
+                            <Calendar className="h-5 w-5" />
                             {t('games')}
                         </CardTitle>
                         <CardDescription>
@@ -29,70 +28,78 @@ export default function UpcommingGames({ upcomingGames }: { upcomingGames: Game[
                 </div>
             </CardHeader>
             <CardContent>
-                <div className="space-y-3">
-                    {upcomingGames?.slice(0, 5).map((game) => (
-                        <div
-                            key={game.id}
-                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
-                        >
-                            <div className="font-medium flex items-center justify-between w-full gap-1">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex items-center gap-1">
-                                        <Calendar className="h-3 w-3" />
-                                        <span>{formatDate(game.gameday?.date || '')}</span>
+                {upcomingGames?.length === 0 ? (
+                    <div className="text-center py-8 text-muted-foreground">
+                        <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                        <p className="text-lg font-medium">{t('noUpcomingGames')}</p>
+                        <p className="text-sm">{t('upcomingGamesWillAppearHere')}</p>
+                    </div>
+                ) : (
+                    <div className="space-y-3">
+                        {upcomingGames?.slice(0, 5).map((game) => (
+                            <div
+                                key={game.id}
+                                className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+                            >
+                                <div className="font-medium flex items-center justify-between w-full gap-1">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-1">
+                                            <Calendar className="h-3 w-3" />
+                                            <span>{formatDate(game.gameday?.date || '')}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <Clock className="h-3 w-3" />
+                                            <span>{game.time}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <MapPin className="h-3 w-3" />
+                                            <span>
+                                                {game.gameday?.location?.city || t('unknownLocation')}
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <Clock className="h-3 w-3" />
-                                        <span>{game.time}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <MapPin className="h-3 w-3" />
                                         <span>
-                                            {game.gameday?.location?.city || t('unknownLocation')}
+                                            {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-6 h-6" />}
+                                        </span>
+                                        <span>
+                                            {game.home_team?.name || t('teamA')}
+                                        </span>
+                                        <span className="mx-2">
+                                            vs
+                                        </span>
+                                        <span>
+                                            {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-6 h-6" />}
+                                        </span>
+                                        <span>
+                                            {game.away_team?.name || t('teamB')}
                                         </span>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <span>
-                                        {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-6 h-6" />}
-                                    </span>
-                                    <span>
-                                        {game.home_team?.name || t('teamA')}
-                                    </span>
-                                    <span className="mx-2">
-                                        vs
-                                    </span>
-                                    <span>
-                                        {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-6 h-6" />}
-                                    </span>
-                                    <span>
-                                        {game.away_team?.name || t('teamB')}
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                    <GetGamesStatusBadge game={game} />
-                                    <Button asChild variant="outline" size="sm">
-                                        <Link href={route('game.show', game.id)}>
-                                            <ArrowRight className="h-3 w-3" />
-                                        </Link>
-                                    </Button>
+                                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                        <GetGamesStatusBadge game={game} />
+                                        <Button asChild variant="outline" size="sm">
+                                            <Link href={route('game.show', game.id)}>
+                                                <ArrowRight className="h-3 w-3" />
+                                            </Link>
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                    {upcomingGames && upcomingGames.length === 0 && (
-                        <div className="text-center text-sm text-muted-foreground">
-                            {t('noUpcomingGames')}
-                        </div>
-                    )}
-                    {upcomingGames && upcomingGames.length > 5 && (
-                        <Button asChild variant="outline" size="sm" className="w-full">
-                            <Link href={route('game.index')}>
-                                {t('viewAllUpcomingGames')}
-                            </Link>
-                        </Button>
-                    )}
-                </div>
+                        ))}
+                        {upcomingGames && upcomingGames.length === 0 && (
+                            <div className="text-center text-sm text-muted-foreground">
+                                {t('noUpcomingGames')}
+                            </div>
+                        )}
+                        {upcomingGames && upcomingGames.length > 5 && (
+                            <Button asChild variant="outline" size="sm" className="w-full">
+                                <Link href={route('game.index')}>
+                                    {t('viewAllUpcomingGames')}
+                                </Link>
+                            </Button>
+                        )}
+                    </div>
+                )}
             </CardContent>
         </Card>
     )

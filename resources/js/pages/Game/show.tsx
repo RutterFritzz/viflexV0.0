@@ -145,10 +145,9 @@ export default function Show({ game }: ShowProps) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="w-full">
-                            <iframe width="100%" height="600"
-                                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Geertsemaweg%203a,%209751%20XA%20Haren+(Scharlakenhof)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                                <a href="https://www.mapsdirections.info/it/calcola-la-popolazione-su-una-mappa/">città più popolate Italia mappa</a>
+                        <div className="w-full h-60">
+                            <iframe width="100%" height="100%"
+                                src={`https://maps.google.com/maps?hl=en&q=${game.location?.address_url}&t=&z=13&ie=UTF8&iwloc=B&output=embed`}>
                             </iframe>
                         </div>
                     </CardContent>

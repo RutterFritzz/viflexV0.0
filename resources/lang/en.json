@@ -413,5 +413,10 @@
     "yourLastResults": "Your last results",
     "viewAllLastResults": "View all last results",
     "noLastResults": "No last results",
-    "competitionsThisTeamIsParticipatingIn": "Competitions this team is participating in."
+    "competitionsThisTeamIsParticipatingIn": "Competitions this team is participating in.",
+    "address": "Address",
+    "notAvailable": "Not available",
+    "enterAddress": "Enter address",
+    "completedGamesWillAppearHere": "Completed games will appear here.",
+    "upcomingGamesWillAppearHere": "Upcoming games will appear here."
 }

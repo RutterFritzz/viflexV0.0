@@ -90,6 +90,11 @@ export interface Location {
     id: number;
     name: string;
     city: string;
+    address: string;
+    address_url: string;
+
+    upcoming_games?: Game[];
+    past_games?: Game[];
 }
 
 export interface Gameday {
