@@ -99,6 +99,10 @@ class Team extends Model
         return $this->hasMany(GameTeamValue::class, 'team_id');
     }
 
+    public function messages() {
+        return $this->hasMany(Message::class)->orderByDesc('created_at');
+    }
+
     // check if the team has presences filled in for a game
     public function hasPresences(Game $game): bool
     {

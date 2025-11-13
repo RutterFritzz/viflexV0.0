@@ -66,6 +66,7 @@ export interface Team {
     upcoming_games?: Game[];
     last_results?: Game[];
     competitions?: Competition[];
+    messages?: Message[];
 }
 
 export interface TeamValue {
@@ -159,6 +160,16 @@ export interface MessageTemplate {
     to_email: string;
     bcc: boolean;
     content: string;
+}
+export interface Message {
+    id: number;
+    team_id: number;
+    user_id: number;
+    content: string;
+    created_at: string;
+
+    team: Team;
+    user: User;
 }
 
 export type PageModule = {

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Club, Team, Role } from "@/types";
+import { Club, Team, Role, TeamValue } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Users, Building2, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import General from "./Components/General";
 import Settings from "./Components/Settings";
 import Players from "./Components/Players";
+import Messages from "./Components/Messages";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface ShowProps {
     team: Team,
@@ -92,6 +95,7 @@ export default function Show({ team, club, roles }: ShowProps) {
                     <TabsTrigger value="general">{t('general')}</TabsTrigger>
                     <TabsTrigger value="players">{t('players')}</TabsTrigger>
                     <TabsTrigger value="settings">{t('settings')}</TabsTrigger>
+                    <TabsTrigger value="messages">{t('messages')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="general">
                     <General team={team} />
@@ -101,6 +105,9 @@ export default function Show({ team, club, roles }: ShowProps) {
                 </TabsContent>
                 <TabsContent value="settings">
                     <Settings team={team} roles={roles} />
+                </TabsContent>
+                <TabsContent value="messages">
+                    <Messages team={team} />
                 </TabsContent>
             </Tabs>
         </div>
