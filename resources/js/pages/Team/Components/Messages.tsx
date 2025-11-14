@@ -26,8 +26,6 @@ export default function Messages({ team, templates }: { team: Team, templates: M
         content: ''
     });
 
-    console.log(team)
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('team.message.send', [team]), {
