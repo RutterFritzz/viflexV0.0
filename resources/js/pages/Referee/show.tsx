@@ -8,6 +8,8 @@ import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { Gavel, ArrowLeft, Edit, Trash2, User, Award, Mail, Calendar, Clock, Trophy } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import MainLayout from '@/layouts/MainLayout';
+
 
 interface ShowProps {
     referee: Referee;
@@ -31,192 +33,194 @@ export default function Show({ referee }: ShowProps) {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-6 p-6">
-            {/* Header Section */}
-            <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href={route('referee.index')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('Terug naar scheidsrechters')}
-                        </Link>
-                    </Button>
-                </div>
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                        <Gavel className="h-8 w-8" />
-                        {referee.user?.name || t('Onbekende scheidsrechter')}
-                    </h1>
-                    <div className="flex items-center gap-4 text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                            <Award className="h-4 w-4" />
-                            <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
-                                {referee.category} {t('scheidsrechter')}
-                            </Badge>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Mail className="h-4 w-4" />
-                            <span>{referee.user?.email || t('Geen email')}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <Separator />
-
-            {/* Referee Details Section */}
-            <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <User className="h-5 w-5" />
-                            {t('Persoonlijke informatie')}
-                        </CardTitle>
-                        <CardDescription>
-                            {t('Basisdetails over deze scheidsrechter.')}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="grid gap-3">
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('name')}:</span>
-                                <span className="font-medium">{referee.user?.name || 'Unknown'}</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Email')}:</span>
-                                <span className="font-medium">{referee.user?.email || 'N/A'}</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Categorie')}:</span>
-                                <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
-                                    {referee.category}
-                                </Badge>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Scheidsrechter ID')}:</span>
-                                <span className="font-medium">#{referee.id}</span>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Trophy className="h-5 w-5" />
-                            {t('Scheidsrechter statistieken')}
-                        </CardTitle>
-                        <CardDescription>
-                            {t('Overzicht van scheidsrechter activiteit en prestaties.')}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="grid gap-4">
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-primary">{referee.category}</div>
-                                <div className="text-sm text-muted-foreground">{t('specialization')}</div>
-                            </div>
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-secondary">{t('active')}</div>
-                                <div className="text-sm text-muted-foreground">{t('Status')}</div>
-                            </div>
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-accent">{t('available')}</div>
-                                <div className="text-sm text-muted-foreground">{t('availability')}</div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-
-            {/* Qualifications & Experience Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Award className="h-5 w-5" />
-                        {t('Kwalificaties en ervaring')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('Scheidsrechter certificeringen en ervaring details.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-4">
-                        <div className="grid gap-4 md:grid-cols-2">
-                            <div className="p-4 border rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Award className="h-4 w-4 text-primary" />
-                                    <span className="font-medium">{t('Categorie certificering')}</span>
-                                </div>
-                                <p className="text-sm text-muted-foreground">
-                                    {t('Gekwalificeerd om te scheidsrechtsbieden')} {referee.category} {t('niveau competities en wedstrijden')}
-                                </p>
-                            </div>
-                            <div className="p-4 border rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Clock className="h-4 w-4 text-primary" />
-                                    <span className="font-medium">{t('Ervaringsniveau')}</span>
-                                </div>
-                                <p className="text-sm text-muted-foreground">
-                                    {t('Gekwalificeerde scheidsrechter met geschikte training en certificering.')}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="p-4 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-2 mb-2">
-                                <Calendar className="h-4 w-4 text-primary" />
-                                <span className="font-medium">{t('Registratiedatum')}</span>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                                {t('Deze scheidsrechter is geregistreerd in het systeem en is beschikbaar voor toewijzingen.')}
-                            </p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-
-            {/* Actions Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t('Scheidsrechter acties')}</CardTitle>
-                    <CardDescription>
-                        {t('Beheer scheidsrechter instellingen en navigatie.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-wrap gap-3">
-                        <Button asChild variant="default">
-                            <Link href={route('referee.edit', referee.id)}>
-                                <Edit className="h-4 w-4 mr-2" />
-                                {t('Bewerk scheidsrechter')}
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline">
+        <MainLayout>
+            <div className="max-w-7xl mx-auto space-y-6 p-6">
+                {/* Header Section */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                        <Button asChild variant="ghost" size="sm">
                             <Link href={route('referee.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
                                 {t('Terug naar scheidsrechters')}
                             </Link>
                         </Button>
-                        <Button variant="destructive" size="sm" className="ml-auto"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setDialogOpen(true);
-                            }}
-                        >
-                            <Trash2 className="h-4 w-4 mr-2" />
-                            {t('Verwijder scheidsrechter')}
-                        </Button>
-                        <DeleteConfirmation
-                            dialogOpen={dialogOpen}
-                            type="referee"
-                            name={referee.user?.name || t('Onbekende scheidsrechter')}
-                            onOpenChange={setDialogOpen}
-                            id={referee.id}
-                        />
                     </div>
-                </CardContent>
-            </Card>
-        </div>
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                            <Gavel className="h-8 w-8" />
+                            {referee.user?.name || t('Onbekende scheidsrechter')}
+                        </h1>
+                        <div className="flex items-center gap-4 text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                                <Award className="h-4 w-4" />
+                                <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
+                                    {referee.category} {t('scheidsrechter')}
+                                </Badge>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Mail className="h-4 w-4" />
+                                <span>{referee.user?.email || t('Geen email')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <Separator />
+
+                {/* Referee Details Section */}
+                <div className="grid gap-6 md:grid-cols-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <User className="h-5 w-5" />
+                                {t('Persoonlijke informatie')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Basisdetails over deze scheidsrechter.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid gap-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('name')}:</span>
+                                    <span className="font-medium">{referee.user?.name || 'Unknown'}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Email')}:</span>
+                                    <span className="font-medium">{referee.user?.email || 'N/A'}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Categorie')}:</span>
+                                    <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
+                                        {referee.category}
+                                    </Badge>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Scheidsrechter ID')}:</span>
+                                    <span className="font-medium">#{referee.id}</span>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Trophy className="h-5 w-5" />
+                                {t('Scheidsrechter statistieken')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Overzicht van scheidsrechter activiteit en prestaties.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="grid gap-4">
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-primary">{referee.category}</div>
+                                    <div className="text-sm text-muted-foreground">{t('specialization')}</div>
+                                </div>
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-secondary">{t('active')}</div>
+                                    <div className="text-sm text-muted-foreground">{t('Status')}</div>
+                                </div>
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-accent">{t('available')}</div>
+                                    <div className="text-sm text-muted-foreground">{t('availability')}</div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Qualifications & Experience Section */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Award className="h-5 w-5" />
+                            {t('Kwalificaties en ervaring')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('Scheidsrechter certificeringen en ervaring details.')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-4">
+                            <div className="grid gap-4 md:grid-cols-2">
+                                <div className="p-4 border rounded-lg">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Award className="h-4 w-4 text-primary" />
+                                        <span className="font-medium">{t('Categorie certificering')}</span>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground">
+                                        {t('Gekwalificeerd om te scheidsrechtsbieden')} {referee.category} {t('niveau competities en wedstrijden')}
+                                    </p>
+                                </div>
+                                <div className="p-4 border rounded-lg">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <Clock className="h-4 w-4 text-primary" />
+                                        <span className="font-medium">{t('Ervaringsniveau')}</span>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground">
+                                        {t('Gekwalificeerde scheidsrechter met geschikte training en certificering.')}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-muted/50 rounded-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Calendar className="h-4 w-4 text-primary" />
+                                    <span className="font-medium">{t('Registratiedatum')}</span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">
+                                    {t('Deze scheidsrechter is geregistreerd in het systeem en is beschikbaar voor toewijzingen.')}
+                                </p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Actions Section */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>{t('Scheidsrechter acties')}</CardTitle>
+                        <CardDescription>
+                            {t('Beheer scheidsrechter instellingen en navigatie.')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-wrap gap-3">
+                            <Button asChild variant="default">
+                                <Link href={route('referee.edit', referee.id)}>
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    {t('Bewerk scheidsrechter')}
+                                </Link>
+                            </Button>
+                            <Button asChild variant="outline">
+                                <Link href={route('referee.index')}>
+                                    <ArrowLeft className="h-4 w-4 mr-2" />
+                                    {t('Terug naar scheidsrechters')}
+                                </Link>
+                            </Button>
+                            <Button variant="destructive" size="sm" className="ml-auto"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setDialogOpen(true);
+                                }}
+                            >
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                {t('Verwijder scheidsrechter')}
+                            </Button>
+                            <DeleteConfirmation
+                                dialogOpen={dialogOpen}
+                                type="referee"
+                                name={referee.user?.name || t('Onbekende scheidsrechter')}
+                                onOpenChange={setDialogOpen}
+                                id={referee.id}
+                            />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </MainLayout>
     );
 }

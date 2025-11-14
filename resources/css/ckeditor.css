@@ -1,0 +1,119 @@
+/* .ck-editor__editable_inline {
+    min-height: 600px;
+    max-height: 100vh;
+} */
+ .ck-editor__editable_inline {
+    min-height: 600px;
+    max-height: 100vh;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+    min-width: 795px;
+    max-width: 795px;
+}
+
+@media (max-width: 768px) {
+    .editor-container_classic-editor .editor-container__editor {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+.prose {
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.prose> :not(:last-child),
+.ck-content> :not(:last-child) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(var(--spacing, 1) * 0.75rem * var(--tw-space-y-reverse));
+    margin-block-end: calc(var(--spacing, 1) * 0.75rem * calc(1 - var(--tw-space-y-reverse)));
+}
+
+
+.prose p {
+    word-wrap: break-word;
+    margin: 0;
+    /* margin-bottom: 0.75rem; */
+}
+
+.prose code {
+    background-color: transparent;
+    border-radius: 2px;
+}
+
+.prose blockquote {
+    background: rgb(238, 234, 234);
+    padding: 0.1rem 0.5rem;
+}
+
+.prose .ck-content ul {
+    list-style: unset;
+}
+
+/* .prose ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.prose ul li ul {
+    margin: 0;
+
+}
+
+.prose ol li {
+    margin: 0;
+}
+.prose ol {
+    margin: 0;
+} */
+
+.prose .todo-list {
+    list-style-type: none;
+    padding-left: 0.4rem;
+}
+
+.prose .ck-content .todo-list {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.prose .todo-list .todo-list__label__description {
+    padding-left: 0.375em;
+}
+
+.prose .ck-content .todo-list .todo-list__label__description {
+    padding-left: 0;
+}
+
+.prose ul ul>li {
+    list-style: unset;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+    margin: 0 !important;
+}
+
+.prose img {
+    margin: 0 !important;
+}
+
+.prose ul ul>li:not(:where([class~="not-prose"], [class~="not-prose"] *))::marker {
+    color: black;
+    list-style-type: var(--tw-prose-bullets);
+}
+
+.prose ul,
+.prose ol {
+    padding-left: 20px;
+}
+
+.prose li {
+    margin-top: 0;
+    margin-bottom: 0;
+}

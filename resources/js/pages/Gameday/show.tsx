@@ -15,6 +15,8 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-ki
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 // import PresenceSubmit from "@/components/presence-submit";
+import MainLayout from '@/layouts/MainLayout';
+
 
 type UserRole = 'home_coach' | 'away_coach' | 'home_team_users' | 'away_team_users' | 'home_referee' | 'away_referee';
 
@@ -245,105 +247,106 @@ export default function Show({ gameday, games = [] }: ShowProps) {
     // }
 
     return (
-        <div className="max-w-7xl mx-auto space-y-6 p-6">
-            {/* Header Section */}
-            <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href={route('gameday.index')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('Terug naar wedstrijddagen')}
-                        </Link>
-                    </Button>
-                </div>
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                        <Calendar className="h-8 w-8" />
-                        {t('Wedstrijddag')} - {formatDate(gameday.date)}
-                    </h1>
-                    <div className="flex items-center gap-4 text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4" />
-                            <Badge variant="secondary">{gameday.location?.name}</Badge>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Building2 className="h-4 w-4" />
-                            <span>{gameday.location?.city}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            {getStatusBadge(gameday.date)}
-                        </div>
+        <MainLayout>
+            <div className="max-w-7xl mx-auto space-y-6 p-6">
+                {/* Header Section */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                        <Button asChild variant="ghost" size="sm">
+                            <Link href={route('gameday.index')}>
+                                <ArrowLeft className="h-4 w-4 mr-2" />
+                                {t('Terug naar wedstrijddagen')}
+                            </Link>
+                        </Button>
                     </div>
-                </div>
-            </div>
-
-            <Separator />
-
-            {/* Gameday Details Section */}
-            <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Calendar className="h-5 w-5" />
-                            {t('Evenement informatie')}
-                        </CardTitle>
-                        <CardDescription>
-                            {t('Basisdetails over deze wedstrijddag.')}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="grid gap-3">
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Datum')}:</span>
-                                <span className="font-medium">{formatDate(gameday.date)}</span>
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                            <Calendar className="h-8 w-8" />
+                            {t('Wedstrijddag')} - {formatDate(gameday.date)}
+                        </h1>
+                        <div className="flex items-center gap-4 text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                                <MapPin className="h-4 w-4" />
+                                <Badge variant="secondary">{gameday.location?.name}</Badge>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Locatie')}:</span>
-                                <span className="font-medium">{gameday.location?.name}</span>
+                            <div className="flex items-center gap-2">
+                                <Building2 className="h-4 w-4" />
+                                <span>{gameday.location?.city}</span>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Plaats')}:</span>
-                                <Badge variant="outline">{gameday.location?.city}</Badge>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('Status')}:</span>
+                            <div className="flex items-center gap-2">
                                 {getStatusBadge(gameday.date)}
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Trophy className="h-5 w-5" />
-                            {t('Evenement statistieken')}
-                        </CardTitle>
-                        <CardDescription>
-                            {t('Overzicht van wedstrijden en activiteiten voor deze wedstrijddag.')}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="grid gap-4">
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-primary">{gameList.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('Totaale wedstrijden')}</div>
-                            </div>
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-secondary">{upcomingGames.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('Komende wedstrijden')}</div>
-                            </div>
-                            <div className="text-center p-4 border rounded-lg">
-                                <div className="text-2xl font-bold text-accent">{completedGames.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('Voltooide wedstrijden')}</div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                <Separator />
 
-            {/* Team Management Section */}
-            {/* <Card>
+                {/* Gameday Details Section */}
+                <div className="grid gap-6 md:grid-cols-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Calendar className="h-5 w-5" />
+                                {t('Evenement informatie')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Basisdetails over deze wedstrijddag.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid gap-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Datum')}:</span>
+                                    <span className="font-medium">{formatDate(gameday.date)}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Locatie')}:</span>
+                                    <span className="font-medium">{gameday.location?.name}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Plaats')}:</span>
+                                    <Badge variant="outline">{gameday.location?.city}</Badge>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-medium text-muted-foreground">{t('Status')}:</span>
+                                    {getStatusBadge(gameday.date)}
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Trophy className="h-5 w-5" />
+                                {t('Evenement statistieken')}
+                            </CardTitle>
+                            <CardDescription>
+                                {t('Overzicht van wedstrijden en activiteiten voor deze wedstrijddag.')}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="grid gap-4">
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-primary">{gameList.length}</div>
+                                    <div className="text-sm text-muted-foreground">{t('Totaale wedstrijden')}</div>
+                                </div>
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-secondary">{upcomingGames.length}</div>
+                                    <div className="text-sm text-muted-foreground">{t('Komende wedstrijden')}</div>
+                                </div>
+                                <div className="text-center p-4 border rounded-lg">
+                                    <div className="text-2xl font-bold text-accent">{completedGames.length}</div>
+                                    <div className="text-sm text-muted-foreground">{t('Voltooide wedstrijden')}</div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Team Management Section */}
+                {/* <Card>
                 <CardHeader>
                     <CardTitle>{t('Teammanagement')}</CardTitle>
                 </CardHeader>
@@ -369,104 +372,105 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                 </CardContent>
             </Card> */}
 
-            {/* Games Management Section */}
-            <Card>
-                <CardHeader>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <CardTitle className="flex items-center gap-2">
-                                <Clock className="h-5 w-5" />
-                                {t('Wedstrijden management')}
-                            </CardTitle>
-                            <CardDescription>
-                                {t('Sleep en drop om wedstrijden te herordenen en gebruikers toe te wijzen aan rollen.')}
-                            </CardDescription>
-                        </div>
-                        <Button asChild variant="outline" size="sm">
-                            <Link href="#">
-                                <Plus className="h-4 w-4 mr-2" />
-                                {t('Wedstrijd toevoegen')}
-                            </Link>
-                        </Button>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    {gameList.length === 0 ? (
-                        <div className="text-center py-8 text-muted-foreground">
-                            <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">{t('Geen wedstrijden gepland')}</p>
-                            <p className="text-sm">{t('Wedstrijden voor deze wedstrijddag zullen hier worden getoond.')}</p>
-                        </div>
-                    ) : (
-                        <DndContext
-                            collisionDetection={closestCorners}
-                            onDragEnd={handleDragEnd}
-                            sensors={sensors}
-                            onDragStart={handleDragStart}
-                        >
-                            <div className="flex flex-col gap-3">
-                                <SortableContext items={gameList} strategy={verticalListSortingStrategy}>
-                                    {gameList.map((game) => (
-                                        <div key={game.id} className="flex flex-row gap-5 w-full">
-                                            <div className="flex items-center min-w-[80px]">
-                                                <Badge variant="outline" className="text-xs">
-                                                    {game.time}
-                                                </Badge>
-                                            </div>
-                                            <div className="w-full">
-                                                <EditGameCard key={game.id} game={game} onUserAssign={handleUserAssign} />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </SortableContext>
+                {/* Games Management Section */}
+                <Card>
+                    <CardHeader>
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <CardTitle className="flex items-center gap-2">
+                                    <Clock className="h-5 w-5" />
+                                    {t('Wedstrijden management')}
+                                </CardTitle>
+                                <CardDescription>
+                                    {t('Sleep en drop om wedstrijden te herordenen en gebruikers toe te wijzen aan rollen.')}
+                                </CardDescription>
                             </div>
-                            <TrashCan isVisible={isDraggingUser} />
-                        </DndContext>
-                    )}
-                </CardContent>
-            </Card>
+                            <Button asChild variant="outline" size="sm">
+                                <Link href="#">
+                                    <Plus className="h-4 w-4 mr-2" />
+                                    {t('Wedstrijd toevoegen')}
+                                </Link>
+                            </Button>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        {gameList.length === 0 ? (
+                            <div className="text-center py-8 text-muted-foreground">
+                                <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                                <p className="text-lg font-medium">{t('Geen wedstrijden gepland')}</p>
+                                <p className="text-sm">{t('Wedstrijden voor deze wedstrijddag zullen hier worden getoond.')}</p>
+                            </div>
+                        ) : (
+                            <DndContext
+                                collisionDetection={closestCorners}
+                                onDragEnd={handleDragEnd}
+                                sensors={sensors}
+                                onDragStart={handleDragStart}
+                            >
+                                <div className="flex flex-col gap-3">
+                                    <SortableContext items={gameList} strategy={verticalListSortingStrategy}>
+                                        {gameList.map((game) => (
+                                            <div key={game.id} className="flex flex-row gap-5 w-full">
+                                                <div className="flex items-center min-w-[80px]">
+                                                    <Badge variant="outline" className="text-xs">
+                                                        {game.time}
+                                                    </Badge>
+                                                </div>
+                                                <div className="w-full">
+                                                    <EditGameCard key={game.id} game={game} onUserAssign={handleUserAssign} />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </SortableContext>
+                                </div>
+                                <TrashCan isVisible={isDraggingUser} />
+                            </DndContext>
+                        )}
+                    </CardContent>
+                </Card>
 
-            {/* Actions Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t('Wedstrijddag acties')}</CardTitle>
-                    <CardDescription>
-                        {t('Beheer wedstrijddag instellingen en navigatie.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-wrap gap-3">
-                        <Button asChild variant="default">
-                            <Link href={route('gameday.edit', gameday.id)}>
-                                <Edit className="h-4 w-4 mr-2" />
-                                {t('Bewerk wedstrijddag')}
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                            <Link href={route('gameday.index')}>
-                                <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('Terug naar wedstrijddagen')}
-                            </Link>
-                        </Button>
-                        <Button variant="destructive" size="sm" className="ml-auto"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setDialogOpen(true);
-                            }}
-                        >
-                            <Trash2 className="h-4 w-4 mr-2" />
-                            {t('Verwijder wedstrijddag')}
-                        </Button>
-                        <DeleteConfirmation
-                            dialogOpen={dialogOpen}
-                            type="gameday"
-                            name={`${t('Wedstrijddag')} on ${formatDate(gameday.date)}`}
-                            onOpenChange={setDialogOpen}
-                            id={gameday.id}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                {/* Actions Section */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>{t('Wedstrijddag acties')}</CardTitle>
+                        <CardDescription>
+                            {t('Beheer wedstrijddag instellingen en navigatie.')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-wrap gap-3">
+                            <Button asChild variant="default">
+                                <Link href={route('gameday.edit', gameday.id)}>
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    {t('Bewerk wedstrijddag')}
+                                </Link>
+                            </Button>
+                            <Button asChild variant="outline">
+                                <Link href={route('gameday.index')}>
+                                    <ArrowLeft className="h-4 w-4 mr-2" />
+                                    {t('Terug naar wedstrijddagen')}
+                                </Link>
+                            </Button>
+                            <Button variant="destructive" size="sm" className="ml-auto"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setDialogOpen(true);
+                                }}
+                            >
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                {t('Verwijder wedstrijddag')}
+                            </Button>
+                            <DeleteConfirmation
+                                dialogOpen={dialogOpen}
+                                type="gameday"
+                                name={`${t('Wedstrijddag')} on ${formatDate(gameday.date)}`}
+                                onOpenChange={setDialogOpen}
+                                id={gameday.id}
+                            />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </MainLayout>
     );
 }

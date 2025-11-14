@@ -8,6 +8,8 @@ import { Link, useForm } from "@inertiajs/react";
 import { Users, ArrowLeft, Save } from "lucide-react";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import MainLayout from '@/layouts/MainLayout';
+
 
 export default function Edit({ team }: { team: Team }) {
     const { t } = useTranslation();
@@ -45,126 +47,128 @@ export default function Edit({ team }: { team: Team }) {
     };
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6 p-6">
-            {/* Header Section */}
-            <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href={route('team.show', team.id)}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('Terug naar team')}
-                        </Link>
-                    </Button>
+        <MainLayout>
+            <div className="max-w-2xl mx-auto space-y-6 p-6">
+                {/* Header Section */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                        <Button asChild variant="ghost" size="sm">
+                            <Link href={route('team.show', team.id)}>
+                                <ArrowLeft className="h-4 w-4 mr-2" />
+                                {t('Terug naar team')}
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                            <Users className="h-8 w-8" />
+                            {t('Bewerk team')}
+                        </h1>
+                        <p className="text-muted-foreground">
+                            {t('Update de informatie voor')} <span className="font-medium">{team.name}</span>.
+                        </p>
+                    </div>
                 </div>
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                        <Users className="h-8 w-8" />
-                        {t('Bewerk team')}
-                    </h1>
-                    <p className="text-muted-foreground">
-                        {t('Update de informatie voor')} <span className="font-medium">{team.name}</span>.
-                    </p>
-                </div>
+
+                {/* Form Section */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Save className="h-5 w-5" />
+                            {t('Team informatie')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('Maak wijzigingen aan de team details hieronder.')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleSubmit} method="post" className="space-y-6">
+
+                            <div className="space-y-2">
+                                <Label htmlFor="name" className="flex items-center gap-2">
+                                    <Users className="h-4 w-4" />
+                                    {t('Team naam')}
+                                </Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    placeholder={t('Voer team naam in')}
+                                    defaultValue={team.name}
+                                    onChange={(e) => setData("name", e.target.value)}
+                                    required
+                                    className="w-full"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="name" className="flex items-center gap-2">
+                                    <Users className="h-4 w-4" />
+                                    {t('Reistijd')}
+                                </Label>
+                                <Input
+                                    id="travel_time"
+                                    type="text"
+                                    name="travel_time"
+                                    defaultValue={team.travel_time}
+                                    onChange={(e) => setData("travel_time", e.target.value)}
+                                    className="w-full"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="category" className="flex items-center gap-2">
+                                    Categorie
+                                </Label>
+                                <Select
+                                    value={data.category}
+                                    onValueChange={(value: Category) => setData("category", value)}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Selecteer een category">
+                                            {categories?.find((category: any) => category.id === data.category)}
+                                        </SelectValue>
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        {categories.map((category) => (
+                                            <SelectItem key={`category_${category}`} value={category}>{category}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div className="space-x-4 space-y-4">
+                                <Label htmlFor="logo" className="mb-2">Logo</Label>
+
+                                <Input id="logo" type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageChange} />
+
+                                <Button type="button" variant="outline" onClick={handleSelectImage} className="w-fit">
+                                    Logo selecteren
+                                </Button>
+
+                                {(logoPreview || data.logo) && (
+                                    <div className="relative h-auto w-auto max-w-24 border rounded-md overflow-hidden mb-2">
+                                        <img src={logoPreview ?? String(data.logo)} alt="Preview" className="object-cover" />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="flex gap-3 pt-4">
+                                <Button type="submit" className="flex-1">
+                                    <Save className="h-4 w-4 mr-2" />
+                                    {t('Update team')}
+                                </Button>
+                                <Button asChild variant="outline" type="button">
+                                    <Link href={route('team.show', team.id)}>
+                                        {t('Annuleren')}
+                                    </Link>
+                                </Button>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
             </div>
-
-            {/* Form Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Save className="h-5 w-5" />
-                        {t('Team informatie')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('Maak wijzigingen aan de team details hieronder.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit} method="post" className="space-y-6">
-
-                        <div className="space-y-2">
-                            <Label htmlFor="name" className="flex items-center gap-2">
-                                <Users className="h-4 w-4" />
-                                {t('Team naam')}
-                            </Label>
-                            <Input
-                                id="name"
-                                type="text"
-                                name="name"
-                                placeholder={t('Voer team naam in')}
-                                defaultValue={team.name}
-                                onChange={(e) => setData("name", e.target.value)}
-                                required
-                                className="w-full"
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="name" className="flex items-center gap-2">
-                                <Users className="h-4 w-4" />
-                                {t('Reistijd')}
-                            </Label>
-                            <Input
-                                id="travel_time"
-                                type="text"
-                                name="travel_time"
-                                defaultValue={team.travel_time}
-                                onChange={(e) => setData("travel_time", e.target.value)}
-                                className="w-full"
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="category" className="flex items-center gap-2">
-                                Categorie
-                            </Label>
-                            <Select
-                                value={data.category}
-                                onValueChange={(value: Category) => setData("category", value)}
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Selecteer een category">
-                                        {categories?.find((category: any) => category.id === data.category)}
-                                    </SelectValue>
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    {categories.map((category) => (
-                                        <SelectItem key={`category_${category}`} value={category}>{category}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="space-x-4 space-y-4">
-                            <Label htmlFor="logo" className="mb-2">Logo</Label>
-
-                            <Input id="logo" type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageChange} />
-
-                            <Button type="button" variant="outline" onClick={handleSelectImage} className="w-fit">
-                                Logo selecteren
-                            </Button>
-
-                            {(logoPreview || data.logo) && (
-                                <div className="relative h-auto w-auto max-w-24 border rounded-md overflow-hidden mb-2">
-                                    <img src={logoPreview ?? String(data.logo)} alt="Preview" className="object-cover" />
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="flex gap-3 pt-4">
-                            <Button type="submit" className="flex-1">
-                                <Save className="h-4 w-4 mr-2" />
-                                {t('Update team')}
-                            </Button>
-                            <Button asChild variant="outline" type="button">
-                                <Link href={route('team.show', team.id)}>
-                                    {t('Annuleren')}
-                                </Link>
-                            </Button>
-                        </div>
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+        </MainLayout>
     );
 }

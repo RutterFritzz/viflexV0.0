@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import InputError from '@/components/input-error';
 import { Textarea } from '@/components/ui/textarea';
+import CustomCKEditor from '@/components/Assets/ckeditor';
 
 export default function CreateDialog() {
     const { data, setData, post, errors, reset } = useForm({
@@ -106,19 +107,11 @@ export default function CreateDialog() {
 
                     <div className="mb-4">
                         <Label htmlFor="content">Content</Label>
-                        <Textarea
-                            className="h-54"
-                            value={data.content}
-                            onChange={e => setData('content', e.target.value)}
-                            name="content"
-                            id="content"
-                            placeholder="Omschrijf je bericht"
-                        />
-                        {/* <CustomCKEditor
+                        <CustomCKEditor
                             height="400px"
                             value={data.content ?? ''}
                             onChange={(value: string) => setData('content', value)}
-                        /> */}
+                        />
                         <InputError message={errors.content} />
                     </div>
 

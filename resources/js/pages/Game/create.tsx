@@ -9,6 +9,8 @@ import { Link } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Plus, Calendar, Clock, MapPin, Users } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import MainLayout from '@/layouts/MainLayout';
+
 
 interface CreateProps {
     competition: Competition;
@@ -24,160 +26,162 @@ export default function Create({ competition, teams, locations, errors }: Create
     const [time, setTime] = useState<string | undefined>('00:00');
 
     return (
-        <div className="max-w-2xl mx-auto space-y-6 p-6">
-            {/* Header Section */}
-            <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href={route('home')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('Terug naar home')}
-                        </Link>
-                    </Button>
+        <MainLayout>
+            <div className="max-w-2xl mx-auto space-y-6 p-6">
+                {/* Header Section */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                        <Button asChild variant="ghost" size="sm">
+                            <Link href={route('home')}>
+                                <ArrowLeft className="h-4 w-4 mr-2" />
+                                {t('Terug naar home')}
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                            <Trophy className="h-8 w-8" />
+                            {t('Plan nieuwe wedstrijd')}
+                        </h1>
+                    </div>
                 </div>
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                        <Trophy className="h-8 w-8" />
-                        {t('Plan nieuwe wedstrijd')}
-                    </h1>
-                </div>
+
+                {/* Form Section */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Plus className="h-5 w-5" />
+                            {t('Wedstrijd informatie')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('Voer de details voor de nieuwe wedstrijd in.')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form action={route('game.store', competition.id)} method="post" className="space-y-6">
+                            <input type="hidden" name="_token" value={csrf_token} />
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label htmlFor="home_team_id" className="flex items-center gap-2">
+                                        <Users className="h-4 w-4" />
+                                        {t('Thuis team')}
+                                    </Label>
+                                    <Select name="home_team_id" required>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder={t('Selecteer thuis team')} />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {teams.map((team) => (
+                                                <SelectItem key={team.id} value={team.id.toString()}>
+                                                    {team.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="away_team_id" className="flex items-center gap-2">
+                                        <Users className="h-4 w-4" />
+                                        {t('Uit team')}
+                                    </Label>
+                                    <Select name="away_team_id" required>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder={t('Selecteer uit team')} />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {teams.map((team) => (
+                                                <SelectItem key={team.id} value={team.id.toString()}>
+                                                    {team.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="location" className="flex items-center gap-2">
+                                    <MapPin className="h-4 w-4" />
+                                    {t('Locatie')}
+                                </Label>
+                                <Select name="location_id" required>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={t('Selecteer locatie')} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {locations.map((location) => (
+                                            <SelectItem key={location.id} value={location.id.toString()}>
+                                                {location.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label htmlFor="date" className="flex items-center gap-2">
+                                        <Calendar className="h-4 w-4" />
+                                        {t('Datum')}
+                                    </Label>
+                                    <Calendar22 date={date} setDate={setDate} />
+                                    <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="time" className="flex items-center gap-2">
+                                        <Clock className="h-4 w-4" />
+                                        {t('Tijd')}
+                                    </Label>
+                                    <Input
+                                        id="time"
+                                        type="time"
+                                        name="time"
+                                        defaultValue={time}
+                                        onChange={(e) => setTime(e.target.value)}
+                                        required
+                                        className="w-full"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex gap-3 pt-4">
+                                <Button type="submit" className="flex-1">
+                                    <Plus className="h-4 w-4 mr-2" />
+                                    {t('Plan wedstrijd')}
+                                </Button>
+                                <Button asChild variant="outline" type="button">
+                                    <Link href={route('home')}>
+                                        {t('Annuleren')}
+                                    </Link>
+                                </Button>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
+
+                {/* Competition Info Card */}
+                <Card className="border-dashed border-muted-foreground/25">
+                    <CardContent className="pt-6">
+                        <div className="text-center text-sm text-muted-foreground space-y-2">
+                            <Trophy className="h-8 w-8 mx-auto opacity-50" />
+                            <p className="text-xs mt-2">{t('Beschikbare teams')}: {teams.length}</p>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Help Card */}
+                <Card className="border-dashed border-muted-foreground/25">
+                    <CardContent className="pt-6">
+                        <div className="text-center text-sm text-muted-foreground space-y-2">
+                            <Calendar className="h-8 w-8 mx-auto opacity-50" />
+                            <p className="font-medium">{t('Wedstrijd planning')}</p>
+                            <p>{t('Na het plannen van de wedstrijd, kun je de wedstrijd details beheren, scores bijwerken en resultaten bijhouden.')}</p>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
-
-            {/* Form Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Plus className="h-5 w-5" />
-                        {t('Wedstrijd informatie')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('Voer de details voor de nieuwe wedstrijd in.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form action={route('game.store', competition.id)} method="post" className="space-y-6">
-                        <input type="hidden" name="_token" value={csrf_token} />
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="home_team_id" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {t('Thuis team')}
-                                </Label>
-                                <Select name="home_team_id" required>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder={t('Selecteer thuis team')} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {teams.map((team) => (
-                                            <SelectItem key={team.id} value={team.id.toString()}>
-                                                {team.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="away_team_id" className="flex items-center gap-2">
-                                    <Users className="h-4 w-4" />
-                                    {t('Uit team')}
-                                </Label>
-                                <Select name="away_team_id" required>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder={t('Selecteer uit team')} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {teams.map((team) => (
-                                            <SelectItem key={team.id} value={team.id.toString()}>
-                                                {team.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="location" className="flex items-center gap-2">
-                                <MapPin className="h-4 w-4" />
-                                {t('Locatie')}
-                            </Label>
-                            <Select name="location_id" required>
-                                <SelectTrigger>
-                                    <SelectValue placeholder={t('Selecteer locatie')} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {locations.map((location) => (
-                                        <SelectItem key={location.id} value={location.id.toString()}>
-                                            {location.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2">
-                                <Label htmlFor="date" className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4" />
-                                    {t('Datum')}
-                                </Label>
-                                <Calendar22 date={date} setDate={setDate} />
-                                <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="time" className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4" />
-                                    {t('Tijd')}
-                                </Label>
-                                <Input
-                                    id="time"
-                                    type="time"
-                                    name="time"
-                                    defaultValue={time}
-                                    onChange={(e) => setTime(e.target.value)}
-                                    required
-                                    className="w-full"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3 pt-4">
-                            <Button type="submit" className="flex-1">
-                                <Plus className="h-4 w-4 mr-2" />
-                                {t('Plan wedstrijd')}
-                            </Button>
-                            <Button asChild variant="outline" type="button">
-                                <Link href={route('home')}>
-                                    {t('Annuleren')}
-                                </Link>
-                            </Button>
-                        </div>
-                    </form>
-                </CardContent>
-            </Card>
-
-            {/* Competition Info Card */}
-            <Card className="border-dashed border-muted-foreground/25">
-                <CardContent className="pt-6">
-                    <div className="text-center text-sm text-muted-foreground space-y-2">
-                        <Trophy className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="text-xs mt-2">{t('Beschikbare teams')}: {teams.length}</p>
-                    </div>
-                </CardContent>
-            </Card>
-
-            {/* Help Card */}
-            <Card className="border-dashed border-muted-foreground/25">
-                <CardContent className="pt-6">
-                    <div className="text-center text-sm text-muted-foreground space-y-2">
-                        <Calendar className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('Wedstrijd planning')}</p>
-                        <p>{t('Na het plannen van de wedstrijd, kun je de wedstrijd details beheren, scores bijwerken en resultaten bijhouden.')}</p>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+        </MainLayout>
     );
 }

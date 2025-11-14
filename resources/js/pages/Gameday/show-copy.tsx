@@ -5,6 +5,8 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-ki
 import { useState } from "react";
 import axios from "axios";
 import TrashCan from "@/components/trash-can";
+import MainLayout from '@/layouts/MainLayout';
+
 
 type UserRole = 'home_coach' | 'away_coach' | 'home_team' | 'away_team' | 'home_referee' | 'away_referee';
 
@@ -181,7 +183,8 @@ export default function Index({ _games }: { _games: Game[] }) {
         });
     }
 
-        return (
+    return (
+        <MainLayout>
             <div>
                 <h1>Games</h1>
                 <DndContext
@@ -189,7 +192,7 @@ export default function Index({ _games }: { _games: Game[] }) {
                     onDragEnd={handleDragEnd}
                     sensors={sensors}
                     onDragStart={handleDragStart}
-                    >
+                >
                     <div className="flex flex-col gap-3">
                         <SortableContext items={games} strategy={verticalListSortingStrategy}>
                             {games.map((game) => (
@@ -205,5 +208,6 @@ export default function Index({ _games }: { _games: Game[] }) {
                     <TrashCan isVisible={isDraggingUser} />
                 </DndContext>
             </div>
-        );
-    }
+        </MainLayout>
+    );
+}

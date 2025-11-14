@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { MessageTemplate } from '@/types';
 import { Edit2 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+import CustomCKEditor from '@/components/Assets/ckeditor';
 
 export default function EditDialog({ messageTemplate, title }: { messageTemplate: MessageTemplate; title: any }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -118,19 +119,12 @@ export default function EditDialog({ messageTemplate, title }: { messageTemplate
 
                     <div className="mb-4">
                         <Label htmlFor="content">Content</Label>
-                        <Textarea
-                            className="h-54"
-                            value={data.content}
-                            onChange={e => setData('content', e.target.value)}
-                            name="content"
-                            id="content"
-                            placeholder="Omschrijf je bericht"
-                        />
-                        {/* <CustomCKEditor
-                            height="400px"
+
+                        <CustomCKEditor
+                            height="250px"
                             value={data.content ?? ''}
                             onChange={(value: string) => setData('content', value)}
-                        /> */}
+                        />
                         <InputError message={errors.content} />
                     </div>
 

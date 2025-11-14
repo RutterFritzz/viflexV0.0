@@ -12,6 +12,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { formatDate } from "date-fns";
 import InputError from "@/components/input-error";
 import Header from "@/components/Admin/Header";
+import AdminLayout from '@/layouts/AdminLayout';
+
 
 export default function Edit({ user, roles }: { user: User, roles: Role[] }) {
 
@@ -34,36 +36,37 @@ export default function Edit({ user, roles }: { user: User, roles: Role[] }) {
         resetForm.post(route("admin.users.reset-password"));
     };
     return (
-        <div>
-            <Header title={`Gebruiker ${user?.name}`} />
+        <AdminLayout>
+            <div>
+                <Header title={`Gebruiker ${user?.name}`} />
 
-            <Card>
-                <CardContent>
-                    <div className="my-8 space-y-8">
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <Label htmlFor="name" className="mb-1">Voornaam</Label>
-                                <Input
-                                    id="name"
-                                    value={data.name}
-                                    onChange={(e) => setData("name", e.target.value)}
-                                    required
-                                />
-                                <InputError message={errors.name} className="mt-2" />
-                            </div>
-                            <div className="mb-4">
-                                <Label htmlFor="email" className="mb-1">Email</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    value={data.email}
-                                    onChange={(e) => setData("email", e.target.value)}
-                                    required
-                                />
-                                <InputError message={errors.email} className="mt-2" />
-                            </div>
+                <Card>
+                    <CardContent>
+                        <div className="my-8 space-y-8">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <Label htmlFor="name" className="mb-1">Voornaam</Label>
+                                    <Input
+                                        id="name"
+                                        value={data.name}
+                                        onChange={(e) => setData("name", e.target.value)}
+                                        required
+                                    />
+                                    <InputError message={errors.name} className="mt-2" />
+                                </div>
+                                <div className="mb-4">
+                                    <Label htmlFor="email" className="mb-1">Email</Label>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        value={data.email}
+                                        onChange={(e) => setData("email", e.target.value)}
+                                        required
+                                    />
+                                    <InputError message={errors.email} className="mt-2" />
+                                </div>
 
-                            {/* <div className="mb-4">
+                                {/* <div className="mb-4">
                                 <Label htmlFor="role_id" className="mb-1">Rol</Label>
                                 <Select
                                     value={data.role_id}
@@ -94,19 +97,20 @@ export default function Edit({ user, roles }: { user: User, roles: Role[] }) {
                                 />
                                 <Label htmlFor="isAdmin">Admin</Label>
                             </div> */}
-                        </form>
-                        <div className="flex justify-end items-center space-x-2">
-                            <Button onClick={resetEmail} variant={"link"}>
-                                Wachtwoord vergeten?
-                            </Button>
+                            </form>
+                            <div className="flex justify-end items-center space-x-2">
+                                <Button onClick={resetEmail} variant={"link"}>
+                                    Wachtwoord vergeten?
+                                </Button>
 
-                            <Button onClick={handleSubmit} disabled={processing}>
-                                Opslaan
-                            </Button>
+                                <Button onClick={handleSubmit} disabled={processing}>
+                                    Opslaan
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </AdminLayout>
     );
 }

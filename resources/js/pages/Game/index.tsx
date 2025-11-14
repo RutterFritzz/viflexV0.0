@@ -6,6 +6,8 @@ import { Link } from "@inertiajs/react";
 import { Trophy, Calendar, MapPin, Eye, ArrowLeft, Clock, Users, Award } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
 import { useTranslation } from "react-i18next";
+import MainLayout from '@/layouts/MainLayout';
+
 
 export default function Index({ games }: { games: Game[] }) {
     const { t } = useTranslation();
@@ -52,116 +54,118 @@ export default function Index({ games }: { games: Game[] }) {
     };
 
     return (
-        <div className="max-w-7xl mx-auto space-y-6 p-6">
-            {/* Header Section */}
-            <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href="/dashboard">
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('Terug naar dashboard')}
-                        </Link>
-                    </Button>
-                </div>
-                <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                            <Trophy className="h-8 w-8" />
-                            {t('Wedstrijden en wedstrijden')}
-                        </h1>
-                        <p className="text-muted-foreground">
-                            {t('Bekijk en beheer alle geplande wedstrijden en wedstrijd resultaten.')}
-                        </p>
-                    </div>
-                    <Badge variant="secondary" className="flex items-center gap-1">
-                        <Trophy className="h-3 w-3" />
-                        {games.length} {games.length === 1 ? t('Wedstrijd') : t('Wedstrijden')}
-                    </Badge>
-                </div>
-            </div>
-
-            {/* Games by Competition */}
-            {games.length === 0 ? (
-                <Card>
-                    <CardContent className="text-center py-12">
-                        <Trophy className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">{t('Geen wedstrijden gepland')}</h3>
-                        <p className="text-muted-foreground mb-6">
-                            {t('Wedstrijden worden hier getoond wanneer ze voor competities worden aangemaakt.')}
-                        </p>
-                        <Button asChild>
-                            <Link href="/competition">
-                                <Award className="h-4 w-4 mr-2" />
-                                {t('Ga naar competities')}
+        <MainLayout>
+            <div className="max-w-7xl mx-auto space-y-6 p-6">
+                {/* Header Section */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                        <Button asChild variant="ghost" size="sm">
+                            <Link href="/dashboard">
+                                <ArrowLeft className="h-4 w-4 mr-2" />
+                                {t('Terug naar dashboard')}
                             </Link>
                         </Button>
-                    </CardContent>
-                </Card>
-            ) : (
-                <div className="space-y-8">
-                    {competitions.map((competitionName) => (
-                        <div key={competitionName} className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <h2 className="text-2xl font-semibold flex items-center gap-2">
-                                    <Award className="h-6 w-6" />
-                                    {competitionName}
-                                </h2>
-                                <Badge variant="outline" className="text-xs">
-                                    {gamesByCompetition[competitionName].length} {gamesByCompetition[competitionName].length === 1 ? t('Wedstrijd') : t('Wedstrijden')}
-                                </Badge>
-                            </div>
-
-                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {gamesByCompetition[competitionName].map((game) => {
-                                    const status = getGameStatus(game);
-                                    return (
-                                        <Card key={game.id} className="hover:shadow-md transition-shadow">
-                                            <CardHeader className="pb-3">
-                                                <div className="flex items-center justify-between">
-                                                    <CardTitle className="text-lg">
-                                                        {game.home_team?.name || t('Team A')} vs {game.away_team?.name || t('Team B')}
-                                                    </CardTitle>
-                                                    <Badge variant={getStatusBadgeVariant(status)} className="text-xs">
-                                                        {status.charAt(0).toUpperCase() + status.slice(1)}
-                                                    </Badge>
-                                                </div>
-                                                <CardDescription className="space-y-2">
-                                                    <div className="flex items-center gap-2">
-                                                        <Calendar className="h-3 w-3" />
-                                                        <span className="text-xs">{formatDate(game.gameday?.date || '')}</span>
-                                                        <Clock className="h-3 w-3 ml-2" />
-                                                        <span className="text-xs">{game.time}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <MapPin className="h-3 w-3" />
-                                                        <span className="text-xs">{game.location?.name || t('Onbekende locatie')}</span>
-                                                    </div>
-                                                    {game.home_team_score !== null && game.away_team_score !== null && (
-                                                        <div className="flex items-center gap-2 mt-2">
-                                                            <Users className="h-3 w-3" />
-                                                            <span className="text-xs font-medium">
-                                                                {game.home_team_score} - {game.away_team_score}
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                </CardDescription>
-                                            </CardHeader>
-                                            <CardFooter className="pt-0">
-                                                <Button asChild variant="outline" className="w-full">
-                                                    <Link href={route('game.show', game.id)}>
-                                                        <Eye className="h-4 w-4 mr-2" />
-                                                        {t('Bekijk wedstrijd')}
-                                                    </Link>
-                                                </Button>
-                                            </CardFooter>
-                                        </Card>
-                                    );
-                                })}
-                            </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                                <Trophy className="h-8 w-8" />
+                                {t('Wedstrijden en wedstrijden')}
+                            </h1>
+                            <p className="text-muted-foreground">
+                                {t('Bekijk en beheer alle geplande wedstrijden en wedstrijd resultaten.')}
+                            </p>
                         </div>
-                    ))}
+                        <Badge variant="secondary" className="flex items-center gap-1">
+                            <Trophy className="h-3 w-3" />
+                            {games.length} {games.length === 1 ? t('Wedstrijd') : t('Wedstrijden')}
+                        </Badge>
+                    </div>
                 </div>
-            )}
-        </div>
+
+                {/* Games by Competition */}
+                {games.length === 0 ? (
+                    <Card>
+                        <CardContent className="text-center py-12">
+                            <Trophy className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+                            <h3 className="text-lg font-medium mb-2">{t('Geen wedstrijden gepland')}</h3>
+                            <p className="text-muted-foreground mb-6">
+                                {t('Wedstrijden worden hier getoond wanneer ze voor competities worden aangemaakt.')}
+                            </p>
+                            <Button asChild>
+                                <Link href="/competition">
+                                    <Award className="h-4 w-4 mr-2" />
+                                    {t('Ga naar competities')}
+                                </Link>
+                            </Button>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div className="space-y-8">
+                        {competitions.map((competitionName) => (
+                            <div key={competitionName} className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <h2 className="text-2xl font-semibold flex items-center gap-2">
+                                        <Award className="h-6 w-6" />
+                                        {competitionName}
+                                    </h2>
+                                    <Badge variant="outline" className="text-xs">
+                                        {gamesByCompetition[competitionName].length} {gamesByCompetition[competitionName].length === 1 ? t('Wedstrijd') : t('Wedstrijden')}
+                                    </Badge>
+                                </div>
+
+                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                    {gamesByCompetition[competitionName].map((game) => {
+                                        const status = getGameStatus(game);
+                                        return (
+                                            <Card key={game.id} className="hover:shadow-md transition-shadow">
+                                                <CardHeader className="pb-3">
+                                                    <div className="flex items-center justify-between">
+                                                        <CardTitle className="text-lg">
+                                                            {game.home_team?.name || t('Team A')} vs {game.away_team?.name || t('Team B')}
+                                                        </CardTitle>
+                                                        <Badge variant={getStatusBadgeVariant(status)} className="text-xs">
+                                                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                                                        </Badge>
+                                                    </div>
+                                                    <CardDescription className="space-y-2">
+                                                        <div className="flex items-center gap-2">
+                                                            <Calendar className="h-3 w-3" />
+                                                            <span className="text-xs">{formatDate(game.gameday?.date || '')}</span>
+                                                            <Clock className="h-3 w-3 ml-2" />
+                                                            <span className="text-xs">{game.time}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <MapPin className="h-3 w-3" />
+                                                            <span className="text-xs">{game.location?.name || t('Onbekende locatie')}</span>
+                                                        </div>
+                                                        {game.home_team_score !== null && game.away_team_score !== null && (
+                                                            <div className="flex items-center gap-2 mt-2">
+                                                                <Users className="h-3 w-3" />
+                                                                <span className="text-xs font-medium">
+                                                                    {game.home_team_score} - {game.away_team_score}
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                    </CardDescription>
+                                                </CardHeader>
+                                                <CardFooter className="pt-0">
+                                                    <Button asChild variant="outline" className="w-full">
+                                                        <Link href={route('game.show', game.id)}>
+                                                            <Eye className="h-4 w-4 mr-2" />
+                                                            {t('Bekijk wedstrijd')}
+                                                        </Link>
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </MainLayout>
     );
 }

@@ -14,46 +14,48 @@ import { User, Role } from "@/types";
 
 export default function Index({ users, roles }: { users: User[], roles: Role[] }) {
     return (
-        <div>
-            <Header title="Gebruikers" modelName="gebruiker" />
+        <AdminLayout>
+            <div>
+                <Header title="Gebruikers" modelName="gebruiker" />
 
-            <div className="my-8 flex justify-end">
-                <CreateDialog roles={roles} />
-            </div>
+                <div className="my-8 flex justify-end">
+                    <CreateDialog roles={roles} />
+                </div>
 
-            <Card>
-                <CardContent className="pt-6">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Naam</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead colSpan={2}></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {users.map((user: any) => (
-                                <TableRow key={user.id}>
-                                    <TableCell>
-                                        <Link href={route('admin.users.edit', user)}>
-                                            {user.name}
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    <TableCell className="flex justify-end items-center gap-x-2">
-                                        <Link href={route('admin.users.edit', user)}>
-                                            <PencilIcon className="size-5" />
-                                        </Link>
-
-                                        <DeleteDialog routeName="admin.users.delete" model={[user]} />
-                                    </TableCell>
+                <Card>
+                    <CardContent className="pt-6">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Naam</TableHead>
+                                    <TableHead>Email</TableHead>
+                                    <TableHead colSpan={2}></TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-            {/* <Paginator data={users} /> */}
-        </div>
+                            </TableHeader>
+                            <TableBody>
+                                {users.map((user: any) => (
+                                    <TableRow key={user.id}>
+                                        <TableCell>
+                                            <Link href={route('admin.users.edit', user)}>
+                                                {user.name}
+                                            </Link>
+                                        </TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell className="flex justify-end items-center gap-x-2">
+                                            <Link href={route('admin.users.edit', user)}>
+                                                <PencilIcon className="size-5" />
+                                            </Link>
+
+                                            <DeleteDialog routeName="admin.users.delete" model={[user]} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+                {/* <Paginator data={users} /> */}
+            </div>
+        </AdminLayout>
     );
 }
