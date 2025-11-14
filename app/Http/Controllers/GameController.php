@@ -59,8 +59,8 @@ class GameController extends Controller
             'awayTeam.players', 'awayTeam.values', 'awayTeam.gameValues.teamValue', 'awayTeam.coaches'
         ]);
 
-        $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
-        $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
+        $game->homeTeamPresences = $game->homeTeam->getPresences($game);
+        $game->awayTeamPresences = $game->awayTeam->getPresences($game);
 
         $templates = MessageTemplate::orderBy('name')->get();
 
@@ -104,8 +104,17 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $game->load(['competition', 'homeTeam', 'homeTeam', 'awayTeam', 'competition.teams', 'location',
-        'gameday', 'gamePlayers', 'gamePlayers.user']);
+        $game->load([
+            'competition',
+            'homeTeam',
+            'homeTeam',
+            'awayTeam',
+            'competition.teams',
+            'location',
+            'gameday',
+            'gamePlayers',
+            'gamePlayers.user'
+        ]);
 
         $competitionTeams = [
             'home_team' => (object) $game->competitionTeam($game->homeTeam->id),
@@ -191,7 +200,8 @@ class GameController extends Controller
         return response()->json(['message' => 'Users updated successfully']);
     }
 
-    public function updateScore(Request $request, Game $game) {
+    public function updateScore(Request $request, Game $game)
+    {
         $game->home_team_score = $request->home_team_score;
         $game->away_team_score = $request->away_team_score;
 
@@ -206,32 +216,24 @@ class GameController extends Controller
         $validated = $request->validate([
             'team_id' => 'required|exists:teams,id',
             'presence' => 'required|array',
-            'presence.coaches' => 'sometimes|array',
-            'presence.players' => 'sometimes|array',
         ]);
 
         $team = Team::find($validated['team_id']);
 
-        if (isset($validated['presence']['coaches'])) {
-            foreach ($validated['presence']['coaches'] as $userId => $isPresent) {
-                $userId = (int) $userId;
-                GameCoach::where('game_id', $game->id)
-                    ->where('team_id', $team->id)
-                    ->where('user_id', $userId)
-                    ->update(['present' => $isPresent]);
-            }
+        foreach ($validated['presence']['coaches'] as $presence) {
+            GameCoach::where('game_id', $game->id)
+                ->where('team_id', $team->id)
+                ->where('user_id', $presence['user_id'])
+                ->update(['present' => $presence['present']]);
         }
 
-        if (isset($validated['presence']['players'])) {
-            foreach ($validated['presence']['players'] as $userId => $isPresent) {
-                $userId = (int) $userId;
-                GamePlayer::where('game_id', $game->id)
-                    ->where('team_id', $team->id)
-                    ->where('user_id', $userId)
-                    ->update(['present' => $isPresent]);
-            }
+        foreach ($validated['presence']['players'] as $presence) {
+            GamePlayer::where('game_id', $game->id)
+                ->where('team_id', $team->id)
+                ->where('user_id', $presence['user_id'])
+                ->update(['present' => $presence['present']]);
         }
 
-        return response()->json(['message' => 'Presence updated successfully']);
+        return redirect()->back()->with('success', 'Aanwezigheid succesvol ingediend');
     }
 }

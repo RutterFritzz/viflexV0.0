@@ -99,22 +99,18 @@ class Team extends Model
         return $this->hasMany(GameTeamValue::class, 'team_id');
     }
 
-    public function messages() {
+    public function messages()
+    {
         return $this->hasMany(Message::class)->orderByDesc('created_at');
     }
 
-    // check if the team has presences filled in for a game
-    public function hasPresences(Game $game): bool
+    public function getPresences(Game $game): array
     {
-        if ($this->gamePlayers->where('game_id', $game->id)->whereNull('present')->count() > 0) {
-            return false;
-        }
-        if ($this->gameCoaches->where('game_id', $game->id)->whereNull('present')->count() > 0) {
-            return false;
-        }
-        return true;
+        return [
+            'players' => $this->gamePlayers()->where('game_id', $game->id)->with('user:id,name')->get(['user_id', 'present']),
+            'coaches' => $this->gameCoaches()->where('game_id', $game->id)->with('user:id,name')->get(['user_id', 'present']),
+        ];
     }
-
     public function games(): BelongsToMany
     {
         return $this->belongsToMany(Game::class, 'game_team');

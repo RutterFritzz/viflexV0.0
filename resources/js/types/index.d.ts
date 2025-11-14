@@ -58,9 +58,9 @@ export interface Team {
     category: Category;
     logo?: File;
     game_values?: GameTeamValue[];
-    hasPresences?: boolean;
     travel_time?: string;
-
+    presences: PresenceData;
+    hasPresences?: boolean;
     values?: TeamValue[];
     players: User[] | null;
     coaches: User[] | null;
@@ -149,8 +149,8 @@ export interface Game {
     away_team_users?: User[] | null;
     home_referee?: User | null;
     away_referee?: User | null;
-    homeTeamPresences?: boolean;
-    awayTeamPresences?: boolean;
+    homeTeamPresences: PresenceData;
+    awayTeamPresences: PresenceData;
 
     messages?: Message[];
 }
@@ -191,6 +191,6 @@ export type PageModule = {
 };
 
 export interface PresenceData {
-    coaches: { [userId: string]: boolean };
-    players: { [userId: string]: boolean };
+    coaches: { user_id: number, present: boolean | null, user: User }[];
+    players: { user_id: number, present: boolean | null, user: User }[];
 }
