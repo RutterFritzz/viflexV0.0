@@ -19,14 +19,14 @@ export default function Show({ club, teams }: ShowProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <h1 className="text-3xl font-bold tracking-tight">{club.name}</h1>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        {teams.length} {teams.length === 1 ? t('team') : t('teams')}
+                        {teams.length} {teams.length === 1 ? t('team') : t('Teams')}
                     </Badge>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -42,12 +42,12 @@ export default function Show({ club, teams }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Users className="h-5 w-5" />
-                        {t('teams')}
+                        {t('Teams')}
                     </CardTitle>
                     <CardDescription>
                         {teams.length === 0
-                            ? t('noTeamsHaveBeenCreatedYet')
-                            : t('manageAndViewAllTeamsIn') + ` ${club.name}`
+                            ? t('Geen teams aangemaakt.')
+                            : t('Beheer en bekijk alle teams in') + ` ${club.name}`
                         }
                     </CardDescription>
                 </CardHeader>
@@ -55,8 +55,8 @@ export default function Show({ club, teams }: ShowProps) {
                     {teams.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">{t('noTeamsYet')}</p>
-                            <p className="text-sm">{t('createYourFirstTeamToGetStarted')}</p>
+                            <p className="text-lg font-medium">{t('Geen teams')}</p>
+                            <p className="text-sm">{t('Maak je eerste team om te beginnen.')}</p>
                         </div>
                     ) : (
                         <div className="grid gap-3">
@@ -76,7 +76,7 @@ export default function Show({ club, teams }: ShowProps) {
                                     <div className="flex items-center gap-2">
                                         {team.players && (
                                             <Badge variant="outline" className="text-xs">
-                                                {team.players.length} {t('players')}
+                                                {team.players.length} {t('spelers')}
                                             </Badge>
                                         )}
                                     </div>
@@ -89,7 +89,7 @@ export default function Show({ club, teams }: ShowProps) {
                     <Button asChild className="w-full">
                         <Link href={route('team.create', [club])}>
                             <Plus className="h-4 w-4 mr-2" />
-                            {t('createNewTeam')}
+                            {t('Maak nieuwe team')}
                         </Link>
                     </Button>
                 </CardFooter>
@@ -98,9 +98,9 @@ export default function Show({ club, teams }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('clubActions')}</CardTitle>
+                    <CardTitle>{t('Club acties')}</CardTitle>
                     <CardDescription>
-                        {t('manageClubSettingsAndNavigation')}
+                        {t('Beheer club instellingen en navigatie.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -108,13 +108,13 @@ export default function Show({ club, teams }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('club.edit', club.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                {t('editClub')}
+                                {t('Bewerk club')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('club.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('backToClubs')}
+                                {t('Terug naar clubs')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -124,7 +124,7 @@ export default function Show({ club, teams }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            {t('deleteClub')}
+                            {t('Verwijder club')}
                         </Button>
                         <DeleteConfirmation dialogOpen={dialogOpen} type="club" name={club.name} onOpenChange={setDialogOpen} id={club.id} />
                     </div>

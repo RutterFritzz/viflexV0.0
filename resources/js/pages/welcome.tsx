@@ -68,7 +68,7 @@ export default function Welcome() {
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 lg:py-32 h-[calc(100vh-4rem)]">
                 <div className="container mx-auto px-6">
-                    <div className="mx-auto max-w-4xl text-center">
+                    <div className="mx-auto max-w-7xl text-center">
                         <Badge variant="secondary" className="mb-6 text-sm font-medium">
                             <Star className="w-3 h-3 mr-1" />
                             The Complete Sports Management Platform
@@ -223,7 +223,7 @@ export default function Welcome() {
             {!auth.user && (
                 <section className="py-20 lg:py-32">
                     <div className="container mx-auto px-6">
-                        <Card className="mx-auto max-w-4xl border-0 shadow-2xl bg-gradient-to-r from-primary/5 to-secondary/5">
+                        <Card className="mx-auto max-w-7xl border-0 shadow-2xl bg-gradient-to-r from-primary/5 to-secondary/5">
                             <CardContent className="p-12 text-center">
                                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-6">
                                     Ready to Get Started?

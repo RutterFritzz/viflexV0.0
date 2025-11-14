@@ -15,7 +15,7 @@ import { t } from 'i18next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: t('passwordSettings'),
+        title: t('Wachtwoord instellingen'),
         href: '/settings/password',
     },
 ];
@@ -53,15 +53,15 @@ export default function Password() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={t('passwordSettings')} />
+            <Head title={t('Wachtwoord instellingen')} />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={t('updatePassword')} description={t('ensureYourAccountIsUsingALongRandomPasswordToStaySecure')} />
+                    <HeadingSmall title={t('Update wachtwoord')} description={t('Zorg ervoor dat je account een lang, willekeurig wachtwoord gebruikt om veilig te blijven')} />
 
                     <form onSubmit={updatePassword} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="current_password">{t('currentPassword')}</Label>
+                            <Label htmlFor="current_password">{t('Huidig wachtwoord')}</Label>
 
                             <Input
                                 id="current_password"
@@ -71,14 +71,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="current-password"
-                                placeholder={t('currentPassword')}
+                                placeholder={t('Huidig wachtwoord')}
                             />
 
                             <InputError message={errors.current_password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">{t('newPassword')}</Label>
+                            <Label htmlFor="password">{t('Nieuw wachtwoord')}</Label>
 
                             <Input
                                 id="password"
@@ -88,14 +88,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder={t('newPassword')}
+                                placeholder={t('Nieuw wachtwoord')}
                             />
 
                             <InputError message={errors.password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">{t('confirmPassword')}</Label>
+                            <Label htmlFor="password_confirmation">{t('Bevestig wachtwoord')}</Label>
 
                             <Input
                                 id="password_confirmation"
@@ -104,14 +104,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder={t('confirmPassword')}
+                                placeholder={t('Bevestig wachtwoord')}
                             />
 
                             <InputError message={errors.password_confirmation} />
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>{t('savePassword')}</Button>
+                            <Button disabled={processing}>{t('Wachtwoord opslaan')}</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -120,7 +120,7 @@ export default function Password() {
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">{t('saved')}</p>
+                                <p className="text-sm text-neutral-600">{t('Opgeslagen')}</p>
                             </Transition>
                         </div>
                     </form>

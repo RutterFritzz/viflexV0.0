@@ -22,17 +22,17 @@ export default function Create({ categories }: { categories: Category[] }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('competition.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToCompetitions')}
+                            {t('Terug naar competities')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {t('createNewCompetition')}
+                        {t('Maak nieuwe competitie')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('setUpANewCompetitionOrTournament')}
+                        {t('Stel een nieuwe competitie of toernooi in')}
                     </p>
                 </div>
             </div>
@@ -42,10 +42,10 @@ export default function Create({ categories }: { categories: Category[] }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('competitionInformation')}
+                        {t('Competitie informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheBasicInformationForTheNewCompetition')}
+                        {t('Voer de basisinformatie voor de nieuwe competitie in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -55,13 +55,13 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Trophy className="h-4 w-4" />
-                                {t('competitionName')}
+                                {t('Competitie naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterCompetitionName')}
+                                placeholder={t('Voer competitie naam in')}
                                 required
                                 className="w-full"
                             />
@@ -70,11 +70,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Tag className="h-4 w-4" />
-                                {t('category')}
+                                {t('Categorie')}
                             </Label>
                             <Select name="category" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectACategory')} />
+                                    <SelectValue placeholder={t('Selecteer een categorie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -89,11 +89,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="space-y-2">
                             <Label htmlFor="year" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                {t('year')}
+                                {t('Jaar')}
                             </Label>
                             <Select name="year" required defaultValue={currentYear.toString()}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectYear')} />
+                                    <SelectValue placeholder={t('Selecteer jaar')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {years.map((year) => (
@@ -108,11 +108,11 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createCompetition')}
+                                {t('Maak competitie')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('competition.index')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -125,8 +125,8 @@ export default function Create({ categories }: { categories: Category[] }) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Trophy className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('competitionSetup')}</p>
-                        <p>{t('afterCreatingTheCompetitionYouWillBeAbleToAddTeamsScheduleMatchesAndManageTheTournamentStructure')}</p>
+                        <p className="font-medium">{t('Competitie setup')}</p>
+                        <p>{t('Na het aanmaken van de competitie, zul je in staat zijn om teams, wedstrijden en de toernooi structuur te beheren.')}</p>
                     </div>
                 </CardContent>
             </Card>

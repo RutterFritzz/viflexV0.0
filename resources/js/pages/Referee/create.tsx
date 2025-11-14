@@ -39,17 +39,17 @@ export default function Create({ categories }: CreateProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('referee.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToReferees')}
+                            {t('Terug naar scheidsrechters')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Gavel className="h-8 w-8" />
-                        {t('addNewReferee')}
+                        {t('Voeg nieuwe scheidsrechter toe')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('registerANewRefereeToOfficiateCompetitionsAndGames')}
+                        {t('Registreer een nieuwe scheidsrechter om competities en wedstrijden te scheidsrechtsbieden.')}
                     </p>
                 </div>
             </div>
@@ -59,10 +59,10 @@ export default function Create({ categories }: CreateProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('refereeInformation')}
+                        {t('Scheidsrechter informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('selectAUserAndAssignTheirRefereeCategory')}
+                        {t('Selecteer een gebruiker en wijs hun scheidsrechter categorie toe.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -72,11 +72,11 @@ export default function Create({ categories }: CreateProps) {
                         {!selectedUser ? (<div className="space-y-2">
                             <Label htmlFor="user_id" className="flex items-center gap-2">
                                 <UserIcon className="h-4 w-4" />
-                                {t('selectUser')}
+                                {t('Selecteer gebruiker')}
                             </Label>
                             <Search onSelect={handleUserSelect} type="user" />
                             <p className="text-xs text-muted-foreground">
-                                {t('chooseAnExistingUserToRegisterThemAsAReferee')}
+                                {t('Kies een bestaande gebruiker om ze als scheidsrechter te registreren.')}
                             </p>
                         </div>) : (
                             <div className="space-y-2">
@@ -89,11 +89,11 @@ export default function Create({ categories }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Award className="h-4 w-4" />
-                                {t('refereeCategory')}
+                                {t('Scheidsrechter categorie')}
                             </Label>
                             <Select name="category" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectRefereeCategory')} />
+                                    <SelectValue placeholder={t('Selecteer scheidsrechter categorie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -107,18 +107,18 @@ export default function Create({ categories }: CreateProps) {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                {t('selectTheCategoryThisRefereeIsQualifiedToOfficiate')}
+                                {t('Selecteer de categorie waar deze scheidsrechter gekwalificeerd is om te scheidsrechtsbieden.')}
                             </p>
                         </div>
 
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('registerReferee')}
+                                {t('Registreer scheidsrechter')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('referee.index')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -131,8 +131,8 @@ export default function Create({ categories }: CreateProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Gavel className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('refereeRegistration')}</p>
-                        <p>{t('refereesMustBeExistingUsersInTheSystemTheyCanBeAssignedToSpecificCategoriesBasedOnTheirQualificationsAndExperienceLevel')}</p>
+                        <p className="font-medium">{t('Scheidsrechter registratie')}</p>
+                        <p>{t('Scheidsrechters moeten bestaande gebruikers in het systeem zijn. Ze kunnen worden toegewezen aan specifieke categorieën op basis van hun kwalificaties en ervaringniveau.')}</p>
                     </div>
                 </CardContent>
             </Card>

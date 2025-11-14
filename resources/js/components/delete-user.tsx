@@ -34,26 +34,26 @@ export default function DeleteUser() {
 
     return (
         <div className="space-y-6">
-            <HeadingSmall title={t('deleteAccount')} description={t('deleteYourAccountAndAllOfItsResources')} />
+            <HeadingSmall title={t('Verwijder account')} description={t('Verwijder je account en alle resources')} />
             <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
                 <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
-                    <p className="font-medium">{t('warning')}</p>
-                    <p className="text-sm">{t('pleaseProceedWithCautionThisCannotBeUndone')}</p>
+                    <p className="font-medium">{t('Waarschuwing')}</p>
+                    <p className="text-sm">{t('Ga met voorzichtigheid te werk, dit kan niet ongedaan worden gemaakt.')}</p>
                 </div>
 
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">{t('deleteAccount')}</Button>
+                        <Button variant="destructive">{t('Verwijder account')}</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <DialogTitle>{t('areYouSureYouWantToDeleteYourAccount')}</DialogTitle>
+                        <DialogTitle>{t('Weet je zeker dat je je account wilt verwijderen?')}</DialogTitle>
                         <DialogDescription>
-                            {t('onceYourAccountIsDeletedAllOfItsResourcesAndDataWillAlsoBePermanentlyDeletedPleaseEnterYourPasswordToConfirmYouWouldLikeToPermanentlyDeleteYourAccount')}
+                            {t('Zodra je account verwijderd is, worden alle resources en gegevens ook permanent verwijderd. Voer je wachtwoord in om te bevestigen dat je wilt dat je account permanent wordt verwijderd.')}
                         </DialogDescription>
                         <form className="space-y-6" onSubmit={deleteUser}>
                             <div className="grid gap-2">
                                 <Label htmlFor="password" className="sr-only">
-                                    {t('password')}
+                                    {t('Wachtwoord')}
                                 </Label>
 
                                 <Input
@@ -63,7 +63,7 @@ export default function DeleteUser() {
                                     ref={passwordInput}
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
-                                    placeholder={t('password')}
+                                    placeholder={t('Wachtwoord')}
                                     autoComplete="current-password"
                                 />
 
@@ -73,12 +73,12 @@ export default function DeleteUser() {
                             <DialogFooter className="gap-2">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeModal}>
-                                        {t('cancel')}
+                                        {t('Annuleren')}
                                     </Button>
                                 </DialogClose>
 
                                 <Button variant="destructive" disabled={processing} asChild>
-                                    <button type="submit">{t('deleteAccount')}</button>
+                                    <button type="submit">{t('Verwijder account')}</button>
                                 </Button>
                             </DialogFooter>
                         </form>

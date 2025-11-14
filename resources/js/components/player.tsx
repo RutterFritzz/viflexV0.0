@@ -26,7 +26,7 @@ export default function Player({ player, edit = false, team }: { player: User, e
                 <span className="font-medium">{player.name}</span>
             </div>
             <div className="flex items-center gap-2">
-                <Badge variant="outline" className="text-xs">{t('player')}</Badge>
+                <Badge variant="outline" className="text-xs">{t('Speler')}</Badge>
                 {edit && (
                     <Button variant="ghost" size="sm" className="text-xs hover:bg-transparent hover:text-destructive cursor-pointer" onClick={() => { handlePlayerDelete(player) }}>
                         <Trash className="h-4 w-4" />

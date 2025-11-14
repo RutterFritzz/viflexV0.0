@@ -58,17 +58,17 @@ export default function Create({ club_id }: CreateProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club_id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToClub')}
+                            {t('Terug naar club')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Users className="h-8 w-8" />
-                        {t('createNewTeam')}
+                        {t('Maak nieuwe team')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('addANewTeamToThisClub')}
+                        {t('Voeg een nieuw team toe aan deze club.')}
                     </p>
                 </div>
             </div>
@@ -78,10 +78,10 @@ export default function Create({ club_id }: CreateProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('teamInformation')}
+                        {t('Team informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheBasicInformationForTheNewTeam')}
+                        {t('Voer de basisinformatie voor het nieuwe team in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -89,7 +89,7 @@ export default function Create({ club_id }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                {t('teamName')}
+                                {t('Team naam')}
                             </Label>
                             <Input
                                 id="name"
@@ -97,7 +97,7 @@ export default function Create({ club_id }: CreateProps) {
                                 name="name"
                                 value={data.name}
                                 onChange={(e) => setData("name", e.target.value)}
-                                placeholder={t('enterTeamName')}
+                                placeholder={t('Voer team naam in')}
                                 required
                                 className="w-full"
                             />
@@ -106,7 +106,7 @@ export default function Create({ club_id }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                {t('travelTime')}
+                                {t('Reistijd')}
                             </Label>
                             <Input
                                 id="travel_time"
@@ -161,11 +161,11 @@ export default function Create({ club_id }: CreateProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createTeam')}
+                                {t('Maak team')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('club.show', club_id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>

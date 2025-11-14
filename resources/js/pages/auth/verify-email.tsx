@@ -19,23 +19,23 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title={t('verifyEmail')} description={t('pleaseVerifyYourEmailAddressByClickingOnTheLinkWeJustEmailedToYou')}>
-            <Head title={t('emailVerification')} />
+        <AuthLayout title={t('Verifieer email')} description={t('Verifieer je email adres door op de link te klikken die we je zojuist hebben emaild.')}>
+            <Head title={t('Email verificatie')} />
 
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    {t('aNewVerificationLinkHasBeenSentToTheEmailAddressYouProvidedDuringRegistration')}
+                    {t('Een nieuwe verificatie link is verstuurd naar het email adres dat je hebt geregistreerd.')}
                 </div>
             )}
 
             <form onSubmit={submit} className="space-y-6 text-center">
                 <Button disabled={processing} variant="secondary">
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    {t('resendVerificationEmail')}
+                    {t('Verstuur verificatie email opnieuw')}
                 </Button>
 
                 <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
-                    {t('logOut')}
+                    {t('Uitloggen')}
                 </TextLink>
             </form>
         </AuthLayout>

@@ -9,22 +9,22 @@ import { useTranslation } from "react-i18next";
 export default function Index({ clubs }: { clubs: Club[] }) {
     const { t } = useTranslation();
     return (
-        <div className="max-w-6xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Building2 className="h-8 w-8" />
-                            {t('clubs')}
+                            {t('Clubs')}
                         </h1>
                         <p className="text-muted-foreground">
-                            {t('manageAndViewAllSportsClubsInYourOrganization')}
+                            {t('Beheer en bekijk alle sportclubs in je organisatie.')}
                         </p>
                     </div>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Building2 className="h-3 w-3" />
-                        {clubs.length} {clubs.length === 1 ? t('club') : t('clubs')}
+                        {clubs.length} {clubs.length === 1 ? t('club') : t('Clubs')}
                     </Badge>
                 </div>
             </div>
@@ -34,14 +34,14 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <Building2 className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">{t('noClubsYet')}</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('Geen clubs')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            {t('createYourFirstClubToGetStartedWithManagingTeamsAndPlayers')}
+                            {t('Maak je eerste club om te beginnen met het beheren van teams en spelers.')}
                         </p>
                         <Button asChild>
                             <Link href={route('club.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createYourFirstClub')}
+                                {t('Maak je eerste club')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -65,7 +65,7 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                                     <Button asChild variant="outline" className="w-full">
                                         <Link href={route('club.show', club.id)}>
                                             <Eye className="h-4 w-4 mr-2" />
-                                            {t('viewClub')}
+                                            {t('Bekijk club')}
                                         </Link>
                                     </Button>
                                 </CardFooter>
@@ -79,7 +79,7 @@ export default function Index({ clubs }: { clubs: Club[] }) {
                             <Button asChild size="lg">
                                 <Link href={route('club.create')}>
                                     <Plus className="h-4 w-4 mr-2" />
-                                    {t('createNewClub')}
+                                    {t('Maak nieuwe club')}
                                 </Link>
                             </Button>
                         </CardContent>

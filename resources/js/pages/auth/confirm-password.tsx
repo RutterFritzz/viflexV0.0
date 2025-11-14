@@ -20,26 +20,26 @@ export default function ConfirmPassword() {
         e.preventDefault();
 
         post(route('password.confirm'), {
-            onFinish: () => reset('password'),
+            onFinish: () => reset('Wachtwoord'),
         });
     };
 
     return (
         <AuthLayout
-            title={t('confirmYourPassword')}
-            description={t('thisIsASecureAreaOfTheApplicationPleaseConfirmYourPasswordBeforeContinuing')}
+            title={t('Bevestig je wachtwoord')}
+            description={t('Dit is een veilige zone van de applicatie. Bevestig je wachtwoord voordat je verdergaat.')}
         >
-            <Head title={t('confirmPassword')} />
+            <Head title={t('Bevestig wachtwoord')} />
 
             <form onSubmit={submit}>
                 <div className="space-y-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="password">{t('password')}</Label>
+                        <Label htmlFor="password">{t('Wachtwoord')}</Label>
                         <Input
                             id="password"
                             type="password"
                             name="password"
-                            placeholder={t('password')}
+                            placeholder={t('Wachtwoord')}
                             autoComplete="current-password"
                             value={data.password}
                             autoFocus
@@ -52,7 +52,7 @@ export default function ConfirmPassword() {
                     <div className="flex items-center">
                         <Button className="w-full" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            {t('confirmPassword')}
+                            {t('Bevestig wachtwoord')}
                         </Button>
                     </div>
                 </div>

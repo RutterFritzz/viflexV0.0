@@ -10,12 +10,12 @@ export default function GetGamesStatusBadge({ game }: { game: Game }) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays < 0) {
-        return <Badge variant="secondary">{t('completed')}</Badge>;
+        return <Badge variant="secondary">{t('Voltooid')}</Badge>;
     } else if (diffDays === 0) {
-        return <Badge variant="destructive">{t('today')}</Badge>;
+        return <Badge variant="destructive">{t('Vandaag')}</Badge>;
     } else if (diffDays <= 7) {
-        return <Badge variant="default">{t('upcoming')}</Badge>;
+        return <Badge variant="default">{t('Aankomend')}</Badge>;
     } else {
-        return <Badge variant="outline">{t('scheduled')}</Badge>;
+        return <Badge variant="outline">{t('Gepland')}</Badge>;
     }
 }

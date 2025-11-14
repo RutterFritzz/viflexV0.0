@@ -22,17 +22,17 @@ export default function Edit({ competition, categories }: { competition: Competi
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('competition.show', competition.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToCompetitions')}
+                            {t('Terug naar competities')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {t('editCompetition')}
+                        {t('Bewerk competitie')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheInformationFor')} <span className="font-medium">{competition.name}</span>.
+                        {t('Update de informatie voor')} <span className="font-medium">{competition.name}</span>.
                     </p>
                 </div>
             </div>
@@ -42,10 +42,10 @@ export default function Edit({ competition, categories }: { competition: Competi
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('competitionInformation')}
+                        {t('Competitie informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheCompetitionDetailsBelow')}
+                        {t('Maak wijzigingen aan de competitie details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -56,13 +56,13 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Trophy className="h-4 w-4" />
-                                {t('competitionName')}
+                                {t('Competitie naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterCompetitionName')}
+                                placeholder={t('Voer competitie naam in')}
                                 defaultValue={competition.name}
                                 required
                                 className="w-full"
@@ -72,11 +72,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="category" className="flex items-center gap-2">
                                 <Tag className="h-4 w-4" />
-                                {t('category')}
+                                {t('Categorie')}
                             </Label>
                             <Select name="category" required defaultValue={competition.category}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectACategory')} />
+                                    <SelectValue placeholder={t('Selecteer een categorie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {categories.map((category) => (
@@ -91,11 +91,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="space-y-2">
                             <Label htmlFor="year" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                {t('year')}
+                                {t('Jaar')}
                             </Label>
                             <Select name="year" required defaultValue={competition.year.toString()}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectYear')} />
+                                    <SelectValue placeholder={t('Selecteer jaar')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {years.map((year) => (
@@ -110,11 +110,11 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                {t('updateCompetition')}
+                                {t('Update competitie')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('competition.show', competition.id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -129,17 +129,17 @@ export default function Edit({ competition, categories }: { competition: Competi
                         <div className="grid grid-cols-3 gap-4 text-center">
                             <div>
                                 <Trophy className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">{t('currentName')}</p>
+                                <p className="font-medium text-xs">{t('Huidige naam')}</p>
                                 <p className="text-xs">{competition.name}</p>
                             </div>
                             <div>
                                 <Tag className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">{t('currentCategory')}</p>
+                                <p className="font-medium text-xs">{t('Huidige categorie')}</p>
                                 <p className="text-xs">{competition.category}</p>
                             </div>
                             <div>
                                 <Calendar className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">{t('currentYear')}</p>
+                                <p className="font-medium text-xs">{t('Huidige jaar')}</p>
                                 <p className="text-xs">{competition.year}</p>
                             </div>
                         </div>

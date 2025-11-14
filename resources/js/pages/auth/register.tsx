@@ -34,7 +34,7 @@ export default function Register() {
     };
 
     return (
-        <AuthLayout title={t('createAnAccount')} description={t('enterYourDetailsBelowToCreateYourAccount')}>
+        <AuthLayout title={t('Maak een account')} description={t('Voer je details hieronder in om je account te maken')}>
             <Head title={t('register')} />
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
@@ -50,13 +50,13 @@ export default function Register() {
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
                             disabled={processing}
-                            placeholder={t('fullName')}
+                            placeholder={t('Volledige naam')}
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="email">{t('emailAddress')}</Label>
+                        <Label htmlFor="email">{t('Email adres')}</Label>
                         <Input
                             id="email"
                             type="email"
@@ -66,13 +66,13 @@ export default function Register() {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             disabled={processing}
-                            placeholder={t('emailExample')}
+                            placeholder={t('email@voorbeeld.nl')}
                         />
                         <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password">{t('password')}</Label>
+                        <Label htmlFor="password">{t('Wachtwoord')}</Label>
                         <Input
                             id="password"
                             type="password"
@@ -82,13 +82,13 @@ export default function Register() {
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             disabled={processing}
-                            placeholder={t('password')}
+                            placeholder={t('Wachtwoord')}
                         />
                         <InputError message={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password_confirmation">{t('confirmPassword')}</Label>
+                        <Label htmlFor="password_confirmation">{t('Bevestig wachtwoord')}</Label>
                         <Input
                             id="password_confirmation"
                             type="password"
@@ -98,21 +98,21 @@ export default function Register() {
                             value={data.password_confirmation}
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                             disabled={processing}
-                            placeholder={t('confirmPassword')}
+                            placeholder={t('Bevestig wachtwoord')}
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        {t('createAccount')}
+                        {t('Maak account')}
                     </Button>
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    {t('alreadyHaveAnAccount')}
+                    {t('Heb je al een account?')}
                     <TextLink href={route('login')} tabIndex={6}>
-                        {t('logIn')}
+                        {t('Log in')}
                     </TextLink>
                 </div>
             </form>

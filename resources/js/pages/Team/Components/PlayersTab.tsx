@@ -16,14 +16,14 @@ export default function Players({ team }: { team: Team }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Users className="h-5 w-5" />
-                        {t('teamMembers')}
+                        {t('Team leden')}
                     </CardTitle>
                     <CardDescription>
                         <span>
-                            {team.coaches?.length} {team.coaches?.length === 1 ? t('coach') : t('coaches')}.{' '}
+                            {team.coaches?.length} {team.coaches?.length === 1 ? t('Coach') : t('coaches')}.{' '}
                         </span>
                         <span>
-                        {team.players?.length} {team.players?.length === 1 ? t('player') : t('players')}.
+                        {team.players?.length} {team.players?.length === 1 ? t('Speler') : t('spelers')}.
                         </span>
                         <Separator />
                     </CardDescription>
@@ -38,8 +38,8 @@ export default function Players({ team }: { team: Team }) {
                         </div>
                         <div className="text-muted-foreground text-sm">
                             {team?.coaches?.length === 0
-                                ? t('noCoachesAssignedYet')
-                                : `${team?.coaches?.length} ${team?.coaches?.length === 1 ? t('coach') : t('coaches')} ${t('managingThisTeam')}`
+                                ? t('Geen coaches toegewezen')
+                                : `${team?.coaches?.length} ${team?.coaches?.length === 1 ? t('Coach') : t('coaches')} ${t('beheert dit team.')}`
                             }
                         </div>
                     </div>
@@ -48,7 +48,7 @@ export default function Players({ team }: { team: Team }) {
                     {!team?.coaches || team?.coaches.length === 0 ? (
                         <div className="text-center py-6 text-muted-foreground">
                             <Crown className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                            <p className="text-sm">{t('noCoachesYet')}</p>
+                            <p className="text-sm">{t('Geen coaches')}</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 gap-2">
@@ -62,12 +62,12 @@ export default function Players({ team }: { team: Team }) {
                     <div className="my-2">
                         <div className="flex items-center gap-2 font-semibold">
                             <User className="h-5 w-5" />
-                            {t('players')}
+                            {t('spelers')}
                         </div>
                         <div className="text-muted-foreground text-sm">
                             {team?.players?.length === 0
-                                ? t('noPlayersAssignedYet')
-                                : `${team?.players?.length} ${team?.players?.length === 1 ? t('player') : t('players')} ${t('onThisTeam')}`
+                                ? t('Geen spelers toegewezen')
+                                : `${team?.players?.length} ${team?.players?.length === 1 ? t('Speler') : t('spelers')} ${t('op dit team.')}`
                             }
                         </div>
                     </div>
@@ -76,7 +76,7 @@ export default function Players({ team }: { team: Team }) {
                     {!team?.players || team?.players.length === 0 ? (
                         <div className="text-center py-6 text-muted-foreground">
                             <User className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                            <p className="text-sm">{t('noPlayersYet')}</p>
+                            <p className="text-sm">{t('Geen spelers')}</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 gap-2">

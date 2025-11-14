@@ -25,19 +25,19 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
     return (
         <form onSubmit={handleSubmit} method="post" className="grid grid-cols-2 items-center gap-4">
             <div className="grid gap-y-2">
-                <Label htmlFor="user_id" className="mb-1">{t('user')}</Label>
+                <Label htmlFor="user_id" className="mb-1">{t('Gebruiker')}</Label>
 
                 <Search onSelect={(value) => setData('user_id', value.toString()) } type="user" />
             </div>
 
             <div className="grid gap-y-2">
-                <Label htmlFor="role_id" className="mb-1">{t('role')}</Label>
+                <Label htmlFor="role_id" className="mb-1">{t('Rol')}</Label>
                 <Select
                     value={data.role_id}
                     onValueChange={(value) => setData("role_id", value)}
                 >
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t('selectRole')}>
+                        <SelectValue placeholder={t('Selecteer rol')}>
                             {roles?.find((role: Role) => role.id === Number(data.role_id))?.name}
                         </SelectValue>
                     </SelectTrigger>
@@ -52,7 +52,7 @@ export function AddUser({ team, roles }: { team: Team, roles: Role[] }) {
 
             <div className="col-span-2">
                 <Button variant="default" size="sm" className="mt-2 flex justify-self-end">
-                    {t('add')}
+                    {t('Toevoegen')}
                 </Button>
             </div>
         </form>

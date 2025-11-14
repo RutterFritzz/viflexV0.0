@@ -30,17 +30,17 @@ export default function Edit({ gameday, locations }: EditProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('gameday.show', gameday.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToGameday')}
+                            {t('Terug naar wedstrijddag')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Calendar className="h-8 w-8" />
-                        {t('editGameday')}
+                        {t('Bewerk wedstrijddag')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheDetailsForTheGamedayOn')} <span className="font-medium">{formatDate(gameday.date)}</span>.
+                        {t('Update de details voor deze wedstrijddag.')} <span className="font-medium">{formatDate(gameday.date)}</span>.
                     </p>
                 </div>
             </div>
@@ -50,10 +50,10 @@ export default function Edit({ gameday, locations }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('gamedayInformation')}
+                        {t('Wedstrijddag informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheGamedayDetailsBelow')}
+                        {t('Maak wijzigingen aan de wedstrijddag details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -64,23 +64,23 @@ export default function Edit({ gameday, locations }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="date" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                {t('eventDate')}
+                                {t('Evenement datum')}
                             </Label>
                             <Calendar22 date={date} setDate={setDate} className="w-full" />
                                 <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
                             <p className="text-xs text-muted-foreground">
-                                {t('selectTheDateForThisGamedayEvent')}
+                                {t('Selecteer de datum voor deze wedstrijddag evenement.')}
                             </p>
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="location_id" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('venueLocation')}
+                                {t('Locatie')}
                             </Label>
                             <Select name="location_id" defaultValue={gameday.location_id.toString()} required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectAVenue')} />
+                                    <SelectValue placeholder={t('Selecteer een locatie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {locations.map((location) => (
@@ -95,18 +95,18 @@ export default function Edit({ gameday, locations }: EditProps) {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                {t('chooseTheVenueWhereThisGamedayWillTakePlace')}
+                                {t('Selecteer de locatie waar deze wedstrijddag zal plaatsvinden.')}
                             </p>
                         </div>
 
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                {t('updateGameday')}
+                                {t('Update wedstrijddag')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('gameday.show', gameday.id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -119,19 +119,19 @@ export default function Edit({ gameday, locations }: EditProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Calendar className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('currentValues')}</p>
+                        <p className="font-medium">{t('Huidige waarden')}</p>
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
-                                <p className="font-medium text-xs">{t('eventDate')}</p>
+                                <p className="font-medium text-xs">{t('Evenement datum')}</p>
                                 <p className="text-xs">{formatDate(gameday.date)}</p>
                             </div>
                             <div>
-                                <p className="font-medium text-xs">{t('venue')}</p>
+                                <p className="font-medium text-xs">{t('Locatie')}</p>
                                 <Badge variant="outline" className="text-xs">{gameday.location?.name}</Badge>
                             </div>
                         </div>
                         <div className="text-center">
-                            <p className="font-medium text-xs">{t('city')}</p>
+                            <p className="font-medium text-xs">{t('Plaats')}</p>
                             <p className="text-xs">{gameday.location?.city}</p>
                         </div>
                     </div>

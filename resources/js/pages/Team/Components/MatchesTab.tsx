@@ -8,29 +8,11 @@ import { ArrowRight, Crown, Trophy, User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export default function General({ team }: { team: Team }) {
+export default function Matches({ team }: { team: Team }) {
     const { t } = useTranslation();
 
     return (
         <div className="space-y-4">
-            <div>
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-sm">
-                            <span className="flex items-center gap-1">
-                                <Crown className="h-4 w-4" />
-                                {team.coaches?.length} {team.coaches?.length === 1 ? t('coach') : t('coaches')}
-                                {' '}{t('managingThisTeam')}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <User className="h-4 w-4" />
-                                {team.players?.length} {team.players?.length === 1 ? t('player') : t('players')}
-                                {' '}{t('onThisTeam')}
-                            </span>
-                        </CardTitle>
-                    </CardHeader>
-                </Card>
-            </div>
             <UpcommingGames upcomingGames={team?.upcoming_games} />
 
             <LastReasults lastResults={team?.last_results} />
@@ -42,10 +24,10 @@ export default function General({ team }: { team: Team }) {
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                     <Trophy className="h-5 w-5" />
-                                    {t('competitions')}
+                                    {t('Competities')}
                                 </CardTitle>
                                 <CardDescription>
-                                    {t('competitionsThisTeamIsParticipatingIn')}
+                                    {t('Competities waar dit team deelnemt.')}
                                 </CardDescription>
                             </div>
                             <Badge variant="secondary">{team.competitions.length}</Badge>

@@ -24,17 +24,17 @@ export default function Edit({ location }: EditProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('location.show', location.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToLocation')}
+                            {t('Terug naar locatie')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <MapPin className="h-8 w-8" />
-                        {t('editLocation')}
+                        {t('Bewerk locatie')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheDetailsFor')} <span className="font-medium">{location.name}</span>.
+                        {t('Update de details voor')} <span className="font-medium">{location.name}</span>.
                     </p>
                 </div>
             </div>
@@ -44,10 +44,10 @@ export default function Edit({ location }: EditProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('locationInformation')}
+                        {t('Locatie informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheLocationDetailsBelow')}
+                        {t('Maak wijzigingen aan de locatie details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -58,13 +58,13 @@ export default function Edit({ location }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                {t('venueName')}
+                                {t('Locatie naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterVenueName')}
+                                placeholder={t('Voer locatie naam in')}
                                 defaultValue={location.name}
                                 required
                                 className="w-full"
@@ -74,13 +74,13 @@ export default function Edit({ location }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="city" className="flex items-center gap-2">
                                 <Map className="h-4 w-4" />
-                                {t('city')}
+                                {t('Plaats')}
                             </Label>
                             <Input
                                 id="city"
                                 type="text"
                                 name="city"
-                                placeholder={t('enterCityName')}
+                                placeholder={t('Voer stad naam in')}
                                 defaultValue={location.city}
                                 required
                                 className="w-full"
@@ -90,13 +90,13 @@ export default function Edit({ location }: EditProps) {
                         <div className="space-y-2">
                             <Label htmlFor="address" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('address')}
+                                {t('Adres')}
                             </Label>
                             <Input
                                 id="address"
                                 type="text"
                                 name="address"
-                                placeholder={t('enterAddress')}
+                                placeholder={t('Voer adres in')}
                                 defaultValue={location.address}
                                 className="w-full"
                             />
@@ -105,11 +105,11 @@ export default function Edit({ location }: EditProps) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                {t('updateLocation')}
+                                {t('Update locatie')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('location.show', location.id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -122,14 +122,14 @@ export default function Edit({ location }: EditProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Building2 className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('currentValues')}</p>
+                        <p className="font-medium">{t('Huidige waarden')}</p>
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
-                                <p className="font-medium text-xs">{t('venueName')}</p>
+                                <p className="font-medium text-xs">{t('Locatie naam')}</p>
                                 <p className="text-xs">{location.name}</p>
                             </div>
                             <div>
-                                <p className="font-medium text-xs">{t('city')}</p>
+                                <p className="font-medium text-xs">{t('Plaats')}</p>
                                 <Badge variant="outline" className="text-xs">{location.city}</Badge>
                             </div>
                         </div>

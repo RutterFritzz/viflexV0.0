@@ -68,21 +68,21 @@ export default function Show({ game }: ShowProps) {
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('game.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToGames')}
+                            {t('Terug naar wedstrijden')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {game.home_team?.name || t('teamA')} vs {game.away_team?.name || t('teamB')}
+                        {game.home_team?.name || t('Team A')} vs {game.away_team?.name || t('Team B')}
                     </h1>
                     <div className="flex items-center gap-4 text-muted-foreground">
                         <div className="flex items-center gap-2">
@@ -106,28 +106,28 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Calendar className="h-5 w-5" />
-                            {t('matchInformation')}
+                            {t('Wedstrijd informatie')}
                         </CardTitle>
                         <CardDescription>
-                            {t('dateTimeAndLocationDetails')}
+                            {t('Datum, tijd en locatie details.')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('date')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Datum')}:</span>
                                 <span className="font-medium">{formatDate(game.gameday?.date || 'Unknown Date')}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('time')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Tijd')}:</span>
                                 <span className="font-medium">{game.time}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('location')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Locatie')}:</span>
                                 <span className="font-medium">{game.location?.name || 'Unknown Location'}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('arrivalTime')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Aanvangstijd')}:</span>
                                 <span className="font-medium">{game.arrival_time} minuten</span>
                             </div>
                         </div>
@@ -138,7 +138,7 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <MapPin className="h-5 w-5" />
-                            {t('location')}
+                            {t('Locatie')}
                         </CardTitle>
                         <CardDescription>
                             {game.location?.city} - {game.location?.name}
@@ -157,7 +157,7 @@ export default function Show({ game }: ShowProps) {
             {/* Team Management Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('teamManagement')}</CardTitle>
+                    <CardTitle>{t('Teammanagement')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-3">
@@ -180,10 +180,10 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Building2 className="h-5 w-5" />
-                            {t('homeTeam')}
+                            {t('Thuis team')}
                         </CardTitle>
                         <CardDescription>
-                            {game.home_team?.name || t('teamA')}
+                            {game.home_team?.name || t('Team A')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -192,9 +192,9 @@ export default function Show({ game }: ShowProps) {
                                 <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Users className="h-8 w-8 text-secondary" />
                                 </div>
-                                <h3 className="text-xl font-semibold mb-2">{t('teamA')}</h3>
+                                <h3 className="text-xl font-semibold mb-2">{t('Team A')}</h3>
                                 <p className="text-sm text-muted-foreground">
-                                    {t('playingHome')}
+                                    {t('Thuis spelen')}
                                 </p>
                             </div>
                         ) : (
@@ -219,10 +219,10 @@ export default function Show({ game }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Building2 className="h-5 w-5" />
-                            {t('awayTeam')}
+                            {t('Uit team')}
                         </CardTitle>
                         <CardDescription>
-                            {game.away_team?.name || t('teamB')}
+                            {game.away_team?.name || t('Team B')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -231,9 +231,9 @@ export default function Show({ game }: ShowProps) {
                                 <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Users className="h-8 w-8 text-secondary" />
                                 </div>
-                                <h3 className="text-xl font-semibold mb-2">{t('teamB')}</h3>
+                                <h3 className="text-xl font-semibold mb-2">{t('Team B')}</h3>
                                 <p className="text-sm text-muted-foreground">
-                                    {t('playingAway')}
+                                    {t('Uit spelen')}
                                 </p>
                             </div>
                         ) : (
@@ -269,10 +269,10 @@ export default function Show({ game }: ShowProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Award className="h-5 w-5" />
-                        {t('competitionContext')}
+                        {t('Competitie context')}
                     </CardTitle>
                     <CardDescription>
-                        {t('informationAboutTheCompetitionThisGameBelongsTo')}
+                        {t('Informatie over de competitie waar deze wedstrijd bij hoort.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -286,7 +286,7 @@ export default function Show({ game }: ShowProps) {
                         <Button asChild variant="outline">
                             <Link href={route('competition.show', game.competition_id)}>
                                 <Award className="h-4 w-4 mr-2" />
-                                {t('viewCompetition')}
+                                {t('Bekijk competitie')}
                             </Link>
                         </Button>
                     </div>
@@ -296,9 +296,9 @@ export default function Show({ game }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('gameActions')}</CardTitle>
+                    <CardTitle>{t('Wedstrijd acties')}</CardTitle>
                     <CardDescription>
-                        {t('manageGameSettingsAndNavigation')}
+                        {t('Beheer wedstrijdinformatie en navigatie.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -306,13 +306,13 @@ export default function Show({ game }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('game.edit', game.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                {t('editGame')}
+                                {t('Bewerk wedstrijd')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('game.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('backToGames')}
+                                {t('Terug naar wedstrijden')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -322,7 +322,7 @@ export default function Show({ game }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            {t('deleteGame')}
+                            {t('Verwijder wedstrijd')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}

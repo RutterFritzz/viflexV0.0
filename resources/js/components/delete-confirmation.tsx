@@ -25,16 +25,16 @@ export default function DeleteConfirmation({ dialogOpen, type, name, onOpenChang
         <Dialog open={dialogOpen} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{t('areYouSureYouWantToDeleteThis')} {type}?</DialogTitle>
-                    <DialogDescription>{t('thisActionCannotBeUndone')}</DialogDescription>
+                    <DialogTitle>{t('Weet je zeker dat je dit wilt verwijderen?')} {type}?</DialogTitle>
+                    <DialogDescription>{t('Dit kan niet ongedaan worden gemaakt.')}</DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col gap-2">
-                    <p>{t('ifYouAreSureYouWantToDeleteThis')} {type}, {t('pleaseEnter')} <span className="font-bold">{name}</span> {t('below')}</p>
+                    <p>{t('Als je zeker bent dat je dit wilt verwijderen, voer dan de naam')} {type}, {t('Voer')} <span className="font-bold">{name}</span> {t('hieronder in.')}</p>
                     <Input type="text" placeholder={`${type} name`} value={input} onChange={(e) => setInput(e.target.value)} />
                 </div>
                 <DialogFooter className="flex justify-between gap-2">
                     <DialogClose asChild>
-                        <Button variant="secondary">{t('cancel')}</Button>
+                        <Button variant="secondary">{t('Annuleren')}</Button>
                     </DialogClose>
                     <form action={route(`${type}.destroy`, id)} method="post" className="ml-auto">
                         <input type="hidden" name="_token" value={csrf_token} />

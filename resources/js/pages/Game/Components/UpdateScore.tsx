@@ -46,7 +46,7 @@ export default function UpdateScore({ game }: CreateProps) {
                 <div className="space-y-2">
                     <Label htmlFor="away_team_score" className="flex items-center gap-2">
                         <Users className="h-4 w-4" />
-                        {game.away_team?.name || t('teamB')} {t('score')}
+                        {game.away_team?.name || t('Team B')} {t('score')}
                     </Label>
                     <Input
                         id="away_team_score"
@@ -64,7 +64,7 @@ export default function UpdateScore({ game }: CreateProps) {
             <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">
                     <Target className="h-4 w-4 mr-2" />
-                    {t('updateScore')}
+                    {t('Update score')}
                 </Button>
             </div>
         </form>

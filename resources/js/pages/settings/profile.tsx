@@ -16,7 +16,7 @@ import { t } from 'i18next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: t('profileSettings'),
+        title: t('Profiel instellingen'),
         href: '/settings/profile',
     },
 ];
@@ -44,11 +44,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={t('profileSettings')} />
+            <Head title={t('Profiel instellingen')} />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={t('profileInformation')} description={t('updateYourNameAndEmailAddress')} />
+                    <HeadingSmall title={t('Profiel informatie')} description={t('Update je naam en email adres')} />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
@@ -61,14 +61,14 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                                 autoComplete="name"
-                                placeholder={t('fullName')}
+                                placeholder={t('Volledige naam')}
                             />
 
                             <InputError className="mt-2" message={errors.name} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="email">{t('emailAddress')}</Label>
+                            <Label htmlFor="email">{t('Email adres')}</Label>
 
                             <Input
                                 id="email"
@@ -78,7 +78,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
                                 autoComplete="username"
-                                placeholder={t('emailAddress')}
+                                placeholder={t('Email adres')}
                             />
 
                             <InputError className="mt-2" message={errors.email} />
@@ -87,27 +87,27 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         {mustVerifyEmail && auth.user.email_verified_at === null && (
                             <div>
                                 <p className="-mt-4 text-sm text-muted-foreground">
-                                    {t('yourEmailAddressIsUnverified')}
+                                    {t('Je email adres is niet geverifieerd.')}
                                     <Link
                                         href={route('verification.send')}
                                         method="post"
                                         as="button"
                                         className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                     >
-                                        {t('clickHereToResendTheVerificationEmail')}
+                                        {t('Klik hier om de verificatie email opnieuw te versturen.')}
                                     </Link>
                                 </p>
 
                                 {status === 'verification-link-sent' && (
                                     <div className="mt-2 text-sm font-medium text-green-600">
-                                        {t('aNewVerificationLinkHasBeenSentToYourEmailAddress')}
+                                        {t('Een nieuwe verificatie link is verstuurd naar je email adres.')}
                                     </div>
                                 )}
                             </div>
                         )}
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>{t('save')}</Button>
+                            <Button disabled={processing}>{t('Opslaan')}</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -116,7 +116,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">{t('saved')}</p>
+                                <p className="text-sm text-neutral-600">{t('Opgeslagen')}</p>
                             </Transition>
                         </div>
                     </form>

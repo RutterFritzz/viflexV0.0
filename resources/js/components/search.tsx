@@ -83,7 +83,7 @@ export default function Search({ onSelect, type }: SearchProps) {
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor asChild>
                 <div className="relative">
-                    <Input type="text" name="search" id="search" placeholder={`${t('searchForA')} ${type}`}
+                    <Input type="text" name="search" id="search" placeholder={`${t('Zoek naar een')} ${type}`}
                         value={inputValue} ref={inputRef} onBlur={() => { setTimeout(() => setFocus(false), 150) }} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 handleSelect(results[0]);
@@ -113,7 +113,7 @@ export default function Search({ onSelect, type }: SearchProps) {
                                     </CommandItem>
                                 ))
                             ) : (
-                                <CommandItem disabled>{t('noResultsFound')}</CommandItem>
+                                <CommandItem disabled>{t('Geen resultaten gevonden.')}</CommandItem>
                             ))}
                     </CommandList>
                 </Command>

@@ -17,17 +17,17 @@ export default function Create() {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToClubs')}
+                            {t('Terug naar clubs')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Building2 className="h-8 w-8" />
-                        {t('createNewClub')}
+                        {t('Maak nieuwe club')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('addANewSportsClubToYourOrganization')}
+                        {t('Voeg een nieuwe sportclub toe aan je organisatie.')}
                     </p>
                 </div>
             </div>
@@ -37,10 +37,10 @@ export default function Create() {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('clubInformation')}
+                        {t('Club informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheBasicInformationForTheNewClub')}
+                        {t('Voer de basisinformatie voor de nieuwe club in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -50,13 +50,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                {t('clubName')}
+                                {t('Club naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterClubName')}
+                                placeholder={t('Voer club naam in')}
                                 required
                                 className="w-full"
                             />
@@ -65,13 +65,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="location" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('location')}
+                                {t('Locatie')}
                             </Label>
                             <Input
                                 id="location"
                                 type="text"
                                 name="location"
-                                placeholder={t('enterLocation')}
+                                placeholder={t('Voer locatie in')}
                                 required
                                 className="w-full"
                             />
@@ -80,11 +80,11 @@ export default function Create() {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createClub')}
+                                {t('Maak club')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('club.index')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>

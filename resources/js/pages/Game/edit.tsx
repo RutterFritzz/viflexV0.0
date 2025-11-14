@@ -30,17 +30,17 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('game.show', game.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToGame')}
+                            {t('Terug naar wedstrijd')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {t('editGame')}
+                        {t('Bewerk wedstrijd')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheDetailsFor')} <span className="font-medium">{game.home_team?.name} vs {game.away_team?.name}</span>.
+                        {t('Update de details voor')} <span className="font-medium">{game.home_team?.name} vs {game.away_team?.name}</span>.
                     </p>
                 </div>
             </div>
@@ -50,10 +50,10 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('gameInformation')}
+                        {t('Wedstrijd informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheGameDetailsBelow')}
+                        {t('Maak wijzigingen aan de wedstrijd details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -66,10 +66,10 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Target className="h-5 w-5" />
-                        {t('updateScore')}
+                        {t('Update score')}
                     </CardTitle>
                     <CardDescription>
-                        {t('recordTheFinalScoreForThisMatch')}
+                        {t('Registreer de eindscore voor deze wedstrijd.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -84,16 +84,16 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
                                 <Users className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">{t('currentTeams')}</p>
+                                <p className="font-medium text-xs">{t('Huidige teams')}</p>
                                 <p className="text-xs">{game.home_team?.name} vs {game.away_team?.name}</p>
                             </div>
                             <div>
                                 <Target className="h-4 w-4 mx-auto opacity-50 mb-1" />
-                                <p className="font-medium text-xs">{t('currentScore')}</p>
+                                <p className="font-medium text-xs">{t('Huidige score')}</p>
                                 <p className="text-xs">
                                     {game.home_team_score !== null && game.away_team_score !== null
                                         ? `${game.home_team_score} - ${game.away_team_score}`
-                                        : t('notRecorded')
+                                        : t('Niet geregistreerd')
                                     }
                                 </p>
                             </div>

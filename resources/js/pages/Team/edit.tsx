@@ -52,17 +52,17 @@ export default function Edit({ team }: { team: Team }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('team.show', team.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToTeam')}
+                            {t('Terug naar team')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Users className="h-8 w-8" />
-                        {t('editTeam')}
+                        {t('Bewerk team')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheInformationFor')} <span className="font-medium">{team.name}</span>.
+                        {t('Update de informatie voor')} <span className="font-medium">{team.name}</span>.
                     </p>
                 </div>
             </div>
@@ -72,10 +72,10 @@ export default function Edit({ team }: { team: Team }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('teamInformation')}
+                        {t('Team informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheTeamDetailsBelow')}
+                        {t('Maak wijzigingen aan de team details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -84,13 +84,13 @@ export default function Edit({ team }: { team: Team }) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                {t('teamName')}
+                                {t('Team naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterTeamName')}
+                                placeholder={t('Voer team naam in')}
                                 defaultValue={team.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 required
@@ -101,7 +101,7 @@ export default function Edit({ team }: { team: Team }) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                {t('travelTime')}
+                                {t('Reistijd')}
                             </Label>
                             <Input
                                 id="travel_time"
@@ -154,11 +154,11 @@ export default function Edit({ team }: { team: Team }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                {t('updateTeam')}
+                                {t('Update team')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('team.show', team.id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>

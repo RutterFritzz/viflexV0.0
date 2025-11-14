@@ -1,16 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Club, Team, Role, TeamValue } from "@/types";
+import { Club, Team, Role } from "@/types";
 import { Link } from "@inertiajs/react";
 import { Users, Building2, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import General from "./Components/General";
-import Settings from "./Components/Settings";
-import Players from "./Components/Players";
+import Matches from "./Components/MatchesTab";
+import Settings from "./Components/SettingsTab";
+import Players from "./Components/PlayersTab";
 import Messages from "./Components/Messages";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 interface ShowProps {
     team: Team,
@@ -20,54 +18,16 @@ interface ShowProps {
 
 export default function Show({ team, club, roles }: ShowProps) {
     const { t } = useTranslation();
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-    const [initialTeam, setInitialTeam] = useState(team);
-
-    const handleUserSelect = (userId: number) => {
-        const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-        axios.post(route('team.add-player', [team]), {
-            user_id: userId,
-            team_id: team?.id,
-            role_id: 1,
-        }, {
-            headers: {
-                'X-CSRF-TOKEN': csrf_token
-            }
-        })
-    }
-
-    const handleCoachSelect = (userId: number) => {
-        const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-
-        // axios.post(route('team?.add-coach', team?.id), {
-        //     user_id: userId,
-        //     team_id: team?.id,
-        //     role_id: 2,
-        // }, {
-        //     headers: {
-        //         'X-CSRF-TOKEN': csrf_token
-        //     }
-        // })
-    }
-
-    const handleTeamValueDelete = (teamValue: TeamValue) => {
-        axios.delete(route('team?.teamValue.destroy', [team, teamValue]));
-    }
-
-    useEffect(() => {
-        setInitialTeam(team);
-    }, [team]);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToClub')}
+                            {t('Terug naar club')}
                         </Link>
                     </Button>
                 </div>
@@ -81,7 +41,7 @@ export default function Show({ team, club, roles }: ShowProps) {
                         </h1>
                         <p className="text-muted-foreground flex items-center gap-2">
                             <Building2 className="h-4 w-4" />
-                            {t('partOf')} <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
+                            {t('Deel van')} <Link href={route('club.show', club.id)} className="font-medium hover:text-primary transition-colors">{club.name}</Link>
                         </p>
                     </div>
 
@@ -90,15 +50,15 @@ export default function Show({ team, club, roles }: ShowProps) {
 
             <Separator />
 
-            <Tabs defaultValue="general">
+            <Tabs defaultValue="matches">
                 <TabsList>
-                    <TabsTrigger value="general">{t('general')}</TabsTrigger>
-                    <TabsTrigger value="players">{t('players')}</TabsTrigger>
-                    <TabsTrigger value="settings">{t('settings')}</TabsTrigger>
-                    <TabsTrigger value="messages">{t('messages')}</TabsTrigger>
+                    <TabsTrigger value="matches">{t('Wedstrijden')}</TabsTrigger>
+                    <TabsTrigger value="players" className="capitalize">{t('spelers')}</TabsTrigger>
+                    <TabsTrigger value="settings">{t('Instellingen')}</TabsTrigger>
+                    <TabsTrigger value="messages">{t('Berichten')}</TabsTrigger>
                 </TabsList>
-                <TabsContent value="general">
-                    <General team={team} />
+                <TabsContent value="matches">
+                    <Matches team={team} />
                 </TabsContent>
                 <TabsContent value="players">
                     <Players team={team} />

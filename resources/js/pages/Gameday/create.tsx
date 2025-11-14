@@ -28,17 +28,17 @@ export default function Create({ locations }: CreateProps) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('gameday.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToGamedays')}
+                            {t('Terug naar wedstrijddagen')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Calendar className="h-8 w-8" />
-                        {t('scheduleNewGameday')}
+                        {t('Plan nieuwe wedstrijddag')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('createANewGamedayEventAtASpecificVenue')}
+                        {t('Maak een nieuwe wedstrijddag evenement op een specifieke locatie.')}
                     </p>
                 </div>
             </div>
@@ -48,10 +48,10 @@ export default function Create({ locations }: CreateProps) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('gamedayInformation')}
+                        {t('Wedstrijddag informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheDetailsForTheNewGamedayEvent')}
+                        {t('Voer de details voor de nieuwe wedstrijddag evenement in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -61,24 +61,24 @@ export default function Create({ locations }: CreateProps) {
                         <div className="space-y-2">
                             <Label htmlFor="date" className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                {t('eventDate')}
+                                {t('Evenement datum')}
                             </Label>
                             <Calendar22 date={date} setDate={setDate} className="w-full" />
                                 <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
 
                             <p className="text-xs text-muted-foreground">
-                                {t('selectTheDateForThisGamedayEvent')}
+                                {t('Selecteer de datum voor deze wedstrijddag evenement.')}
                             </p>
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="location_id" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('venueLocation')}
+                                {t('Locatie')}
                             </Label>
                             <Select name="location_id" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectAVenue')} />
+                                    <SelectValue placeholder={t('Selecteer een locatie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {locations.map((location) => (
@@ -93,18 +93,18 @@ export default function Create({ locations }: CreateProps) {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                {t('chooseTheVenueWhereThisGamedayWillTakePlace')}
+                                {t('Selecteer de locatie waar deze wedstrijddag zal plaatsvinden.')}
                             </p>
                         </div>
 
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('scheduleGameday')}
+                                {t('Plan wedstrijddag')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('gameday.index')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -117,8 +117,8 @@ export default function Create({ locations }: CreateProps) {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Calendar className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('gamedayManagement')}</p>
-                        <p>{t('gamedaysAreEventsWhereMultipleGamesCanBeScheduledAtASpecificVenueOnAParticularDateYouCanAddIndividualGamesToAGamedayAfterCreatingIt')}</p>
+                        <p className="font-medium">{t('Wedstrijddag management')}</p>
+                        <p>{t('Wedstrijddagen zijn evenementen waar meerdere wedstrijden op een specifieke locatie op een specifieke datum kunnen worden gepland. Je kan individuele wedstrijden toevoegen aan een wedstrijddag na het aanmaken ervan.')}</p>
                     </div>
                 </CardContent>
             </Card>

@@ -51,13 +51,13 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays < 0) {
-            return <Badge variant="secondary">{t('completed')}</Badge>;
+            return <Badge variant="secondary">{t('Voltooid')}</Badge>;
         } else if (diffDays === 0) {
-            return <Badge variant="destructive">{t('today')}</Badge>;
+            return <Badge variant="destructive">{t('Vandaag')}</Badge>;
         } else if (diffDays <= 7) {
-            return <Badge variant="default">{t('upcoming')}</Badge>;
+            return <Badge variant="default">{t('Aankomend')}</Badge>;
         } else {
-            return <Badge variant="outline">{t('scheduled')}</Badge>;
+            return <Badge variant="outline">{t('Gepland')}</Badge>;
         }
     };
 
@@ -65,9 +65,9 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
     const getRoleBadge = (role: string) => {
         switch (role.toLowerCase()) {
             case 'player':
-                return <Badge variant="default" className="text-xs">{t('player')}</Badge>;
+                return <Badge variant="default" className="text-xs">{t('Speler')}</Badge>;
             case 'coach':
-                return <Badge variant="secondary" className="text-xs">{t('coach')}</Badge>;
+                return <Badge variant="secondary" className="text-xs">{t('Coach')}</Badge>;
             default:
                 return <Badge variant="outline" className="text-xs">{role}</Badge>;
         }
@@ -80,10 +80,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Calendar className="h-8 w-8" />
-                        {t('dashboard')}
+                        {t('Dashboard')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('welcomeBack')} {t('hereIsAnOverviewOfYourUpcomingGamesAndActivities')}
+                        {t('Welkom terug!')} {t('Hier is een overzicht van je komende wedstrijden en activiteiten.')}
                     </p>
                 </div>
             </div>
@@ -92,61 +92,61 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('totalGames')}</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('Totaale wedstrijden')}</CardTitle>
                         <Trophy className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{statistics.totalGames}</div>
                         <p className="text-xs text-muted-foreground">
-                            {t('allTimeGames')}
+                            {t('Alle wedstrijden')}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('upcomingGames')}</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('Komende wedstrijden')}</CardTitle>
                         <Clock className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{statistics.upcomingGames}</div>
                         <p className="text-xs text-muted-foreground">
-                            {t('next30Days')}
+                            {t('Volgende 30 dagen')}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('completedGames')}</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('Voltooide wedstrijden')}</CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{statistics.completedGames}</div>
                         <p className="text-xs text-muted-foreground">
-                            {t('last30Days')}
+                            {t('Laatste 30 dagen')}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('myTeams')}</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('Mijn teams')}</CardTitle>
                         <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{statistics.totalTeams}</div>
                         <p className="text-xs text-muted-foreground">
-                            {t('activeTeams')}
+                            {t('Actieve teams')}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('competitions')}</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t('Competities')}</CardTitle>
                         <Award className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{statistics.totalCompetitions}</div>
                         <p className="text-xs text-muted-foreground">
-                            {t('participatingIn')}
+                            {t('Deelnemen in')}
                         </p>
                     </CardContent>
                 </Card>
@@ -165,10 +165,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                 <div>
                                     <CardTitle className="flex items-center gap-2">
                                         <Award className="h-5 w-5" />
-                                        {t('gamesAsCoach')}
+                                        {t('Wedstrijden als coach')}
                                     </CardTitle>
                                     <CardDescription>
-                                        {t('yourUpcomingGamesAsACoach')}
+                                        {t('Je komende wedstrijden als coach.')}
                                     </CardDescription>
                                 </div>
                                 <Badge variant="secondary">{userGames.asCoach.length}</Badge>
@@ -184,7 +184,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                         <div className="flex items-center gap-3">
                                             <div className="text-sm">
                                                 <div className="font-medium">
-                                                    {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
+                                                    {game.homeTeam?.name || t('Team A')} vs {game.awayTeam?.name || t('Team B')}
                                                 </div>
                                                 <div className="text-muted-foreground text-xs">
                                                     {game.competition?.name}
@@ -214,7 +214,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                 {userGames.asCoach.length > 5 && (
                                     <Button asChild variant="outline" size="sm" className="w-full">
                                         <Link href={route('game.index')}>
-                                            {t('viewAllCoachGames')}
+                                            {t('Bekijk alle coach wedstrijden')}
                                         </Link>
                                     </Button>
                                 )}
@@ -232,10 +232,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                     <Users className="h-5 w-5" />
-                                    {t('myTeams')}
+                                    {t('Mijn teams')}
                                 </CardTitle>
                                 <CardDescription>
-                                    {t('teamsYouAreAMemberOfAsAPlayerOrCoach')}
+                                    {t('Teams waar je lid van bent als speler of coach.')}
                                 </CardDescription>
                             </div>
                             <Badge variant="secondary">{userTeams.length}</Badge>
@@ -260,7 +260,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        {getRoleBadge(teamRole.role?.name || t('member'))}
+                                        {getRoleBadge(teamRole.role?.name || t('Lid'))}
                                         <Button asChild variant="outline" size="sm">
                                             <Link href={route('team.show', teamRole.team?.id)}>
                                                 <ArrowRight className="h-3 w-3" />
@@ -282,10 +282,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                     <Trophy className="h-5 w-5" />
-                                    {t('myCompetitions')}
+                                    {t('Mijn competities')}
                                 </CardTitle>
                                 <CardDescription>
-                                    {t('competitionsYouAreParticipatingIn')}
+                                    {t('Competities waar je deelnemt.')}
                                 </CardDescription>
                             </div>
                             <Badge variant="secondary">{userCompetitions.length}</Badge>
@@ -329,10 +329,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                     <Gavel className="h-5 w-5" />
-                                    {t('gamesAsReferee')}
+                                    {t('Wedstrijden als scheidsrechter')}
                                 </CardTitle>
                                 <CardDescription>
-                                    {t('yourUpcomingOfficiatingAssignments')}
+                                    {t('Je komende scheidsrechter toewijzingen')}
                                 </CardDescription>
                             </div>
                             <Badge variant="secondary">{userGames.asReferee.length}</Badge>
@@ -348,7 +348,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                     <div className="flex items-center gap-3">
                                         <div className="text-sm">
                                             <div className="font-medium">
-                                                {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
+                                                {game.homeTeam?.name || t('Team A')} vs {game.awayTeam?.name || t('Team B')}
                                             </div>
                                             <div className="text-muted-foreground text-xs">
                                                 {game.competition?.name}
@@ -378,7 +378,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                             {userGames.asReferee.length > 5 && (
                                 <Button asChild variant="outline" size="sm" className="w-full">
                                     <Link href={route('game.index')}>
-                                        {t('viewAllRefereeGames')}
+                                        {t('Bekijk alle scheidsrechter wedstrijden')}
                                     </Link>
                                 </Button>
                             )}
@@ -390,9 +390,9 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
             {/* Quick Actions */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('quickActions')}</CardTitle>
+                    <CardTitle>{t('Snelle acties')}</CardTitle>
                     <CardDescription>
-                        {t('commonTasksAndNavigationShortcuts')}
+                        {t('Algemene taken en navigatiesnelkoppelingen.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -400,25 +400,25 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                         <Button asChild variant="outline" className="h-auto p-4 flex-col gap-2">
                             <Link href={route('game.index')}>
                                 <Calendar className="h-5 w-5" />
-                                <span>{t('viewAllGames')}</span>
+                                <span>{t('Bekijk alle wedstrijden')}</span>
                             </Link>
                         </Button>
                         <Button asChild variant="outline" className="h-auto p-4 flex-col gap-2">
                             <Link href={route('team.index')}>
                                 <Users className="h-5 w-5" />
-                                <span>{t('myTeams')}</span>
+                                <span>{t('Mijn teams')}</span>
                             </Link>
                         </Button>
                         <Button asChild variant="outline" className="h-auto p-4 flex-col gap-2">
                             <Link href={route('competition.index')}>
                                 <Trophy className="h-5 w-5" />
-                                <span>{t('competitions')}</span>
+                                <span>{t('Competities')}</span>
                             </Link>
                         </Button>
                         <Button asChild variant="outline" className="h-auto p-4 flex-col gap-2">
                             <Link href={route('gameday.index')}>
                                 <Building2 className="h-5 w-5" />
-                                <span>{t('gamedays')}</span>
+                                <span>{t('Wedstrijddagen')}</span>
                             </Link>
                         </Button>
                     </div>
@@ -429,9 +429,9 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
             {recentGames.length > 0 && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>{t('recentActivity')}</CardTitle>
+                        <CardTitle>{t('Recente activiteiten')}</CardTitle>
                         <CardDescription>
-                            {t('yourRecentlyCompletedGamesAndActivities')}
+                            {t('Je recente voltooide wedstrijden en activiteiten')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -444,7 +444,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                     <div className="flex items-center gap-3">
                                         <div className="text-sm">
                                             <div className="font-medium">
-                                                {game.homeTeam?.name || t('teamA')} vs {game.awayTeam?.name || t('teamB')}
+                                                {game.homeTeam?.name || t('Team A')} vs {game.awayTeam?.name || t('Team B')}
                                             </div>
                                             <div className="text-muted-foreground text-xs">
                                                 {game.competition?.name} • {formatDate(game.gameday?.date || '')}
@@ -475,21 +475,21 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                 <Card>
                     <CardContent className="text-center py-12">
                         <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">{t('noUpcomingGames')}</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('Geen komende wedstrijden')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            {t('youDontHaveAnyGamesScheduledAtTheMomentCheckBackLaterOrBrowseAvailableCompetitions')}
+                            {t('Je hebt momenteel geen wedstrijden gepland. Kom later terug of bekijk beschikbare competities.')}
                         </p>
                         <div className="flex gap-3 justify-center">
                             <Button asChild>
                                 <Link href={route('competition.index')}>
                                     <Trophy className="h-4 w-4 mr-2" />
-                                    {t('browseCompetitions')}
+                                    {t('Bekijk competities')}
                                 </Link>
                             </Button>
                             <Button asChild variant="outline">
                                 <Link href={route('team.index')}>
                                     <Users className="h-4 w-4 mr-2" />
-                                    {t('viewTeams')}
+                                    {t('Bekijk teams')}
                                 </Link>
                             </Button>
                         </div>

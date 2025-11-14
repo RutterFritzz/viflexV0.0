@@ -32,14 +32,14 @@ export default function Index({ referees }: { referees: Referee[] }) {
     }, {} as Record<string, Referee[]>);
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
                     <Button asChild variant="ghost" size="sm">
                         <Link href="/dashboard">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToDashboard')}
+                            {t('Terug naar dashboard')}
                         </Link>
                     </Button>
                 </div>
@@ -47,21 +47,21 @@ export default function Index({ referees }: { referees: Referee[] }) {
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Gavel className="h-8 w-8" />
-                            {t('referees')}
+                            {t('scheidsrechters')}
                         </h1>
                         <p className="text-muted-foreground">
-                            {t('manageAndOrganizeSportsRefereesForCompetitionsAndGames')}
+                            {t('Beheer en organiseer sportscheidsrechters voor competities en wedstrijden.')}
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Badge variant="secondary" className="flex items-center gap-1">
                             <Users className="h-3 w-3" />
-                            {referees.length} {referees.length === 1 ? t('referee') : t('referees')}
+                            {referees.length} {referees.length === 1 ? t('scheidsrechter') : t('scheidsrechters')}
                         </Badge>
                         <Button asChild>
                             <Link href={route('referee.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('addReferee')}
+                                {t('Voeg scheidsrechter toe')}
                             </Link>
                         </Button>
                     </div>
@@ -73,14 +73,14 @@ export default function Index({ referees }: { referees: Referee[] }) {
                 <Card>
                     <CardContent className="text-center py-12">
                         <Gavel className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">{t('noRefereesRegistered')}</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('Geen scheidsrechters geregistreerd')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            {t('addYourFirstRefereeToStartManagingOfficiatingForYourCompetitions')}
+                            {t('Voeg je eerste scheidsrechter toe om te beginnen met het beheren van het scheidsrechtsbieden voor je competities.')}
                         </p>
                         <Button asChild>
                             <Link href={route('referee.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('addFirstReferee')}
+                                {t('Voeg eerste scheidsrechter toe')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -92,10 +92,10 @@ export default function Index({ referees }: { referees: Referee[] }) {
                             <div className="flex items-center gap-3">
                                 <h2 className="text-xl font-semibold flex items-center gap-2">
                                     <Award className="h-5 w-5 text-primary" />
-                                    {category} {t('referees')}
+                                    {category} {t('scheidsrechters')}
                                 </h2>
                                 <Badge variant="outline" className="text-sm">
-                                    {categoryReferees.length} {categoryReferees.length === 1 ? t('referee') : t('referees')}
+                                    {categoryReferees.length} {categoryReferees.length === 1 ? t('scheidsrechter') : t('scheidsrechters')}
                                 </Badge>
                             </div>
 
@@ -106,7 +106,7 @@ export default function Index({ referees }: { referees: Referee[] }) {
                                             <div className="flex items-center justify-between">
                                                 <CardTitle className="text-lg flex items-center gap-2">
                                                     <User className="h-5 w-5 text-primary" />
-                                                    {referee.user?.name || t('unknownReferee')}
+                                                    {referee.user?.name || t('Onbekende scheidsrechter')}
                                                 </CardTitle>
                                                 <Badge variant={getCategoryBadge(referee.category) as "default" | "secondary" | "outline"}>
                                                     {referee.category}
@@ -114,25 +114,25 @@ export default function Index({ referees }: { referees: Referee[] }) {
                                             </div>
                                             <CardDescription className="flex items-center gap-2">
                                                 <User className="h-3 w-3" />
-                                                <span className="text-xs">{referee.user?.email || t('noEmail')}</span>
+                                                <span className="text-xs">{referee.user?.email || t('Geen email')}</span>
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent className="pt-0">
                                             <div className="space-y-3">
                                                 <div className="flex items-center justify-between text-sm">
-                                                    <span className="text-muted-foreground">{t('category')}:</span>
+                                                    <span className="text-muted-foreground">{t('Categorie')}:</span>
                                                     <Badge variant="outline" className="text-xs">{referee.category}</Badge>
                                                 </div>
                                                 <div className="flex items-center justify-between text-sm">
-                                                    <span className="text-muted-foreground">{t('email')}:</span>
+                                                    <span className="text-muted-foreground">{t('Email')}:</span>
                                                     <span className="font-medium text-xs truncate max-w-[150px]">
-                                                        {referee.user?.email || t('nA')}
+                                                        {referee.user?.email || t('N/A')}
                                                     </span>
                                                 </div>
                                                 <div className="flex items-center justify-between pt-2">
                                                     <Button asChild variant="outline" size="sm">
                                                         <Link href={route('referee.show', referee.id)}>
-                                                            {t('viewDetails')}
+                                                            {t('Bekijk details')}
                                                         </Link>
                                                     </Button>
                                                 </div>
@@ -150,9 +150,9 @@ export default function Index({ referees }: { referees: Referee[] }) {
             {referees.length > 0 && (
                 <Card className="border-dashed border-muted-foreground/25">
                     <CardHeader>
-                        <CardTitle className="text-sm">{t('refereeStatistics')}</CardTitle>
+                        <CardTitle className="text-sm">{t('Scheidsrechter statistieken')}</CardTitle>
                         <CardDescription>
-                            {t('overviewOfRefereeDistributionAcrossCategories')}
+                            {t('Overzicht van scheidsrechter distributie over categorieën.')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>

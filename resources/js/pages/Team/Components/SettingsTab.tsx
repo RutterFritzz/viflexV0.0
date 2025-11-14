@@ -30,10 +30,10 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Users className="h-5 w-5" />
-                            {t('teamMembers')}
+                            {t('Team leden')}
                         </CardTitle>
                         <CardDescription>
-                            {t('manageTeamMembers')}
+                            {t('Beheer team leden')}
                             <Separator />
                         </CardDescription>
                     </CardHeader>
@@ -47,8 +47,8 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                             </div>
                             <div className="text-muted-foreground text-sm">
                                 {team?.coaches?.length === 0
-                                    ? t('noCoachesAssignedYet')
-                                    : `${team?.coaches?.length} ${team?.coaches?.length === 1 ? t('coach') : t('coaches')} ${t('managingThisTeam')}`
+                                    ? t('Geen coaches toegewezen')
+                                    : `${team?.coaches?.length} ${team?.coaches?.length === 1 ? t('Coach') : t('coaches')} ${t('beheert dit team.')}`
                                 }
                             </div>
                         </div>
@@ -57,7 +57,7 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                         {!team?.coaches || team?.coaches.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <Crown className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                                <p className="text-sm">{t('noCoachesYet')}</p>
+                                <p className="text-sm">{t('Geen coaches')}</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-2 gap-2">
@@ -71,12 +71,12 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                         <div className="my-2">
                             <div className="flex items-center gap-2 font-semibold">
                                 <User className="h-5 w-5" />
-                                {t('players')}
+                                {t('spelers')}
                             </div>
                             <div className="text-muted-foreground text-sm">
                                 {team?.players?.length === 0
-                                    ? t('noPlayersAssignedYet')
-                                    : `${team?.players?.length} ${team?.players?.length === 1 ? t('player') : t('players')} ${t('onThisTeam')}`
+                                    ? t('Geen spelers toegewezen')
+                                    : `${team?.players?.length} ${team?.players?.length === 1 ? t('Speler') : t('spelers')} ${t('op dit team.')}`
                                 }
                             </div>
                         </div>
@@ -85,7 +85,7 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                         {!team?.players || team?.players.length === 0 ? (
                             <div className="text-center py-6 text-muted-foreground">
                                 <User className="h-10 w-10 mx-auto mb-3 opacity-50" />
-                                <p className="text-sm">{t('noPlayersYet')}</p>
+                                <p className="text-sm">{t('Geen spelers')}</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-2 gap-2">
@@ -103,10 +103,10 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <UserPlus className="h-5 w-5" />
-                        {t('addUser')}
+                        {t('Voeg gebruiker toe')}
                     </CardTitle>
                     <CardDescription>
-                        {t('searchForUsersToAddToThisTeam')}
+                        {t('Zoek naar gebruikers om ze toe te voegen aan dit team.')}
                     </CardDescription>
                 </CardHeader>
 
@@ -149,9 +149,9 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('teamActions')}</CardTitle>
+                    <CardTitle>{t('Team acties')}</CardTitle>
                     <CardDescription>
-                        {t('manageTeamSettingsAndNavigation')}
+                        {t('Beheer team instellingen en navigatie.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -159,13 +159,13 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                         <Button asChild variant="default">
                             <Link href={route('team.edit', [team])}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                {t('editTeam')}
+                                {t('Bewerk team')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('team.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('backToTeams')}
+                                {t('Terug naar teams')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -175,7 +175,7 @@ export default function Settings({ team, roles }: { team: Team, roles: Role[] })
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            {t('deleteTeam')}
+                            {t('Verwijder team')}
                         </Button>
                         <DeleteConfirmation dialogOpen={dialogOpen} type="team" name={team?.name} onOpenChange={setDialogOpen} id={team?.id} />
                     </div>

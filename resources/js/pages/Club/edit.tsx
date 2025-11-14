@@ -18,17 +18,17 @@ export default function Edit({ club }: { club: Club }) {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('club.show', club.id)}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToClub')}
+                            {t('Terug naar club')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Building2 className="h-8 w-8" />
-                        {t('editClub')}
+                        {t('Bewerk club')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('updateTheInformationFor')} <span className="font-medium">{club.name}</span>.
+                        {t('Update de informatie voor')} <span className="font-medium">{club.name}</span>.
                     </p>
                 </div>
             </div>
@@ -38,10 +38,10 @@ export default function Edit({ club }: { club: Club }) {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Save className="h-5 w-5" />
-                        {t('clubInformation')}
+                        {t('Club informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('makeChangesToTheClubDetailsBelow')}
+                        {t('Maak wijzigingen aan de club details hieronder.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -52,13 +52,13 @@ export default function Edit({ club }: { club: Club }) {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                {t('clubName')}
+                                {t('Club naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterClubName')}
+                                placeholder={t('Voer club naam in')}
                                 defaultValue={club.name}
                                 required
                                 className="w-full"
@@ -68,13 +68,13 @@ export default function Edit({ club }: { club: Club }) {
                         <div className="space-y-2">
                             <Label htmlFor="location" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('location')}
+                                {t('Locatie')}
                             </Label>
                             <Input
                                 id="location"
                                 type="text"
                                 name="location"
-                                placeholder={t('enterLocation')}
+                                placeholder={t('Voer locatie in')}
                                 defaultValue={club.location}
                                 required
                                 className="w-full"
@@ -84,11 +84,11 @@ export default function Edit({ club }: { club: Club }) {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Save className="h-4 w-4 mr-2" />
-                                {t('updateClub')}
+                                {t('Update club')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('club.show', club.id)}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>

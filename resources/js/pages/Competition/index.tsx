@@ -21,14 +21,14 @@ export default function Index({ competitions }: { competitions: Competition[] })
     const years = Object.keys(competitionsByYear).map(Number).sort((a, b) => b - a);
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
                     <Button asChild variant="ghost" size="sm">
                         <Link href="/dashboard">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToDashboard')}
+                            {t('Terug naar dashboard')}
                         </Link>
                     </Button>
                 </div>
@@ -36,15 +36,15 @@ export default function Index({ competitions }: { competitions: Competition[] })
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                             <Trophy className="h-8 w-8" />
-                            {t('competitions')}
+                            {t('Competities')}
                         </h1>
                         <p className="text-muted-foreground">
-                            {t('manageAndViewAllCompetitionsAcrossDifferentCategoriesAndYears')}
+                            {t('Beheer en bekijk alle competities in verschillende categorieën en jaren.')}
                         </p>
                     </div>
                     <Badge variant="secondary" className="flex items-center gap-1">
                         <Trophy className="h-3 w-3" />
-                        {competitions.length} {competitions.length === 1 ? t('competition') : t('competitions')}
+                        {competitions.length} {competitions.length === 1 ? t('competition') : t('Competities')}
                     </Badge>
                 </div>
             </div>
@@ -54,7 +54,7 @@ export default function Index({ competitions }: { competitions: Competition[] })
                 <Button asChild>
                     <Link href={route('competition.create')}>
                         <Plus className="h-4 w-4 mr-2" />
-                        {t('createNewCompetition')}
+                        {t('Maak nieuwe competitie')}
                     </Link>
                 </Button>
             </div>
@@ -64,14 +64,14 @@ export default function Index({ competitions }: { competitions: Competition[] })
                 <Card>
                     <CardContent className="text-center py-12">
                         <Trophy className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                        <h3 className="text-lg font-medium mb-2">{t('noCompetitionsYet')}</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('Geen competities')}</h3>
                         <p className="text-muted-foreground mb-6">
-                            {t('createYourFirstCompetitionToStartOrganizingTournamentsAndLeagues')}
+                            {t('Maak je eerste competitie om toernooien en competities te beginnen organiseren.')}
                         </p>
                         <Button asChild>
                             <Link href={route('competition.create')}>
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createYourFirstCompetition')}
+                                {t('Maak je eerste competitie')}
                             </Link>
                         </Button>
                     </CardContent>
@@ -111,7 +111,7 @@ export default function Index({ competitions }: { competitions: Competition[] })
                                             <Button asChild variant="outline" className="w-full">
                                                 <Link href={route('competition.show', competition.id)}>
                                                     <Eye className="h-4 w-4 mr-2" />
-                                                    {t('viewCompetition')}
+                                                    {t('Bekijk competitie')}
                                                 </Link>
                                             </Button>
                                         </CardFooter>

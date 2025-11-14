@@ -84,7 +84,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor asChild>
                 <div className="relative">
-                    <Input type="text" className="border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none h-full w-full" name="search" id="search" placeholder={t('searchForAUser')} 
+                    <Input type="text" className="border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none h-full w-full" name="search" id="search" placeholder={t('Zoek naar een gebruiker')} 
                         value={inputValue} ref={inputRef} onBlur={() => {setTimeout(() => setFocus(false), 150)}} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             handleSelect(results[0]);
@@ -113,7 +113,7 @@ export default function UserSearch({ setFocus, focus, onUserAssign, role, gameId
                                     </CommandItem>
                                 ))
                             ) : (
-                                <CommandItem disabled>{t('noResultsFound')}</CommandItem>
+                                <CommandItem disabled>{t('Geen resultaten gevonden.')}</CommandItem>
                             ))}
                         </CommandList>
                 </Command>

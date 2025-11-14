@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -49,15 +50,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // get all the teams the user is a player in
-    public function teamsAsPlayer(): HasMany
+    public function teamsAsPlayer(): HasManyThrough
     {
-        return $this->teamRoles()->where('role_id', Role::where('name', 'player')->first()->id)->with('team');
+        return $this->hasManyThrough(Team::class, UserTeamRole::class, 'user_id', 'id', 'id', 'team_id')->where('role_id', Role::where('name', 'player')->first()->id);
     }
 
     // get all the teams the user is a coach in
-    public function teamsAsCoach(): HasMany
+    public function teamsAsCoach(): HasManyThrough
     {
-        return $this->teamRoles()->where('role_id', Role::where('name', 'coach')->first()->id)->with('team');
+        return $this->hasManyThrough(Team::class, UserTeamRole::class, 'user_id', 'id', 'id', 'team_id')->where('role_id', Role::where('name', 'coach')->first()->id);
     }
 
     // get the referee for the user

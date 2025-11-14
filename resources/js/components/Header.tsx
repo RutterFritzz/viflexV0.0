@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { HomeIcon, UsersIcon, TrophyIcon, UserIcon, SettingsIcon, LogOutIcon, SearchIcon, Calendar, MapPin, Gavel } from "lucide-react";
-import { SharedData } from "@/types";
+import { Club, SharedData, Team } from "@/types";
 import { useEffect, useState } from "react";
 import CtrlShortcut from "./ctrl-shortcut";
 import AppLogoIcon from "./app-logo-icon";
@@ -28,6 +28,8 @@ export function Header() {
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
     }, []);
+
+    console.log(auth.user);
 
     return (
         <>
@@ -52,7 +54,7 @@ export function Header() {
                                     className="w-full justify-start text-muted-foreground"
                                 >
                                     <SearchIcon className="w-4 h-4 mr-2" />
-                                    {t('searchTeamsClubsUsers')}
+                                    {t('Zoek teams, clubs, gebruikers...')}
                                     <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
                                         <CtrlShortcut />
                                     </kbd>
@@ -64,44 +66,44 @@ export function Header() {
                                         <SearchIcon className="w-4 h-4 mr-2 shrink-0 opacity-50" />
                                         <input
                                             className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-                                            placeholder={t('searchTeamsClubsUsers')}
+                                            placeholder={t('Zoek teams, clubs, gebruikers...')}
                                             autoFocus
                                         />
                                     </div>
                                     <div className="max-h-[300px] overflow-y-auto">
                                         <div className="p-2">
                                             {/* Teams Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">{t('teams')}</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">{t('Teams')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <UsersIcon className="w-4 h-4" />
-                                                    <span>{t('searchTeams')}</span>
+                                                    <span>{t('Zoek teams')}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('myTeams')}</span>
+                                                    <span>{t('Mijn teams')}</span>
                                                 </div>
                                             </div>
 
                                             {/* Clubs Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('clubs')}</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('Clubs')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('searchClubs')}</span>
+                                                    <span>{t('Zoek clubs')}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <HomeIcon className="w-4 h-4" />
-                                                    <span>{t('myClubs')}</span>
+                                                    <span>{t('Mijn clubs')}</span>
                                                 </div>
                                             </div>
 
                                             {/* Users Section */}
-                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('users')}</div>
+                                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground mt-4">{t('Gebruikers')}</div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent cursor-pointer">
                                                     <UserIcon className="w-4 h-4" />
-                                                    <span>{t('searchUsers')}</span>
+                                                    <span>{t('Zoek gebruikers')}</span>
                                                 </div>
                                             </div>
 
@@ -118,90 +120,53 @@ export function Header() {
 
                     {/* Main Navigation */}
                     <nav className="hidden md:flex items-center space-x-6">
-                        {/* Dashboard Menu */}
+                        {/* my teams Menu */}
+                        {auth.user && (
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
-                                        <HomeIcon className="w-4 h-4 mr-2" />
-                                        {t('dashboard')}
+                                        <UsersIcon className="w-4 h-4 mr-2" />
+                                        {t('Mijn teams')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <HomeIcon className="w-4 h-4" />
-                                                    <span>{t('overview')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/dashboard"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('myActivities')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
+                                            {auth.user?.teams_as_player?.map((team: Team) => (
+                                                <NavigationMenuLink asChild key={team.id}>
+                                                    <Link
+                                                        href={route('team.show', team.id)}
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    >
+                                                        {team.logo ? <img src={team.logo_cache} alt={team.name} className="w-4 h-4" /> : <UsersIcon className="w-4 h-4" />}
+                                                        <span>{team.name}</span>
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            ))}
+                                            {auth.user?.teams_as_coach?.map((team: Team) => (
+                                                <NavigationMenuLink asChild key={team.id}>
+                                                    <Link
+                                                        href={route('team.show', team.id)}
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    >
+                                                        {team.logo ? <img src={team.logo_cache} alt={team.name} className="w-4 h-4" /> : <UsersIcon className="w-4 h-4" />}
+                                                        <span>{team.name}</span>
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            ))}
                                         </div>
                                     </NavigationMenuContent>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
+                        )}
 
                         {/* Teams Menu */}
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent capitalize">
-                                        <UsersIcon className="w-4 h-4 mr-2" />
-                                        {t('players')}
-                                    </NavigationMenuTrigger>
-                                    <NavigationMenuContent>
-                                        <div className="grid gap-3 p-4 w-48">
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/team"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <UsersIcon className="w-4 h-4" />
-                                                    <span>{t('allTeams')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/club"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('allClubs')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/referee"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <Gavel className="w-4 h-4" />
-                                                    <span>{t('referees')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </div>
-                                    </NavigationMenuContent>
-                                </NavigationMenuItem>
-                            </NavigationMenuList>
-                        </NavigationMenu>
-
-                        {/* Games Menu */}
-                        <NavigationMenu>
-                            <NavigationMenuList>
-                                <NavigationMenuItem>
-                                    <NavigationMenuTrigger className="bg-transparent border-none hover:bg-accent">
                                         <TrophyIcon className="w-4 h-4 mr-2" />
-                                        {t('games')}
+                                        {t('Mijn club')}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="grid gap-3 p-4 w-48">
@@ -211,16 +176,7 @@ export function Header() {
                                                     className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('games')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/gameday"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <Calendar className="w-4 h-4" />
-                                                    <span>{t('gamedays')}</span>
+                                                    <span>{t('Wedstrijden')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                             <NavigationMenuLink asChild>
@@ -229,16 +185,7 @@ export function Header() {
                                                     className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                 >
                                                     <TrophyIcon className="w-4 h-4" />
-                                                    <span>{t('competitions')}</span>
-                                                </Link>
-                                            </NavigationMenuLink>
-                                            <NavigationMenuLink asChild>
-                                                <Link
-                                                    href="/location"
-                                                    className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
-                                                >
-                                                    <MapPin className="w-4 h-4" />
-                                                    <span>{t('locations')}</span>
+                                                    <span>{t('Competities')}</span>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </div>
@@ -277,11 +224,20 @@ export function Header() {
                                                 <Separator />
                                                 <NavigationMenuLink asChild>
                                                     <Link
+                                                        href="/dashboard"
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                    >
+                                                        <TrophyIcon className="w-4 h-4" />
+                                                        <span>{t('Mijn activiteiten')}</span>
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                                <NavigationMenuLink asChild>
+                                                    <Link
                                                         href="/settings/profile"
                                                         className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <UserIcon className="w-4 h-4" />
-                                                        <span>{t('profile')}</span>
+                                                        <span>{t('Profiel')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                                 <NavigationMenuLink asChild>
@@ -290,13 +246,13 @@ export function Header() {
                                                         className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <SettingsIcon className="w-4 h-4" />
-                                                        <span>{t('settings')}</span>
+                                                        <span>{t('Instellingen')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                                 <NavigationMenuLink asChild>
                                                     <Link
                                                         href="/admin/templates"
-                                                        className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
+                                                        className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
                                                     >
                                                         <SettingsIcon className="w-4 h-4" />
                                                         <span>{t('Admin')}</span>
@@ -311,7 +267,7 @@ export function Header() {
                                                         className="flex flex-row items-center justify-start space-x-2 p-2 rounded-md hover:bg-destructive hover:text-destructive-foreground transition-colors text-left w-full"
                                                     >
                                                         <LogOutIcon className="w-4 h-4" />
-                                                        <span>{t('logout')}</span>
+                                                        <span>{t('Uitloggen')}</span>
                                                     </Link>
                                                 </NavigationMenuLink>
                                             </div>
@@ -322,10 +278,10 @@ export function Header() {
                         ) : (
                             <div className="flex items-center space-x-2">
                                 <Button variant="ghost" asChild>
-                                    <Link href="/login">{t('login')}</Link>
+                                    <Link href="/login">{t('Login')}</Link>
                                 </Button>
                                 <Button asChild>
-                                    <Link href="/register">{t('signUp')}</Link>
+                                    <Link href="/register">{t('Registreer')}</Link>
                                 </Button>
                             </div>
                         )}

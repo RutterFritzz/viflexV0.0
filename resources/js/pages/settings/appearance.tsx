@@ -10,7 +10,7 @@ import { t } from 'i18next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: t('appearanceSettings'),
+        title: t('Uiterlijk instellingen'),
         href: '/settings/appearance',
     },
 ];
@@ -19,11 +19,11 @@ export default function Appearance() {
     const { t } = useTranslation();
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={t('appearanceSettings')} />
+            <Head title={t('Uiterlijk instellingen')} />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={t('appearanceSettings')} description={t('updateYourAccountsAppearanceSettings')} />
+                    <HeadingSmall title={t('Uiterlijk instellingen')} description={t('Update je account's uiterlijk instellingen')} />
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>

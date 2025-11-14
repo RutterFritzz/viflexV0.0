@@ -18,17 +18,17 @@ export default function Create() {
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('location.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToLocations')}
+                            {t('Terug naar locaties')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <MapPin className="h-8 w-8" />
-                        {t('addNewLocation')}
+                        {t('Voeg nieuwe locatie toe')}
                     </h1>
                     <p className="text-muted-foreground">
-                        {t('createANewSportsVenueOrLocationForGamesAndEvents')}
+                        {t('Creëer een nieuwe sport venue of locatie voor wedstrijden en evenementen.')}
                     </p>
                 </div>
             </div>
@@ -38,10 +38,10 @@ export default function Create() {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('locationInformation')}
+                        {t('Locatie informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheDetailsForTheNewLocation')}
+                        {t('Voer de details voor de nieuwe locatie in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -51,13 +51,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
                                 <Building2 className="h-4 w-4" />
-                                {t('venueName')}
+                                {t('Locatie naam')}
                             </Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder={t('enterVenueName')}
+                                placeholder={t('Voer locatie naam in')}
                                 required
                                 className="w-full"
                             />
@@ -66,13 +66,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="city" className="flex items-center gap-2">
                                 <Map className="h-4 w-4" />
-                                {t('city')}
+                                {t('Plaats')}
                             </Label>
                             <Input
                                 id="city"
                                 type="text"
                                 name="city"
-                                placeholder={t('enterCityName')}
+                                placeholder={t('Voer stad naam in')}
                                 required
                                 className="w-full"
                             />
@@ -81,13 +81,13 @@ export default function Create() {
                         <div className="space-y-2">
                             <Label htmlFor="address" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('address')}
+                                {t('Adres')}
                             </Label>
                             <Input
                                 id="address"
                                 type="text"
                                 name="address"
-                                placeholder={t('enterAddress')}
+                                placeholder={t('Voer adres in')}
                                 className="w-full"
                             />
                         </div>
@@ -96,11 +96,11 @@ export default function Create() {
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('createLocation')}
+                                {t('Creëer locatie')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('location.index')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -113,8 +113,8 @@ export default function Create() {
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Building2 className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('locationManagement')}</p>
-                        <p>{t('locationsAreUsedToSpecifyWhereGamesAndEventsTakePlaceYouCanCreateMultipleVenuesInDifferentCities')}</p>
+                        <p className="font-medium">{t('Locatie management')}</p>
+                        <p>{t('Locaties worden gebruikt om aan te geven waar wedstrijden en evenementen plaatsvinden. Je kan meerdere locaties in verschillende steden aanmaken.')}</p>
                     </div>
                 </CardContent>
             </Card>

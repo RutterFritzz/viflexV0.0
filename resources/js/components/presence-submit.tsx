@@ -80,10 +80,10 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{t('presenceSubmit')}</DialogTitle>
+                    <DialogTitle>{t('Aanwezigheidsindeling')}</DialogTitle>
                 </DialogHeader>
                 <DialogDescription>
-                    {t('pleaseSelectThePresenceForTheTeam')} {team.name}
+                    {t('Selecteer de aanwezigheid voor het team')} {team.name}
                 </DialogDescription>
                 {isLoading && (
                     <div className="flex justify-center items-center h-full">
@@ -94,7 +94,7 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
                     <div className="flex flex-col gap-2 mb-5 overflow-y-auto max-h-[500px]">
                         {allCoaches.length > 0 && (
                             <>
-                                <p className="text-sm text-muted-foreground">{t('coach')}{allCoaches.length === 1 ? '' : 'es'}</p>
+                                <p className="text-sm text-muted-foreground">{t('Coach')}{allCoaches.length === 1 ? '' : 'es'}</p>
                                 {allCoaches.map((coach) => (
                                     <div key={coach.id} className="flex items-center gap-2">
                                         <div className="flex gap-2">
@@ -123,7 +123,7 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
 
                         {allPlayers.length > 0 && (
                             <>
-                                <p className="text-sm text-muted-foreground">{t('player')}{allPlayers.length === 1 ? '' : 's'}</p>
+                                <p className="text-sm text-muted-foreground">{t('Speler')}{allPlayers.length === 1 ? '' : 's'}</p>
                                 {allPlayers.map((player) => (
                                     <div key={player.id} className="flex items-center gap-2">
                                         <div className="flex gap-2">
@@ -152,10 +152,10 @@ export default function PresenceSubmit({ team, onSubmit, presences, disabled = f
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsOpen(false)} type="button">
-                            {t('cancel')}
+                            {t('Annuleren')}
                         </Button>
                         <Button type="submit" disabled={isLoading || !isFormValid || disabled}>
-                            {t('submit')}
+                            {t('Verzenden')}
                         </Button>
                     </DialogFooter>
                 </form>

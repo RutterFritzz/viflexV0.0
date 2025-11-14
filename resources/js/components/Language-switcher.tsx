@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
             onValueChange={(value) => changeLanguage(value)}
         >
             <SelectTrigger className="w-fit">
-                <SelectValue placeholder={t('selectLanguage')} />
+                <SelectValue placeholder={t('Selecteer taal')} />
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="en"><span className="fi fi-gb mr-2"></span>English</SelectItem>

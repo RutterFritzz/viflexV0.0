@@ -31,14 +31,14 @@ export default function Create({ competition, teams, locations, errors }: Create
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('home')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToHome')}
+                            {t('Terug naar home')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Trophy className="h-8 w-8" />
-                        {t('scheduleNewGame')}
+                        {t('Plan nieuwe wedstrijd')}
                     </h1>
                 </div>
             </div>
@@ -48,10 +48,10 @@ export default function Create({ competition, teams, locations, errors }: Create
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Plus className="h-5 w-5" />
-                        {t('gameInformation')}
+                        {t('Wedstrijd informatie')}
                     </CardTitle>
                     <CardDescription>
-                        {t('enterTheDetailsForTheNewMatch')}
+                        {t('Voer de details voor de nieuwe wedstrijd in.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -61,11 +61,11 @@ export default function Create({ competition, teams, locations, errors }: Create
                             <div className="space-y-2">
                                 <Label htmlFor="home_team_id" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {t('homeTeam')}
+                                    {t('Thuis team')}
                                 </Label>
                                 <Select name="home_team_id" required>
                                     <SelectTrigger>
-                                        <SelectValue placeholder={t('selectHomeTeam')} />
+                                        <SelectValue placeholder={t('Selecteer thuis team')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {teams.map((team) => (
@@ -80,11 +80,11 @@ export default function Create({ competition, teams, locations, errors }: Create
                             <div className="space-y-2">
                                 <Label htmlFor="away_team_id" className="flex items-center gap-2">
                                     <Users className="h-4 w-4" />
-                                    {t('awayTeam')}
+                                    {t('Uit team')}
                                 </Label>
                                 <Select name="away_team_id" required>
                                     <SelectTrigger>
-                                        <SelectValue placeholder={t('selectAwayTeam')} />
+                                        <SelectValue placeholder={t('Selecteer uit team')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {teams.map((team) => (
@@ -100,11 +100,11 @@ export default function Create({ competition, teams, locations, errors }: Create
                         <div className="space-y-2">
                             <Label htmlFor="location" className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4" />
-                                {t('location')}
+                                {t('Locatie')}
                             </Label>
                             <Select name="location_id" required>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={t('selectLocation')} />
+                                    <SelectValue placeholder={t('Selecteer locatie')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {locations.map((location) => (
@@ -120,7 +120,7 @@ export default function Create({ competition, teams, locations, errors }: Create
                             <div className="space-y-2">
                                 <Label htmlFor="date" className="flex items-center gap-2">
                                     <Calendar className="h-4 w-4" />
-                                    {t('date')}
+                                    {t('Datum')}
                                 </Label>
                                 <Calendar22 date={date} setDate={setDate} />
                                 <Input type="hidden" name="date" value={date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : ''} />
@@ -129,7 +129,7 @@ export default function Create({ competition, teams, locations, errors }: Create
                             <div className="space-y-2">
                                 <Label htmlFor="time" className="flex items-center gap-2">
                                     <Clock className="h-4 w-4" />
-                                    {t('time')}
+                                    {t('Tijd')}
                                 </Label>
                                 <Input
                                     id="time"
@@ -146,11 +146,11 @@ export default function Create({ competition, teams, locations, errors }: Create
                         <div className="flex gap-3 pt-4">
                             <Button type="submit" className="flex-1">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('scheduleGame')}
+                                {t('Plan wedstrijd')}
                             </Button>
                             <Button asChild variant="outline" type="button">
                                 <Link href={route('home')}>
-                                    {t('cancel')}
+                                    {t('Annuleren')}
                                 </Link>
                             </Button>
                         </div>
@@ -163,7 +163,7 @@ export default function Create({ competition, teams, locations, errors }: Create
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Trophy className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="text-xs mt-2">{t('availableTeams')}: {teams.length}</p>
+                        <p className="text-xs mt-2">{t('Beschikbare teams')}: {teams.length}</p>
                     </div>
                 </CardContent>
             </Card>
@@ -173,8 +173,8 @@ export default function Create({ competition, teams, locations, errors }: Create
                 <CardContent className="pt-6">
                     <div className="text-center text-sm text-muted-foreground space-y-2">
                         <Calendar className="h-8 w-8 mx-auto opacity-50" />
-                        <p className="font-medium">{t('gameScheduling')}</p>
-                        <p>{t('afterSchedulingTheGameYouWillBeAbleToManageTheMatchDetailsUpdateScoresAndTrackResults')}</p>
+                        <p className="font-medium">{t('Wedstrijd planning')}</p>
+                        <p>{t('Na het plannen van de wedstrijd, kun je de wedstrijd details beheren, scores bijwerken en resultaten bijhouden.')}</p>
                     </div>
                 </CardContent>
             </Card>

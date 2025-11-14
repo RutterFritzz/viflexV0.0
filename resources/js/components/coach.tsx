@@ -20,7 +20,7 @@ export default function Coach({ coach, edit = false, team }: { coach: User, edit
                 <span className="font-medium">{coach.name}</span>
             </div>
             <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="text-xs">{t('coach')}</Badge>
+                <Badge variant="secondary" className="text-xs">{t('Coach')}</Badge>
                 {edit && (
                     <Button variant="ghost" size="sm" className="text-xs hover:bg-transparent hover:text-destructive cursor-pointer" onClick={() => { handleCoachDelete(coach) }}>
                         <Trash className="h-4 w-4" />

@@ -48,7 +48,7 @@ export default function DroppableUser({ user, role, gameId, label, onUserAssign 
                     ) : (
                         <div className="flex items-center p-2 gap-2 text-gray-400">
                             <CircleUser />
-                            <p>{t('searchOrDropUserHere')}</p>
+                            <p>{t('Zoek of sleep gebruiker hier')}</p>
                         </div>
                     )
                 )}

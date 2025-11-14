@@ -29,7 +29,7 @@ export default function Footer() {
 
                     {/* Navigation Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">{t('navigation')}</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('Navigatie')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link
@@ -37,7 +37,7 @@ export default function Footer() {
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Building2 className="w-3 h-3" />
-                                    {t('clubs')}
+                                    {t('Clubs')}
                                 </Link>
                             </li>
                             <li>
@@ -46,7 +46,7 @@ export default function Footer() {
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Users className="w-3 h-3" />
-                                    {t('teams')}
+                                    {t('Teams')}
                                 </Link>
                             </li>
                             <li>
@@ -55,7 +55,7 @@ export default function Footer() {
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <TrophyIcon className="w-3 h-3" />
-                                    {t('dashboard')}
+                                    {t('Dashboard')}
                                 </Link>
                             </li>
                         </ul>
@@ -63,7 +63,7 @@ export default function Footer() {
 
                     {/* Account Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">{t('account')}</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('Account')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link
@@ -71,7 +71,7 @@ export default function Footer() {
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <Settings className="w-3 h-3" />
-                                    {t('settings')}
+                                    {t('Instellingen')}
                                 </Link>
                             </li>
                             <li>
@@ -80,7 +80,7 @@ export default function Footer() {
                                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                                 >
                                     <HelpCircle className="w-3 h-3" />
-                                    {t('help')} & {t('support')}
+                                    {t('Help')} & {t('Support')}
                                 </Link>
                             </li>
                         </ul>
@@ -88,14 +88,14 @@ export default function Footer() {
 
                     {/* Legal Links */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-foreground">{t('legal')}</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t('Legal')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link
                                     href="/privacy"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    {t('privacyPolicy')}
+                                    {t('Privacyverklaring')}
                                 </Link>
                             </li>
                             <li>
@@ -103,7 +103,7 @@ export default function Footer() {
                                     href="/terms"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    {t('termsOfService')}
+                                    {t('Servicevoorwaarden')}
                                 </Link>
                             </li>
                             <li>
@@ -111,7 +111,7 @@ export default function Footer() {
                                     href="/contact"
                                     className="text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    {t('contactUs')}
+                                    {t('Contacteer ons')}
                                 </Link>
                             </li>
                         </ul>
@@ -123,10 +123,10 @@ export default function Footer() {
                 {/* Bottom Section */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
                     <div className="text-xs text-muted-foreground">
-                        © {currentYear} Viflex. {t('allRightsReserved')}
+                        © {currentYear} Viflex. {t('Alle rechten voorbehouden.')}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                        {t('version')} 1.0.0 • {t('builtWith')} Laravel & React
+                        {t('Versie')} 1.0.0 • {t('Gebouwd met')} Laravel & React
                     </div>
                 </div>
             </div>

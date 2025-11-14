@@ -33,18 +33,18 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('login'), {
-            onFinish: () => reset('password'),
+            onFinish: () => reset('Wachtwoord'),
         });
     };
 
     return (
-        <AuthLayout title={t('logInToYourAccount')} description={t('enterYourEmailAndPasswordBelowToLogIn')}>
-            <Head title={t('logIn')} />
+        <AuthLayout title={t('Log in naar je account')} description={t('Voer je email en wachtwoord hieronder in om in te loggen')}>
+            <Head title={t('Log in')} />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">{t('emailAddress')}</Label>
+                        <Label htmlFor="email">{t('Email adres')}</Label>
                         <Input
                             id="email"
                             type="email"
@@ -54,17 +54,17 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder={t('emailExample')}
+                            placeholder={t('email@voorbeeld.nl')}
                         />
                         <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password">{t('password')}</Label>
+                            <Label htmlFor="password">{t('Wachtwoord')}</Label>
                             {canResetPassword && (
                                 <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    {t('forgotPassword')}
+                                    {t('Wachtwoord vergeten?')}
                                 </TextLink>
                             )}
                         </div>
@@ -76,7 +76,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="current-password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder={t('password')}
+                            placeholder={t('Wachtwoord')}
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -89,19 +89,19 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
                         />
-                        <Label htmlFor="remember">{t('rememberMe')}</Label>
+                        <Label htmlFor="remember">{t('Onthoud mij')}</Label>
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        {t('logIn')}
+                        {t('Log in')}
                     </Button>
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    {t('dontHaveAnAccount')}
+                    {t('Geen account?')}
                     <TextLink href={route('register')} tabIndex={5}>
-                        {t('signUp')}
+                        {t('Registreer')}
                     </TextLink>
                 </div>
             </form>

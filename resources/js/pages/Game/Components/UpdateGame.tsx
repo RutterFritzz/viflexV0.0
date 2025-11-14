@@ -33,7 +33,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 <div className="space-y-2">
                     <Label htmlFor="home_team_id" className="flex items-center gap-2">
                         <Users className="h-4 w-4" />
-                        {t('homeTeam')}
+                        {t('Thuis team')}
                     </Label>
                     <Select value={String(data.home_team_id)}
                         onValueChange={(value) => setData("home_team_id", Number(value))}>
@@ -79,11 +79,11 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
             {/* <div className="space-y-2">
                 <Label htmlFor="location_id" className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
-                    {t('location')}
+                    {t('Locatie')}
                 </Label>
                 <Select name="location_id" required defaultValue={data?.location_id?.toString()}>
                     <SelectTrigger>
-                        <SelectValue placeholder={t('selectLocation')} />
+                        <SelectValue placeholder={t('Selecteer locatie')} />
                     </SelectTrigger>
                     <SelectContent>
                         {locations.map((location) => (
@@ -101,7 +101,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 {/* <div className="space-y-2">
                     <Label htmlFor="date" className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {t('date')}
+                        {t('Datum')}
                     </Label>
                     <Calendar22 date={date} setDate={setDate} />
                     <Input
@@ -118,7 +118,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 <div className="space-y-2">
                     <Label htmlFor="time" className="flex items-center gap-2">
                         <Clock className="h-4 w-4" />
-                        {t('time')}
+                        {t('Tijd')}
                     </Label>
                     <Input
                         id="time" type="time" name="time"
@@ -134,7 +134,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 <div className="space-y-2">
                     <Label htmlFor="time" className="flex items-center gap-2">
                         <Clock className="h-4 w-4" />
-                        {t('arrivalTime')}
+                        {t('Aanvangstijd')}
                     </Label>
                     <Input
                         id="arrival_time" type="text" name="arrival_time"
@@ -151,11 +151,11 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
             <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">
                     <Save className="h-4 w-4 mr-2" />
-                    {t('updateGame')}
+                    {t('Update wedstrijd')}
                 </Button>
                 <Button asChild variant="outline" type="button">
                     <Link href={route('game.show', game.id)}>
-                        {t('cancel')}
+                        {t('Annuleren')}
                     </Link>
                 </Button>
             </div>

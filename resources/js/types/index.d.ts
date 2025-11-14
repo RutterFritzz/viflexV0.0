@@ -42,6 +42,9 @@ export interface User {
     name: string;
     email: string;
     email_verified_at: Date | null;
+
+    teams_as_player?: Team[];
+    teams_as_coach?: Team[];
 }
 
 export interface Role {

@@ -51,13 +51,13 @@ export default function Show({ gameday, games = [] }: ShowProps) {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays < 0) {
-            return <Badge variant="secondary">{t('past')}</Badge>;
+            return <Badge variant="secondary">{t('Geweest')}</Badge>;
         } else if (diffDays === 0) {
-            return <Badge variant="default">{t('today')}</Badge>;
+            return <Badge variant="default">{t('Vandaag')}</Badge>;
         } else if (diffDays <= 7) {
-            return <Badge variant="destructive">{t('upcoming')}</Badge>;
+            return <Badge variant="destructive">{t('Aankomend')}</Badge>;
         } else {
-            return <Badge variant="outline">{t('scheduled')}</Badge>;
+            return <Badge variant="outline">{t('Gepland')}</Badge>;
         }
     };
 
@@ -245,21 +245,21 @@ export default function Show({ gameday, games = [] }: ShowProps) {
     // }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 p-6">
+        <div className="max-w-7xl mx-auto space-y-6 p-6">
             {/* Header Section */}
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
                     <Button asChild variant="ghost" size="sm">
                         <Link href={route('gameday.index')}>
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            {t('backToGamedays')}
+                            {t('Terug naar wedstrijddagen')}
                         </Link>
                     </Button>
                 </div>
                 <div className="space-y-1">
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Calendar className="h-8 w-8" />
-                        {t('gameday')} - {formatDate(gameday.date)}
+                        {t('Wedstrijddag')} - {formatDate(gameday.date)}
                     </h1>
                     <div className="flex items-center gap-4 text-muted-foreground">
                         <div className="flex items-center gap-2">
@@ -285,28 +285,28 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Calendar className="h-5 w-5" />
-                            {t('eventInformation')}
+                            {t('Evenement informatie')}
                         </CardTitle>
                         <CardDescription>
-                            {t('basicDetailsAboutThisGameday')}
+                            {t('Basisdetails over deze wedstrijddag.')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('date')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Datum')}:</span>
                                 <span className="font-medium">{formatDate(gameday.date)}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('venue')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Locatie')}:</span>
                                 <span className="font-medium">{gameday.location?.name}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('city')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Plaats')}:</span>
                                 <Badge variant="outline">{gameday.location?.city}</Badge>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-muted-foreground">{t('status')}:</span>
+                                <span className="text-sm font-medium text-muted-foreground">{t('Status')}:</span>
                                 {getStatusBadge(gameday.date)}
                             </div>
                         </div>
@@ -317,25 +317,25 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Trophy className="h-5 w-5" />
-                            {t('eventStatistics')}
+                            {t('Evenement statistieken')}
                         </CardTitle>
                         <CardDescription>
-                            {t('overviewOfGamesAndActivityForThisGameday')}
+                            {t('Overzicht van wedstrijden en activiteiten voor deze wedstrijddag.')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4">
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-primary">{gameList.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('totalGames')}</div>
+                                <div className="text-sm text-muted-foreground">{t('Totaale wedstrijden')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-secondary">{upcomingGames.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('upcomingGames')}</div>
+                                <div className="text-sm text-muted-foreground">{t('Komende wedstrijden')}</div>
                             </div>
                             <div className="text-center p-4 border rounded-lg">
                                 <div className="text-2xl font-bold text-accent">{completedGames.length}</div>
-                                <div className="text-sm text-muted-foreground">{t('completedGames')}</div>
+                                <div className="text-sm text-muted-foreground">{t('Voltooide wedstrijden')}</div>
                             </div>
                         </div>
                     </CardContent>
@@ -345,7 +345,7 @@ export default function Show({ gameday, games = [] }: ShowProps) {
             {/* Team Management Section */}
             {/* <Card>
                 <CardHeader>
-                    <CardTitle>{t('teamManagement')}</CardTitle>
+                    <CardTitle>{t('Teammanagement')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-3">
@@ -376,16 +376,16 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                         <div>
                             <CardTitle className="flex items-center gap-2">
                                 <Clock className="h-5 w-5" />
-                                {t('gamesManagement')}
+                                {t('Wedstrijden management')}
                             </CardTitle>
                             <CardDescription>
-                                {t('dragAndDropToReorderGamesAndAssignUsersToRoles')}
+                                {t('Sleep en drop om wedstrijden te herordenen en gebruikers toe te wijzen aan rollen.')}
                             </CardDescription>
                         </div>
                         <Button asChild variant="outline" size="sm">
                             <Link href="#">
                                 <Plus className="h-4 w-4 mr-2" />
-                                {t('addGame')}
+                                {t('Wedstrijd toevoegen')}
                             </Link>
                         </Button>
                     </div>
@@ -394,8 +394,8 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                     {gameList.length === 0 ? (
                         <div className="text-center py-8 text-muted-foreground">
                             <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg font-medium">{t('noGamesScheduled')}</p>
-                            <p className="text-sm">{t('gamesScheduledForThisGamedayWillAppearHere')}</p>
+                            <p className="text-lg font-medium">{t('Geen wedstrijden gepland')}</p>
+                            <p className="text-sm">{t('Wedstrijden voor deze wedstrijddag zullen hier worden getoond.')}</p>
                         </div>
                     ) : (
                         <DndContext
@@ -429,9 +429,9 @@ export default function Show({ gameday, games = [] }: ShowProps) {
             {/* Actions Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('gamedayActions')}</CardTitle>
+                    <CardTitle>{t('Wedstrijddag acties')}</CardTitle>
                     <CardDescription>
-                        {t('manageGamedaySettingsAndNavigation')}
+                        {t('Beheer wedstrijddag instellingen en navigatie.')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -439,13 +439,13 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                         <Button asChild variant="default">
                             <Link href={route('gameday.edit', gameday.id)}>
                                 <Edit className="h-4 w-4 mr-2" />
-                                {t('editGameday')}
+                                {t('Bewerk wedstrijddag')}
                             </Link>
                         </Button>
                         <Button asChild variant="outline">
                             <Link href={route('gameday.index')}>
                                 <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('backToGamedays')}
+                                {t('Terug naar wedstrijddagen')}
                             </Link>
                         </Button>
                         <Button variant="destructive" size="sm" className="ml-auto"
@@ -455,12 +455,12 @@ export default function Show({ gameday, games = [] }: ShowProps) {
                             }}
                         >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            {t('deleteGameday')}
+                            {t('Verwijder wedstrijddag')}
                         </Button>
                         <DeleteConfirmation
                             dialogOpen={dialogOpen}
                             type="gameday"
-                            name={`${t('gameday')} on ${formatDate(gameday.date)}`}
+                            name={`${t('Wedstrijddag')} on ${formatDate(gameday.date)}`}
                             onOpenChange={setDialogOpen}
                             id={gameday.id}
                         />
