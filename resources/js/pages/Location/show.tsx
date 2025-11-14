@@ -20,7 +20,6 @@ interface ShowProps {
 
 
 export default function Show({ location }: ShowProps) {
-    console.log(location);
     const upcomingGames = location.upcoming_games || [];
     const pastGames = location.past_games || [];
     const { t } = useTranslation();

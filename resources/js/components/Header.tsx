@@ -29,8 +29,6 @@ export function Header() {
         return () => document.removeEventListener("keydown", down);
     }, []);
 
-    console.log(auth.user);
-
     return (
         <>
             <header className="sticky top-0 z-50 w-full border-b bg-background/95">

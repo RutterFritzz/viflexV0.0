@@ -7,8 +7,7 @@ import { Link, router } from "@inertiajs/react";
 import DeleteConfirmation from "@/components/delete-confirmation";
 import { useState } from "react";
 import { formatDate } from "@/helpers/format-date";
-import { Trophy, Calendar, ArrowLeft, Edit, Trash2, Users, Award, Target, Building2, MapPin } from "lucide-react";
-// import Captain from "@/components/captain";
+import { Trophy, Calendar, ArrowLeft, Edit, Trash2, Users, Award, Building2, MapPin } from "lucide-react";
 import Coach from "@/components/coach";
 import Player from "@/components/player";
 import PresenceSubmit from "@/components/presence-submit";
@@ -58,16 +57,6 @@ export default function Show({ game }: ShowProps) {
     };
 
     const status = getGameStatus();
-
-    const handlePresenceSubmit = (team: Team, presenceData: PresenceData) => {
-        axios.post(route('game.submit-presence', game.id), {
-            team_id: team.id,
-            presence: presenceData
-        });
-        setHomeTeamPresences(true);
-        setAwayTeamPresences(true);
-        router.reload();
-    }
 
     return (
         <MainLayout>
@@ -160,16 +149,16 @@ export default function Show({ game }: ShowProps) {
                 {/* Team Management Section */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>{t('Teammanagement')}</CardTitle>
+                        <CardTitle>{t('Aanwezigheid')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex flex-col gap-3">
                             <div className="grid grid-cols-2 gap-3">
                                 {game.home_team && (
-                                    <PresenceSubmit team={game.home_team} onSubmit={handlePresenceSubmit} presences={game.homeTeamPresences} disabled={game.homeTeamPresences} />
+                                    <PresenceSubmit team={game.home_team} game={game} presences={game.homeTeamPresences} />
                                 )}
                                 {game.away_team && (
-                                    <PresenceSubmit team={game.away_team} onSubmit={handlePresenceSubmit} presences={game.awayTeamPresences} disabled={game.awayTeamPresences} />
+                                    <PresenceSubmit team={game.away_team} game={game} presences={game.awayTeamPresences} />
                                 )}
                             </div>
                         </div>
