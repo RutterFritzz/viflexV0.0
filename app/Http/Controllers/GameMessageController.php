@@ -14,7 +14,8 @@ class GameMessageController extends Controller
     {
         $message = new Message();
 
-        $message->Game_id = $game->id;
+        $message->game_id = $game->id;
+        $message->team_id = $request->team_id;
         $message->user_id = Auth::id();
         $message->content = $request->content;
 

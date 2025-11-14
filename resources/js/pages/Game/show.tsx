@@ -75,16 +75,11 @@ export default function Show({ game, templates }: ShowProps) {
         router.reload();
     }
 
-    const findUser = (userId: any) => {
-        const home_player = game?.home_team?.players?.find((player) => player.id === userId)
-        const away_player = game?.away_team?.players?.find((player) => player.id === userId)
-        console.log("home_player", home_player)
-        console.log("away_player", away_player)
+    const findUsersTeam = (userId: any) => {
+        const home_team = game?.home_team?.players?.find((player) => player.id === userId)
 
-        console.log(game?.away_team?.players, game?.home_team?.players)
+        return home_team !== undefined ? game.home_team : game.away_team;
     }
-
-    findUser(auth.user.id)
 
     return (
         <MainLayout>
@@ -353,7 +348,7 @@ export default function Show({ game, templates }: ShowProps) {
 
                     <TabsContent value="messages">
                         <p>messages</p>
-                        <Messages game={game} templates={templates} />
+                        <Messages game={game} team={findUsersTeam(auth.user.id)} templates={templates} />
                     </TabsContent>
                 </Tabs>
             </div>

@@ -54,7 +54,7 @@ class GameController extends Controller
     public function show(Competition $competition, Game $game)
     {
         $game->load([
-            'competition', 'location', 'gameday', 'homeReferee', 'awayReferee',
+            'competition', 'location', 'gameday', 'homeReferee', 'awayReferee', 'messages.user',
             'homeTeam.players', 'homeTeam.values', 'homeTeam.gameValues.teamValue', 'homeTeam.coaches',
             'awayTeam.players', 'awayTeam.values', 'awayTeam.gameValues.teamValue', 'awayTeam.coaches'
         ]);

@@ -10,25 +10,26 @@ import { useTranslation } from "react-i18next";
 import { Team, Message, MessageTemplate, Game } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
-import EditMessageDialog from '../../Team/Components/EditMessageDialog';
 import CustomCKEditor from '@/components/Assets/ckeditor';
 import InputError from '@/components/input-error';
 import { useEffect } from 'react';
 import DeleteDialog from '@/components/Assets/DeleteDialog';
+import EditMessageDialog from './EditMessageDialog';
 
 // import CustomCKEditor from '@/Components/Assets/ckeditor';
 
-export default function Messages({ game, templates }: { game: Game, templates: MessageTemplate[] }) {
+export default function Messages({ game, team, templates }: { game: Game, team?: Team, templates: MessageTemplate[] }) {
     const { t } = useTranslation();
 
     const { data, setData, post, errors, reset } = useForm({
         template: '',
+        team_id: team?.id,
         content: ''
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('game.message.send', [game]), {
+        post(route('game.message.send', [game, team]), {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
@@ -82,7 +83,7 @@ export default function Messages({ game, templates }: { game: Game, templates: M
                                 <div className="text-xs text-gray-500 font-normal">
                                     <span>{message.created_at}</span>
 
-                                    {/* <EditMessageDialog game={game} message={message} /> */}
+                                    <EditMessageDialog game={game} message={message} />
                                     {/* <DeleteDialog routeName="team.message.delete" model={message} /> */}
                                 </div>
                                 {/* {!message.visable && <EyeOff className="h-4 w-4" />} */}

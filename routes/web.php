@@ -101,7 +101,7 @@ Route::post('competition/{competition}/game/{game}/teamvalues/{team}/update', [G
 Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
 Route::put('game/{game}/updateScore', [GameController::class, 'updateScore'])->name('game.updateScore');
 
-Route::controller(GameMessageController::class)->prefix('message')->name('game.message.')->group(function() {
+Route::controller(GameMessageController::class)->prefix('game/{game}/message')->name('game.message.')->group(function() {
     Route::post('send', 'send')->name('send');
 
     Route::prefix('{message}')->group(function() {

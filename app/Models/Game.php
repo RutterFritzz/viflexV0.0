@@ -79,6 +79,11 @@ class Game extends Model
         return $this->hasMany(GameCoach::class);
     }
 
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class)->orderByDesc('created_at');
+    }
+
     public function hasPresences(Team $team): bool
     {
         if ($this->gamePlayers->where('game_id', $team->id)->whereNull('present')->count() > 0) {
