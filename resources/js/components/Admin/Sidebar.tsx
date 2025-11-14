@@ -10,6 +10,9 @@ const mainNavItems: NavItem[] = [
     { href: route('admin.templates'), title: 'Templates', icon: MessageCircleCodeIcon },
     { href: route('admin.users'), title: 'Gebruikers', icon: UserIcon },
     { href: route('admin.roles'), title: 'Rollen', icon: UserCogIcon },
+    { href: route('admin.roles'), title: 'Teams', icon: UserCogIcon },
+    { href: route('admin.roles'), title: 'Rollen', icon: UserCogIcon },
+    { href: route('admin.roles'), title: 'Rollen', icon: UserCogIcon },
 ];
 
 export default function Sidebar() {
