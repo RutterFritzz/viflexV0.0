@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\CompetitionController;
+use App\Http\Controllers\GameMessageController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GamedayController;
 use App\Http\Controllers\GameTeamValueController;
@@ -99,6 +100,15 @@ Route::post('competition/{competition}/game/{game}/teamvalues/{team}/update', [G
 
 Route::post('game/{game}/submit-presence', [GameController::class, 'submitPresence'])->name('game.submit-presence');
 Route::put('game/{game}/updateScore', [GameController::class, 'updateScore'])->name('game.updateScore');
+
+Route::controller(GameMessageController::class)->prefix('message')->name('game.message.')->group(function() {
+    Route::post('send', 'send')->name('send');
+
+    Route::prefix('{message}')->group(function() {
+        Route::post('update', 'update')->name('update');
+        Route::delete('delete', 'delete')->name('delete');
+    });
+});
 
 // Locations
 Route::resource('location', LocationController::class);

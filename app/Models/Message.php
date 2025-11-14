@@ -17,6 +17,10 @@ class Message extends Model
         return $this->belongsTo(Team::class);
     }
 
+    public function game() {
+        return $this->belongsTo(Game::class);
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

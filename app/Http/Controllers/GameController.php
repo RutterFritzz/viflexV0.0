@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\Team;
 use App\Http\Requests\Game\GameRequest;
 use App\Models\CompetitionTeam;
+use App\Models\MessageTemplate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -61,7 +62,9 @@ class GameController extends Controller
         $game->homeTeamPresences = $game->homeTeam->hasPresences($game);
         $game->awayTeamPresences = $game->awayTeam->hasPresences($game);
 
-        return Inertia::render('Game/show', compact('game'));
+        $templates = MessageTemplate::orderBy('name')->get();
+
+        return Inertia::render('Game/show', compact('game', 'templates'));
     }
 
     public function create(Competition $competition)

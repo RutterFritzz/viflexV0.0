@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('team_id')->constrained('teams')
             ->cascadeOnUpdate()->cascadeOnDelete();
 
+            $table->foreignId('game_id')->nullable()
+            ->constrained('games')->cascadeOnUpdate()->cascadeOnDelete();
+
             $table->foreignId('user_id')->constrained('users')
             ->cascadeOnUpdate()->cascadeOnDelete();
 
