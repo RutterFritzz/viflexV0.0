@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Game, MessageTemplate } from "@/types";
-import { Link } from "@inertiajs/react";
+import { Game, MessageTemplate, PresenceData, SharedData, Team } from "@/types";
+import { Link, usePage } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Award } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import MainLayout from '@/layouts/MainLayout';
@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Messages from "./Components/MessagesTab";
 import General from "./Components/GeneralTab";
 import Players from "./Components/PlayersTab";
+import axios from "axios";
+import { useState } from "react";
 
 
 interface ShowProps {
@@ -19,6 +21,10 @@ interface ShowProps {
 
 export default function Show({ game, templates }: ShowProps) {
     const { t } = useTranslation();
+    const page = usePage<SharedData>();
+    const { auth } = page.props;
+    const [homeTeamPresences, setHomeTeamPresences] = useState(game.homeTeamPresences);
+    const [awayTeamPresences, setAwayTeamPresences] = useState(game.awayTeamPresences);
 
     // Helper function to get game status
     const getGameStatus = () => {
@@ -50,16 +56,6 @@ export default function Show({ game, templates }: ShowProps) {
     };
 
     const status = getGameStatus();
-
-    const handlePresenceSubmit = (team: Team, presenceData: PresenceData) => {
-        axios.post(route('game.submit-presence', game.id), {
-            team_id: team.id,
-            presence: presenceData
-        });
-        setHomeTeamPresences(true);
-        setAwayTeamPresences(true);
-        router.reload();
-    }
 
     const findUsersTeam = (userId: any) => {
         const home_team = game?.home_team?.players?.find((player) => player.id === userId)

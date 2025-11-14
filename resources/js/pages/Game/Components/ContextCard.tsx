@@ -51,8 +51,8 @@ export function ContextCard({ game, team }: { game: Game, team?: Team }) {
         <Card>
             <CardContent>
                 <form onSubmit={handleSubmit}>
-                    {team?.values?.map((tv) => (
-                        <div className="mb-4">
+                    {team?.values?.map((tv, index: number) => (
+                        <div key={index} className="mb-4">
                             <Label htmlFor={tv.value} className="mb-1">{tv.value}</Label>
                             <Input
                                 id={tv.value}
