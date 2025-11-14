@@ -35,7 +35,7 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
     // Calculate presence status from form data
     const presenceStatus = useMemo(() => {
         const total = data.presence.coaches.length + data.presence.players.length;
-        const presentCount = data.presence.coaches.filter(p => p.present === true).length + data.presence.players.filter(p => p.present === true).length;
+        const presentCount = data.presence.coaches.filter(p => p.present == true).length + data.presence.players.filter(p => p.present == true).length;
         const hasNulls = data.presence.coaches.some(p => p.present === null) || data.presence.players.some(p => p.present === null);
         const allFilled = total > 0 && !hasNulls;
 
@@ -56,8 +56,8 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
         });
     };
 
-
-    // Always use team.presences for display (trigger button), not form state
+    console.log(presenceStatus);
+    console.log(data.presence);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -95,16 +95,16 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
                                             <div className="flex gap-2">
                                                 <button type="button" onClick={() => handlePresenceChange(coach.user_id, true, 'coaches')}
                                                     className={`cursor-pointer hover:text-success transition-colors duration-200 border p-2 rounded-md
-                                                        ${currentValue === true
-                                                            ? 'text-success border-success'
+                                                        ${currentValue == true
+                                                            ? 'bg-success text-white'
                                                             : 'text-black'
                                                         }`}>
                                                     <CheckIcon className="size-4" />
                                                 </button>
                                                 <button type="button" onClick={() => handlePresenceChange(coach.user_id, false, 'coaches')}
                                                     className={`cursor-pointer hover:text-destructive transition-colors duration-200 border p-2 rounded-md
-                                                        ${currentValue === false
-                                                            ? 'text-destructive border-destructive'
+                                                        ${currentValue == false
+                                                            ? 'bg-destructive text-white'
                                                             : 'text-black'
                                                         }`}>
                                                     <XIcon className="size-4" />
@@ -127,16 +127,16 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
                                             <div className="flex gap-2">
                                                 <button type="button" onClick={() => handlePresenceChange(player.user_id, true, 'players')}
                                                     className={`cursor-pointer hover:text-success transition-colors duration-200 border p-2 rounded-md
-                                                        ${currentValue === true
-                                                            ? 'text-success border-success'
+                                                        ${currentValue == true
+                                                            ? 'bg-success text-white'
                                                             : 'text-black'
                                                         }`}>
                                                     <CheckIcon className="size-4" />
                                                 </button>
                                                 <button type="button" onClick={() => handlePresenceChange(player.user_id, false, 'players')}
                                                     className={`cursor-pointer hover:text-destructive transition-colors duration-200 border p-2 rounded-md
-                                                        ${currentValue === false
-                                                            ? 'text-destructive border-destructive'
+                                                        ${currentValue == false
+                                                            ? 'bg-destructive text-white'
                                                             : 'text-black'
                                                         }`}>
                                                     <XIcon className="size-4" />

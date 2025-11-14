@@ -159,7 +159,6 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                 <div className="grid gap-6">
                     <UpcommingGames upcomingGames={userGames.asPlayer} />
 
-
                     {/* Games as Coach */}
                     {userGames.asCoach.length > 0 && (
                         <Card>

@@ -2,7 +2,7 @@ import { Game } from "@/types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
-import { Calendar, MapPin, Trophy } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Trophy } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
 import { Link } from "@inertiajs/react";
 
@@ -34,7 +34,7 @@ export default function LastReasults({ lastResults }: { lastResults: Game[] | un
                     </div>
                 ) : (
                     <div className="flex flex-col gap-3">
-                        {lastResults?.slice(0, 5).map((game) => (
+                        {lastResults?.slice(0, 3).map((game) => (
                             <Link key={game.id} href={route('game.show', game.id)}>
                                 <div className="flex flex-col items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors gap-2">
                                     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 font-semibold text-lg w-full h-full p-5">
@@ -73,6 +73,12 @@ export default function LastReasults({ lastResults }: { lastResults: Game[] | un
                                 </div>
                             </Link>
                         ))}
+                        {(lastResults?.length ?? 0) > 3 && (
+                            <Link href={route('game.index')} className="text-sm text-muted-foreground hover:text-primary flex items-center gap-2 justify-end">
+                                {t('Bekijk alle resultaten')}
+                                <ArrowRight className="h-3 w-3" />
+                            </Link>
+                        )}
                     </div>
                 )}
             </CardContent>

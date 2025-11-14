@@ -128,7 +128,7 @@ class Team extends Model
     {
         return $this->belongsToMany(Game::class, 'game_team')->whereHas('gameday', function ($query) {
             $query->where('date', '<', now());
-            $query->orderBy('date', 'asc');
+            $query->orderBy('date', 'desc');
         })->with(['gameday', 'gameday.location', 'homeTeam', 'awayTeam']);
     }
 
