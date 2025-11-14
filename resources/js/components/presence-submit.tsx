@@ -68,7 +68,7 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
                         <span className="text-sm font-medium">
                             {presenceStatus.presentCount}/{presenceStatus.total}
                         </span>
-                        {presenceStatus.allFilled ? (
+                        {presenceStatus.total > 0 && presenceStatus.allFilled ? (
                             <CircleCheck className="h-6 w-6 text-success" />
                         ) : (
                             <CircleAlert className="h-6 w-6 text-warning" />

@@ -149,8 +149,10 @@ export interface Game {
     away_team_users?: User[] | null;
     home_referee?: User | null;
     away_referee?: User | null;
-    homeTeamPresences?: boolean;
-    awayTeamPresences?: boolean;
+    homeTeamPresences: PresenceData;
+    awayTeamPresences: PresenceData;
+
+    messages?: Message[];
 }
 
 export interface Referee {
@@ -172,11 +174,13 @@ export interface MessageTemplate {
 export interface Message {
     id: number;
     team_id: number;
+    game_id?: number;
     user_id: number;
     content: string;
     created_at: string;
 
     team: Team;
+    game: Game;
     user: User;
 }
 
