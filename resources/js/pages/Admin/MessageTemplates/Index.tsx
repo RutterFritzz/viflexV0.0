@@ -14,9 +14,9 @@ import AdminLayout from "@/layouts/AdminLayout";
 export default function Index({ messageTemplates }: { messageTemplates: MessageTemplate[] }) {
     return (
         <AdminLayout>
-            <Header title="Templates" modelName="template" />
 
-            <div className="my-8 flex justify-end">
+            <div className="mb-8 flex justify-between">
+                <Header title="Templates" modelName="template" />
                 <CreateDialog />
             </div>
 

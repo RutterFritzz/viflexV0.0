@@ -29,8 +29,8 @@ export default function AdminLayout({ children, title }: PropsWithChildren<{ tit
             <FlashHandler />
 
             <div className="grid grid-cols-12 gap-x-4 m-8">
-                <div className="col-span-2 grid gap-4">
-                    <Card className="">
+                <div className="col-span-2 grid">
+                    <Card className="px-4">
                         {mainNavItems.map((navItem, index) => (
                             <Link href={navItem.href} key={index}>{navItem.title}</Link>
                         ))}
