@@ -3,21 +3,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useForm } from "@inertiajs/react";
-import { Users, Save, Clock } from "lucide-react";
+import { Users, Save, Clock, Calendar, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Game, Location, Team } from "@/types";
 import { useState } from "react";
 import InputError from "@/components/input-error";
+import { Calendar22 } from "@/components/calender";
 
 export default function UpdateGame({ game, teams, locations }: { game: Game, teams: Team[], locations: Location[] }) {
     const { t } = useTranslation();
-    const [date, setDate] = useState<Date | undefined>(game.gameday?.date ? new Date(game.gameday?.date) : undefined);
+    const [date, setDate] = useState<Date | undefined>(game.date ? new Date(game.date) : undefined);
 
     const { data, setData, put, processing, errors, reset } = useForm({
         home_team_id: game.home_team_id,
         away_team_id: game.away_team_id,
-        // location_id: game.location?.id,
-        // date: date,
+        location_id: game.location_id,
+        date: date,
         time: game.time,
         arrival_time: game.arrival_time
     });
@@ -56,7 +57,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 <div className="space-y-2">
                     <Label htmlFor="away_team_id" className="flex items-center gap-2">
                         <Users className="h-4 w-4" />
-                        {t('away_team')}
+                        {t('Uit team')}
                     </Label>
                     <Select value={String(data.away_team_id)} onValueChange={(value) => setData("away_team_id", Number(value))}>
                         <SelectTrigger className="w-full">
@@ -76,7 +77,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 </div>
             </div>
 
-            {/* <div className="space-y-2">
+            <div className="space-y-2">
                 <Label htmlFor="location_id" className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
                     {t('Locatie')}
@@ -95,10 +96,10 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                 </Select>
 
                 <InputError message={errors.location_id} className="mt-2" />
-            </div> */}
+            </div>
 
             <div className="grid gap-6 md:grid-cols-2">
-                {/* <div className="space-y-2">
+                <div className="space-y-2">
                     <Label htmlFor="date" className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
                         {t('Datum')}
@@ -113,7 +114,7 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                         />
 
                         <InputError message={errors.date} className="mt-2" />
-                </div> */}
+                </div>
 
                 <div className="space-y-2">
                     <Label htmlFor="time" className="flex items-center gap-2">
@@ -137,10 +138,9 @@ export default function UpdateGame({ game, teams, locations }: { game: Game, tea
                         {t('Aanvangstijd')}
                     </Label>
                     <Input
-                        id="arrival_time" type="text" name="arrival_time"
+                        id="arrival_time" type="time" name="arrival_time"
                         defaultValue={data.arrival_time}
                         onChange={(e) => setData('arrival_time', e.target.value)}
-                        required
                         className="w-full"
                     />
 

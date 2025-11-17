@@ -7,11 +7,12 @@ import { Trophy, Calendar, MapPin, Eye, ArrowLeft, Clock, Users, Award } from "l
 import { formatDate } from "@/helpers/format-date";
 import { useTranslation } from "react-i18next";
 import MainLayout from '@/layouts/MainLayout';
+import GetGamesStatusBadge from "@/components/GetGamesStatusBadge";
 
 
 export default function Index({ games }: { games: Game[] }) {
     const { t } = useTranslation();
-    // Group games by competition for better organization
+
     const gamesByCompetition = games.reduce((acc, game) => {
         const competitionName = game.competition?.name || 'Unknown Competition';
         if (!acc[competitionName]) {
@@ -22,36 +23,6 @@ export default function Index({ games }: { games: Game[] }) {
     }, {} as Record<string, Game[]>);
 
     const competitions = Object.keys(gamesByCompetition).sort();
-
-    // Helper function to get game status
-    const getGameStatus = (game: Game) => {
-        if (game.home_team_score !== null && game.away_team_score !== null) {
-            return 'completed';
-        }
-        // Create a proper date object from the game date and time
-        const gameDate = new Date(game.gameday?.date || '');
-        const [hours, minutes] = game.time.split(':').map(Number);
-        gameDate.setHours(hours, minutes);
-        const now = new Date();
-        if (gameDate < now) {
-            return 'overdue';
-        }
-        return 'scheduled';
-    };
-
-    // Helper function to get status badge variant
-    const getStatusBadgeVariant = (status: string) => {
-        switch (status) {
-            case 'completed':
-                return 'default';
-            case 'overdue':
-                return 'destructive';
-            case 'scheduled':
-                return 'secondary';
-            default:
-                return 'outline';
-        }
-    };
 
     return (
         <MainLayout>
@@ -116,7 +87,6 @@ export default function Index({ games }: { games: Game[] }) {
 
                                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                                     {gamesByCompetition[competitionName].map((game) => {
-                                        const status = getGameStatus(game);
                                         return (
                                             <Card key={game.id} className="hover:shadow-md transition-shadow">
                                                 <CardHeader className="pb-3">
@@ -124,14 +94,12 @@ export default function Index({ games }: { games: Game[] }) {
                                                         <CardTitle className="text-lg">
                                                             {game.home_team?.name || t('Team A')} vs {game.away_team?.name || t('Team B')}
                                                         </CardTitle>
-                                                        <Badge variant={getStatusBadgeVariant(status)} className="text-xs">
-                                                            {status.charAt(0).toUpperCase() + status.slice(1)}
-                                                        </Badge>
+                                                        <GetGamesStatusBadge game={game} />
                                                     </div>
                                                     <CardDescription className="space-y-2">
                                                         <div className="flex items-center gap-2">
                                                             <Calendar className="h-3 w-3" />
-                                                            <span className="text-xs">{formatDate(game.gameday?.date || '')}</span>
+                                                            <span className="text-xs">{formatDate(game.date || '')}</span>
                                                             <Clock className="h-3 w-3 ml-2" />
                                                             <span className="text-xs">{game.time}</span>
                                                         </div>

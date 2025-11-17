@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export default function GetGamesStatusBadge({ game }: { game: Game }) {
     const { t } = useTranslation();
-    const gameDate = new Date(game.gameday?.date || '');
+    const gameDate = new Date(game.date || '');
     const today = new Date();
     const diffTime = gameDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -16,6 +16,6 @@ export default function GetGamesStatusBadge({ game }: { game: Game }) {
     } else if (diffDays <= 7) {
         return <Badge variant="default">{t('Aankomend')}</Badge>;
     } else {
-        return <Badge variant="outline">{t('Gepland')}</Badge>;
+        return <Badge variant="default">{t('Gepland')}</Badge>;
     }
 }

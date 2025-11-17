@@ -1,7 +1,6 @@
 import { Team } from "@/types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Crown, User, Users } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent } from "@/components/ui/card";
+import { Crown, User } from "lucide-react";
 import Coach from "@/components/coach";
 import { useTranslation } from "react-i18next";
 import Player from "@/components/player";
@@ -13,23 +12,7 @@ export default function Players({ team }: { team: Team }) {
         <div className="grid">
             {/* Coaches */}
             <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Users className="h-5 w-5" />
-                        {t('Team leden')}
-                    </CardTitle>
-                    <CardDescription>
-                        <span>
-                            {team.coaches?.length} {team.coaches?.length === 1 ? t('Coach') : t('coaches')}.{' '}
-                        </span>
-                        <span>
-                        {team.players?.length} {team.players?.length === 1 ? t('Speler') : t('spelers')}.
-                        </span>
-                        <Separator />
-                    </CardDescription>
-                </CardHeader>
                 <CardContent>
-
                     {/* Coaches header */}
                     <div className="mb-2">
                         <div className="flex items-center gap-2 font-semibold">

@@ -142,7 +142,7 @@ export interface Game {
     homeTeam?: Team;
     awayTeam?: Team;
     location?: Location;
-    gameday?: Gameday;
+    date?: Date;
     home_coach?: User | null;
     away_coach?: User | null;
     home_team_users?: User[] | null;

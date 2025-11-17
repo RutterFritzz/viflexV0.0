@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Club, Team, Role, MessageTemplate } from "@/types";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { Users, Building2, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,6 +10,7 @@ import Settings from "./Components/SettingsTab";
 import Players from "./Components/PlayersTab";
 import Messages from "./Components/Messages";
 import MainLayout from '@/layouts/MainLayout';
+import LastResults from "@/components/Games/LastResults";
 
 
 interface ShowProps {
@@ -17,9 +18,10 @@ interface ShowProps {
     club: Club;
     roles: Role[];
     templates: MessageTemplate[];
+    tab: string;
 }
 
-export default function Show({ team, club, roles, templates }: ShowProps) {
+export default function Show({ team, club, roles, templates, tab }: ShowProps) {
     const { t } = useTranslation();
 
     return (
@@ -52,24 +54,34 @@ export default function Show({ team, club, roles, templates }: ShowProps) {
 
                     <Separator />
 
-                    <Tabs defaultValue="matches">
+                    <Tabs value={tab} defaultValue="matches" onValueChange={(value) => {
+                        router.get(route('team.show', [team]),
+                            { tab: value }, {
+                            preserveScroll: true,
+                            preserveState: true,
+                        });
+                    }}>
                         <TabsList>
                             <TabsTrigger value="matches">{t('Wedstrijden')}</TabsTrigger>
+                            <TabsTrigger value="results">{t('Uitslagen')}</TabsTrigger>
                             <TabsTrigger value="players" className="capitalize">{t('spelers')}</TabsTrigger>
-                            <TabsTrigger value="settings">{t('Instellingen')}</TabsTrigger>
                             <TabsTrigger value="messages">{t('Berichten')}</TabsTrigger>
+                            <TabsTrigger value="settings">{t('Instellingen')}</TabsTrigger>
                         </TabsList>
                         <TabsContent value="matches">
                             <Matches team={team} />
                         </TabsContent>
+                        <TabsContent value="results">
+                            <LastResults lastResults={team?.last_results} limit={5} />
+                        </TabsContent>
                         <TabsContent value="players">
                             <Players team={team} />
                         </TabsContent>
-                        <TabsContent value="settings">
-                            <Settings team={team} roles={roles} />
-                        </TabsContent>
                         <TabsContent value="messages">
                             <Messages team={team} templates={templates} />
+                        </TabsContent>
+                        <TabsContent value="settings">
+                            <Settings team={team} roles={roles} />
                         </TabsContent>
                     </Tabs>
                 </div>

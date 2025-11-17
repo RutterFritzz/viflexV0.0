@@ -56,18 +56,17 @@ export default function PresenceSubmit({ team, game, presences }: PresenceSubmit
         });
     };
 
-    console.log(presenceStatus);
-    console.log(data.presence);
-
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <div className="border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 cursor-pointer hover:shadow-md transition-shadow">
                     <h3 className="text-lg font-medium">{team.name}</h3>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">
+                        <span className="text-sm text-muted-foreground">{t('Aanwezig')}:</span>
+                        <span className="text-sm font-medium mr-2">
                             {presenceStatus.presentCount}/{presenceStatus.total}
                         </span>
+                        <span className="text-sm text-muted-foreground">{t('ingevuld')}:</span>
                         {presenceStatus.total > 0 && presenceStatus.allFilled ? (
                             <CircleCheck className="h-6 w-6 text-success" />
                         ) : (

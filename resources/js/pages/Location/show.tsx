@@ -10,7 +10,7 @@ import { formatDate } from "@/helpers/format-date";
 import { MapPin, ArrowLeft, Edit, Trash2, Building2, Map, Calendar, Trophy, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import UpcommingGames from "@/components/Games/UpcommingGames";
-import LastReasults from "@/components/Games/LastReasults";
+import LastResults from "@/components/Games/LastResults";
 import MainLayout from '@/layouts/MainLayout';
 
 
@@ -119,7 +119,7 @@ export default function Show({ location }: ShowProps) {
 
                 <UpcommingGames upcomingGames={upcomingGames} />
 
-                <LastReasults lastResults={pastGames} />
+                <LastResults lastResults={pastGames} limit={3} />
 
                 {/* Actions Section */}
                 <Card>

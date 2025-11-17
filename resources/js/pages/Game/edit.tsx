@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { Trophy, ArrowLeft, Save, Calendar, Clock, MapPin, Users, Target } from "lucide-react";
+import { Trophy, ArrowLeft, Save, Users, Target } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { Game, Location, Team } from "@/types";
 import UpdateGame from "./Components/UpdateGame";
@@ -14,15 +13,11 @@ interface EditProps {
     game: Game;
     teams: Team[];
     locations: Location[];
-    competitionTeams: any;
 }
 
-export default function Edit({ game, teams, locations, competitionTeams }: EditProps) {
+export default function Edit({ game, teams, locations }: EditProps) {
 
     const { t } = useTranslation();
-    const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-    const [date, setDate] = useState<Date | undefined>(game.gameday?.date ? new Date(game.gameday?.date) : undefined);
-    const [time, setTime] = useState<string | undefined>(game.time);
 
     return (
         <MainLayout>
@@ -94,8 +89,8 @@ export default function Edit({ game, teams, locations, competitionTeams }: EditP
                                     <Target className="h-4 w-4 mx-auto opacity-50 mb-1" />
                                     <p className="font-medium text-xs">{t('Huidige score')}</p>
                                     <p className="text-xs">
-                                        {game.home_team_score !== null && game.away_team_score !== null
-                                            ? `${game.home_team_score} - ${game.away_team_score}`
+                                        {game.home_team_score || game.away_team_score
+                                            ? `${game.home_team_score || 0} - ${game.away_team_score || 0}`
                                             : t('Niet geregistreerd')
                                         }
                                     </p>

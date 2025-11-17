@@ -4,7 +4,7 @@ namespace App\Http\Requests\Game;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GameRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class GameRequest extends FormRequest
             'away_team_id' => 'required|exists:teams,id',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
+            'arrival_time' => 'nullable|date_format:H:i',
             'location_id' => 'required|exists:locations,id',
         ];
     }

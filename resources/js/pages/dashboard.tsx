@@ -47,7 +47,7 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
     const { t } = useTranslation();
     // Helper function to get game status badge
     const getGameStatusBadge = (game: Game) => {
-        const gameDate = new Date(game.gameday?.date || '');
+        const gameDate = new Date(game.date || '');
         const today = new Date();
         const diffTime = gameDate.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -191,10 +191,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                                     <div className="text-muted-foreground text-xs">
                                                         {game.competition?.name}
                                                     </div>
-                                                    {game.gameday?.location && (
+                                                    {game.location && (
                                                         <div className="text-muted-foreground text-xs flex items-center gap-1">
                                                             <MapPin className="h-3 w-3" />
-                                                            {game.gameday.location.name}
+                                                            {game.location.name}
                                                         </div>
                                                     )}
                                                 </div>
@@ -355,10 +355,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                                 <div className="text-muted-foreground text-xs">
                                                     {game.competition?.name}
                                                 </div>
-                                                {game.gameday?.location && (
+                                                {game.location && (
                                                     <div className="text-muted-foreground text-xs flex items-center gap-1">
                                                         <MapPin className="h-3 w-3" />
-                                                        {game.gameday.location.name}
+                                                        {game.location.name}
                                                     </div>
                                                 )}
                                             </div>
@@ -446,10 +446,10 @@ export default function Dashboard({ userGames, recentGames, statistics, userTeam
                                         <div className="flex items-center gap-3">
                                             <div className="text-sm">
                                                 <div className="font-medium">
-                                                    {game.homeTeam?.name || t('Team A')} vs {game.awayTeam?.name || t('Team B')}
+                                                    {game.home_team?.name || t('Team A')} vs {game.away_team?.name || t('Team B')}
                                                 </div>
                                                 <div className="text-muted-foreground text-xs">
-                                                    {game.competition?.name} • {formatDate(game.gameday?.date || '')}
+                                                    {game.competition?.name} • {formatDate(game.date || '')}
                                                 </div>
                                             </div>
                                         </div>

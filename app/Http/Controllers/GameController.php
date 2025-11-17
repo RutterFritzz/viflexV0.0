@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Competition;
 use App\Models\Game;
-use App\Models\Gameday;
 use App\Models\GameReferee;
 use App\Models\GameCoach;
 use App\Models\GamePlayer;
 use App\Models\Location;
 use App\Models\Team;
-use App\Http\Requests\Game\GameRequest;
-use App\Models\CompetitionTeam;
+use App\Http\Requests\Game\StoreRequest;
+use App\Http\Requests\Game\UpdateRequest;
 use App\Models\MessageTemplate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,14 +46,15 @@ class GameController extends Controller
 
     public function index()
     {
-        $games = Game::with(['competition', 'homeTeam', 'awayTeam', 'location', 'gameday'])->get();
+        $games = Game::with(['competition', 'homeTeam', 'awayTeam', 'location'])->get();
         return Inertia::render('Game/index', compact('games'));
     }
 
-    public function show(Competition $competition, Game $game)
+    public function show(Request $request, Competition $competition, Game $game)
     {
+        $tab = $request->query('tab', 'general');
         $game->load([
-            'competition', 'location', 'gameday', 'homeReferee', 'awayReferee', 'messages.user',
+            'competition', 'location', 'homeReferee', 'awayReferee', 'messages.user',
             'homeTeam.players', 'homeTeam.values', 'homeTeam.gameValues.teamValue', 'homeTeam.coaches',
             'awayTeam.players', 'awayTeam.values', 'awayTeam.gameValues.teamValue', 'awayTeam.coaches'
         ]);
@@ -64,7 +64,7 @@ class GameController extends Controller
 
         $templates = MessageTemplate::orderBy('name')->get();
 
-        return Inertia::render('Game/show', compact('game', 'templates'));
+        return Inertia::render('Game/show', compact('game', 'templates', 'tab'));
     }
 
     public function create(Competition $competition)
@@ -77,29 +77,19 @@ class GameController extends Controller
         ]);
     }
 
-    public function store(GameRequest $request, Competition $competition)
+    public function store(StoreRequest $request, Competition $competition)
     {
         $validated = $request->validated();
         $validated['competition_id'] = $competition->id;
         $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
         $validated['time'] = Carbon::parse($validated['time'])->format('H:i');
-        $gameday = Gameday::where('location_id', $validated['location_id'])->where('date', $validated['date'])->first();
-        if (!$gameday) {
-            $gameday = Gameday::create([
-                'location_id' => $validated['location_id'],
-                'date' => $validated['date'],
-            ]);
-        }
-        $validated['gameday_id'] = $gameday->id;
-        unset($validated['location_id']);
-        unset($validated['date']);
         $game = Game::create($validated);
         $homeTeam = Team::find($validated['home_team_id']);
         $this->addPlayersAndCoachesToGame($game, $homeTeam);
         $awayTeam = Team::find($validated['away_team_id']);
         $this->addPlayersAndCoachesToGame($game, $awayTeam);
         $game->teams()->attach([$homeTeam->id, $awayTeam->id]);
-        return redirect()->route('competition.show', $competition);
+        return redirect()->route('competition.show', $competition)->with('success', 'Wedstrijd succesvol aangemaakt');
     }
 
     public function edit(Game $game)
@@ -111,7 +101,6 @@ class GameController extends Controller
             'awayTeam',
             'competition.teams',
             'location',
-            'gameday',
             'gamePlayers',
             'gamePlayers.user'
         ]);
@@ -130,12 +119,12 @@ class GameController extends Controller
         ]);
     }
 
-    public function update(GameRequest $request, Game $game)
+    public function update(UpdateRequest $request, Game $game)
     {
         $game->home_team_id = $request->home_team_id;
         $game->away_team_id = $request->away_team_id;
-        // $game->location_id = $request->location_id;
-        // $game->date = $request->date;
+        $game->location_id = $request->location_id;
+        $game->date = $request->date;
         $game->time = $request->time;
         $game->arrival_time = $request->arrival_time;
 

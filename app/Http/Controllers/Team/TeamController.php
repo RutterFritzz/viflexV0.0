@@ -28,8 +28,10 @@ class TeamController extends Controller
         return Inertia::render('Team/index', compact('teams'));
     }
 
-    public function show(Team $team)
+    public function show(Request $request, Team $team)
     {
+        $tab = $request->query('tab', 'matches');
+
         $team->load(['club' => function ($query) {
             $query->select('id', 'name');
         }, 'players', 'coaches', 'values', 'upcomingGames', 'lastResults', 'competitions', 'messages.user']);
@@ -37,7 +39,7 @@ class TeamController extends Controller
         $roles = Role::orderBy('name')->get();
         $templates = MessageTemplate::orderBy('name')->get();
 
-        return Inertia::render('Team/show', compact('team', 'club', 'roles', 'templates'));
+        return Inertia::render('Team/show', compact('team', 'club', 'roles', 'templates', 'tab'));
     }
 
     public function create(Club $club)

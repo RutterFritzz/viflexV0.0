@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/helpers/format-date";
 import { Game } from "@/types";
-import { ArrowLeft, Award, Calendar, MapPin, Trash2, Edit } from "lucide-react";
+import { ArrowLeft, Award, Calendar, MapPin, Trash2, Edit, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
@@ -14,7 +14,18 @@ export default function General({ game }: { game: Game }) {
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    console.log(game);
+    function isPastGame() {
+        const gameDate = new Date(game.date || '');
+        const [hours, minutes] = game.time.split(':').map(Number);
+        gameDate.setHours(hours, minutes);
+        const now = new Date();
+        const isPastGame = gameDate < now;
+        if (isPastGame) {
+            return true;
+        }
+        return false;
+    }
+
 
     return (
         <div className="space-y-6">
@@ -23,32 +34,52 @@ export default function General({ game }: { game: Game }) {
                     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 font-semibold text-lg w-full h-full p-5">
                         <div className="flex flex-col items-center gap-1 justify-center">
                             <span>
-                                {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-24 h-24" />}
+                                {game.home_team?.logo ?
+                                    <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-24 h-24" />
+                                    :
+                                    <Users className="w-24 h-24 text-muted-foreground" />
+                                }
                             </span>
-                            <span className="text-2xl">
+                            <Link href={route('team.show', game.home_team_id)} className="text-2xl hover:text-primary transition-colors">
                                 {game.home_team?.name || t('Team A')}
-                            </span>
+                            </Link>
                         </div>
-                        <div className="flex flex-col gap-2 justify-center text-4xl items-center">
-                            <Badge className="text-lg">
-                                <Calendar className="h-6 w-6" />
-                                {formatDate(game.gameday?.date || '')}
-                            </Badge>
-                            <span className="text-center mb-5 mt-2">
-                                {game.time}
-                            </span>
-                        </div>
+                        {isPastGame() ? (
+                            <div className="flex flex-col gap-2 justify-center text-4xl items-center">
+                                <Badge className="text-lg" variant="outline">
+                                    <Calendar className="h-6 w-6" />
+                                    {formatDate(game.date || '')}
+                                </Badge>
+                                <span className="text-center mb-5 mt-2">
+                                    {game.home_team_score || 0} - {game.away_team_score || 0}
+                                </span>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-2 justify-center text-4xl items-center">
+                                <Badge className="text-lg">
+                                    <Calendar className="h-6 w-6" />
+                                    {formatDate(game.date || '')}
+                                </Badge>
+                                <span className="text-center mb-5 mt-2">
+                                    {game.time}
+                                </span>
+                            </div>
+                        )}
                         <div className="flex flex-col items-center gap-1 justify-center">
                             <span>
-                                {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-24 h-24" />}
+                                {game.away_team?.logo ?
+                                    <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-24 h-24" />
+                                    :
+                                    <Users className="w-24 h-24 text-muted-foreground" />
+                                }
                             </span>
-                            <span className="text-2xl">
+                            <Link href={route('team.show', game.away_team_id)} className="text-2xl hover:text-primary transition-colors">
                                 {game.away_team?.name || t('Team B')}
-                            </span>
+                            </Link>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </CardContent >
+            </Card >
             <div className="grid gap-6 md:grid-cols-2">
                 <Card>
                     <CardHeader>
@@ -64,7 +95,7 @@ export default function General({ game }: { game: Game }) {
                         <div className="grid gap-3">
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-muted-foreground">{t('Datum')}:</span>
-                                <span className="font-medium">{formatDate(game.gameday?.date || 'Unknown Date')}</span>
+                                <span className="font-medium">{formatDate(game.date || 'Unknown Date')}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-muted-foreground">{t('Tijd')}:</span>
@@ -73,6 +104,10 @@ export default function General({ game }: { game: Game }) {
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-muted-foreground">{t('Locatie')}:</span>
                                 <span className="font-medium">{game.location?.name || 'Unknown Location'}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-muted-foreground">{t('Adres')}:</span>
+                                <span className="font-medium">{game.location?.address || 'Unknown Address'}</span>
                             </div>
                             {game.arrival_time && (
                                 <div className="flex justify-between items-center">
@@ -132,48 +167,6 @@ export default function General({ game }: { game: Game }) {
                     </div>
                 </CardContent>
             </Card>
-
-            {/* Actions Section */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t('Wedstrijd acties')}</CardTitle>
-                    <CardDescription>
-                        {t('Beheer wedstrijdinformatie en navigatie.')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-wrap gap-3">
-                        <Button asChild variant="default">
-                            <Link href={route('game.edit', game.id)}>
-                                <Edit className="h-4 w-4 mr-2" />
-                                {t('Bewerk wedstrijd')}
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                            <Link href={route('game.index')}>
-                                <ArrowLeft className="h-4 w-4 mr-2" />
-                                {t('Terug naar wedstrijden')}
-                            </Link>
-                        </Button>
-                        <Button variant="destructive" size="sm" className="ml-auto"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setDialogOpen(true);
-                            }}
-                        >
-                            <Trash2 className="h-4 w-4 mr-2" />
-                            {t('Verwijder wedstrijd')}
-                        </Button>
-                        <DeleteConfirmation
-                            dialogOpen={dialogOpen}
-                            type="game"
-                            name={`${game?.home_team?.name} vs ${game?.away_team?.name}`}
-                            onOpenChange={setDialogOpen}
-                            id={game.id}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+        </div >
     );
 }

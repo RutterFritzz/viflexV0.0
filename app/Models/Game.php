@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
 class Game extends Model
@@ -16,13 +15,19 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
-        'gameday_id', 'competition_id', 'home_team_id', 'away_team_id', 'home_referee_id',
+        'location_id', 'date', 'competition_id', 'home_team_id', 'away_team_id', 'home_referee_id',
         'away_referee_id', 'home_team_score', 'away_team_score', 'time'
     ];
 
     protected $casts = [
         'time' => 'datetime:H:i',
+        'arrival_time' => 'datetime:H:i',
     ];
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class);
+    }
 
     public function competition(): BelongsTo
     {
@@ -47,16 +52,6 @@ class Game extends Model
     public function getTeams(): Collection
     {
         return collect([$this->homeTeam, $this->awayTeam])->filter();
-    }
-
-    public function gameday(): BelongsTo
-    {
-        return $this->belongsTo(Gameday::class);
-    }
-
-    public function location(): HasOneThrough
-    {
-        return $this->hasOneThrough(Location::class, Gameday::class, 'id', 'id', 'gameday_id', 'location_id');
     }
 
     public function homeReferee(): BelongsTo

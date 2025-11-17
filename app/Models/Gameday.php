@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
+
+/**
+ * @deprecated this model is no longer used
+ * @see Game::location()
+ * @see Game::date()
+ */
 class Gameday extends Model
 {
     /** @use HasFactory<\Database\Factories\GamedayFactory> */

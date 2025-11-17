@@ -270,7 +270,7 @@ export default function Show({ competition, teams, games }: ShowProps) {
                                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                             <span>
                                                 <CalendarIcon className="inline h-4 w-4 mr-1" />
-                                                {formatDate(game.gameday?.date || '')} {game.time && `at ${game.time}`}
+                                                {formatDate(game.date || '')} {game.time && `at ${game.time}`}
                                             </span>
                                             <span>
                                                 <Building2 className="inline h-4 w-4 mr-1" />

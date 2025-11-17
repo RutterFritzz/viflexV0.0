@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 interface DeleteConfirmationProps {
     dialogOpen: boolean;
-    type: 'club' | 'team' | 'competition' | 'game' | 'location' | 'gameday' | 'referee' | 'team.teamValue';
+    type: 'club' | 'team' | 'competition' | 'game' | 'location' | 'referee' | 'team.teamValue';
     name: string;
     onOpenChange: (open: boolean) => void;
     id: number;

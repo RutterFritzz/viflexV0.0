@@ -2,7 +2,7 @@ import { Game } from "@/types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Calendar, MapPin } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
 import { formatDate } from "@/helpers/format-date";
 import { Link } from "@inertiajs/react";
 
@@ -40,7 +40,11 @@ export default function UpcommingGames({ upcomingGames }: { upcomingGames: Game[
                                     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 font-semibold text-lg w-full h-full p-5">
                                         <div className="flex flex-col items-center gap-1 justify-center">
                                             <span>
-                                                {game.home_team?.logo && <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-24 h-24" />}
+                                                {game.home_team?.logo ?
+                                                    <img src={String(game.home_team.logo_cache)} alt={game.home_team.name} className="w-24 h-24" />
+                                                    :
+                                                    <Users className="w-24 h-24 text-muted-foreground" />
+                                                }
                                             </span>
                                             <span className="text-2xl">
                                                 {game.home_team?.name || t('Team A')}
@@ -49,7 +53,7 @@ export default function UpcommingGames({ upcomingGames }: { upcomingGames: Game[
                                         <div className="flex flex-col gap-2 justify-center text-4xl items-center">
                                             <Badge className="text-lg">
                                                 <Calendar className="h-6 w-6" />
-                                                {formatDate(game.gameday?.date || '')}
+                                                {formatDate(game.date || '')}
                                             </Badge>
                                             <span className="text-center mb-5 mt-2">
                                                 {game.time}
@@ -57,13 +61,17 @@ export default function UpcommingGames({ upcomingGames }: { upcomingGames: Game[
                                             <div className="flex items-center justify-center gap-1 text-base">
                                                 <MapPin className="h-3 w-3" />
                                                 <span>
-                                                    {game.gameday?.location?.city || t('Onbekende locatie')}
+                                                    {game.location?.city || t('Onbekende locatie')}
                                                 </span>
                                             </div>
                                         </div>
                                         <div className="flex flex-col items-center gap-1 justify-center">
                                             <span>
-                                                {game.away_team?.logo && <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-24 h-24" />}
+                                                {game.away_team?.logo ?
+                                                    <img src={String(game.away_team.logo_cache)} alt={game.away_team.name} className="w-24 h-24" />
+                                                    :
+                                                    <Users className="w-24 h-24 text-muted-foreground" />
+                                                }
                                             </span>
                                             <span className="text-2xl">
                                                 {game.away_team?.name || t('Team B')}

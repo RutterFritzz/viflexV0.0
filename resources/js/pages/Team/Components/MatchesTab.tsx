@@ -1,10 +1,10 @@
 import { Team } from "@/types";
 import { useTranslation } from "react-i18next";
 import UpcommingGames from "@/components/Games/UpcommingGames";
-import LastReasults from "@/components/Games/LastReasults";
+import LastResults from "@/components/Games/LastResults";
 import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
-import { ArrowRight, Crown, Trophy, User } from "lucide-react";
+import { ArrowRight, Trophy } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -14,8 +14,6 @@ export default function Matches({ team }: { team: Team }) {
     return (
         <div className="space-y-4">
             <UpcommingGames upcomingGames={team?.upcoming_games} />
-
-            <LastReasults lastResults={team?.last_results} />
 
             {team.competitions && team.competitions.length > 0 && (
                 <Card>

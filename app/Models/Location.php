@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Str;
 class Location extends Model
 {
     /** @use HasFactory<\Database\Factories\LocationFactory> */
@@ -19,25 +17,14 @@ class Location extends Model
         'address_url'
     ];
 
-    public function gamedays(): HasMany
+    public function upcomingGames(): HasMany
     {
-        return $this->hasMany(Gameday::class);
+        return $this->hasMany(Game::class)->where('date', '>=', now())->orderBy('date', 'asc')->with(['homeTeam', 'awayTeam', 'location']);
     }
 
-    public function upcomingGames(): HasManyThrough
+    public function pastGames(): HasMany
     {
-        return $this->hasManyThrough(Game::class, Gameday::class, 'location_id', 'gameday_id', 'id', 'id')->whereHas('gameday', function ($query) {
-            $query->where('date', '>=', now());
-            $query->orderBy('date', 'asc');
-        })->with(['gameday', 'homeTeam', 'awayTeam', 'gameday.location']);
-    }
-
-    public function pastGames(): HasManyThrough
-    {
-        return $this->hasManyThrough(Game::class, Gameday::class, 'location_id', 'gameday_id', 'id', 'id')->whereHas('gameday', function ($query) {
-            $query->where('date', '<', now());
-            $query->orderBy('date', 'desc');
-        })->with(['gameday', 'homeTeam', 'awayTeam', 'gameday.location']);
+        return $this->hasMany(Game::class)->where('date', '<', now())->orderBy('date', 'desc')->with(['homeTeam', 'awayTeam', 'location']);
     }
 
     public function addressUrl(): Attribute

@@ -19,7 +19,7 @@ class CompetitionController extends Controller
 
     public function show(Competition $competition)
     {
-        $competition->load('teams', 'games', 'teams.players', 'teams.coaches', 'games.location', 'games.gameday', 'games.homeTeam', 'games.awayTeam');
+        $competition->load('teams', 'games', 'teams.players', 'teams.coaches', 'games.location', 'games.homeTeam', 'games.awayTeam');
         $teams = $competition->teams;
         $games = $competition->games;
         return Inertia::render('Competition/show', compact('competition', 'teams', 'games'));

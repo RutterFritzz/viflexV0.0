@@ -7,13 +7,13 @@ use App\Models\Competition;
 use App\Models\CompetitionTeam;
 use App\Models\Game;
 use App\Models\GameCoach;
-use App\Models\Gameday;
 use App\Models\GamePlayer;
 use App\Models\Location;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserTeamRole;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -210,35 +210,20 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // Create games
-
-        $gamedays = [
-            [1, '2025-08-15'],
-            [2, '2025-08-16'],
-            [1, '2025-08-17'],
-            [3, '2025-08-18'],
-        ];
-
-        for ($i = 0; $i < count($gamedays); $i++) {
-            Gameday::create([
-                'location_id' => $gamedays[$i][0],
-                'date' => $gamedays[$i][1],
-            ]);
-        }
-
         $games = [
-            [1, 1, 1, 6, '10:00'],
-            [1, 1, 11, 15, '12:00'],
-            [1, 2, 2, 3, '14:00'],
-            [1, 2, 12, 13, '16:00'],
+            [1, Carbon::now()->addDays(1), 1, 1, 6, '10:00'],
+            [2, Carbon::now()->addDays(1), 1, 11, 15, '12:00'],
+            [3, Carbon::now()->addDays(2), 2, 2, 3, '14:00'],
+            [2, Carbon::now()->addDays(3), 2, 12, 13, '16:00'],
         ];
         foreach ($games as $game) {
             $game = Game::create([
-                'gameday_id' => $game[0],
-                'competition_id' => $game[1],
-                'home_team_id' => $game[2],
-                'away_team_id' => $game[3],
-                'time' => $game[4],
+                'location_id' => $game[0],
+                'date' => $game[1],
+                'competition_id' => $game[2],
+                'home_team_id' => $game[3],
+                'away_team_id' => $game[4],
+                'time' => $game[5],
             ]);
             $this->addPlayersAndCoachesToGame($game, $game->homeTeam);
             $this->addPlayersAndCoachesToGame($game, $game->awayTeam);

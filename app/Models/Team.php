@@ -118,18 +118,14 @@ class Team extends Model
 
     public function upcomingGames(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'game_team')->whereHas('gameday', function ($query) {
-            $query->where('date', '>=', now());
-            $query->orderBy('date', 'asc');
-        })->with(['gameday', 'gameday.location', 'homeTeam', 'awayTeam']);
+        return $this->belongsToMany(Game::class, 'game_team')->where('date', '>=', now())
+            ->with(['location', 'homeTeam', 'awayTeam'])->orderBy('date', 'asc');
     }
 
     public function lastResults(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'game_team')->whereHas('gameday', function ($query) {
-            $query->where('date', '<', now());
-            $query->orderBy('date', 'desc');
-        })->with(['gameday', 'gameday.location', 'homeTeam', 'awayTeam']);
+        return $this->belongsToMany(Game::class, 'game_team')->where('date', '<', now())
+            ->with(['location', 'homeTeam', 'awayTeam'])->orderBy('date', 'desc');
     }
 
     public function competitions(): BelongsToMany

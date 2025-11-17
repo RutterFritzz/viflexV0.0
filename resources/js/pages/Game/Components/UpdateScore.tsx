@@ -20,7 +20,9 @@ export default function UpdateScore({ game }: CreateProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('game.updateScore', game.id));
+        put(route('game.updateScore', game.id), {
+            preserveScroll: true,
+        });
     };
 
     return (

@@ -29,8 +29,8 @@ class UserController extends Controller
             $query->where('user_id', $user->id);
         })->orWhereHas('awayTeam.players', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->with(['homeTeam', 'awayTeam', 'competition', 'gameday.location'])
-            ->orderBy('gameday_id')
+        })->with(['homeTeam', 'awayTeam', 'competition', 'location'])
+            ->orderBy('date')
             ->get();
 
         // Get user's games as coach
@@ -38,15 +38,15 @@ class UserController extends Controller
             $query->where('user_id', $user->id);
         })->orWhereHas('awayTeam.coaches', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->with(['homeTeam', 'awayTeam', 'competition', 'gameday.location'])
-            ->orderBy('gameday_id')
+        })->with(['homeTeam', 'awayTeam', 'competition', 'location'])
+            ->orderBy('date')
             ->get();
 
         // Get user's games as referee
         $gamesAsReferee = Game::where('home_referee_id', $user->id)
             ->orWhere('away_referee_id', $user->id)
-            ->with(['homeTeam', 'awayTeam', 'competition', 'gameday.location'])
-            ->orderBy('gameday_id')
+            ->with(['homeTeam', 'awayTeam', 'competition', 'location'])
+            ->orderBy('date')
             ->get();
 
         // Get upcoming games (next 30 days)
@@ -54,9 +54,9 @@ class UserController extends Controller
             ->flatten()
             ->unique('id')
             ->filter(function ($game) {
-                return $game->gameday && Carbon::parse($game->gameday->date)->isFuture();
+                return $game->date && Carbon::parse($game->date)->isFuture();
             })
-            ->sortBy('gameday.date')
+            ->sortBy('date')
             ->take(10);
 
         // Get recent games (last 30 days)
@@ -64,9 +64,9 @@ class UserController extends Controller
             ->flatten()
             ->unique('id')
             ->filter(function ($game) {
-                return $game->gameday && Carbon::parse($game->gameday->date)->isPast();
+                return $game->date && Carbon::parse($game->date)->isPast();
             })
-            ->sortByDesc('gameday.date')
+            ->sortByDesc('date')
             ->take(5);
 
         // Get user's competitions

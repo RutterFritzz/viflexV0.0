@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Game, MessageTemplate, PresenceData, SharedData, Team } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
+import { Game, MessageTemplate, SharedData } from "@/types";
+import { Link, router, usePage } from "@inertiajs/react";
 import { Trophy, ArrowLeft, Award } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import MainLayout from '@/layouts/MainLayout';
@@ -10,52 +9,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Messages from "./Components/MessagesTab";
 import General from "./Components/GeneralTab";
 import Players from "./Components/PlayersTab";
-import axios from "axios";
-import { useState } from "react";
+import GetGamesStatusBadge from "@/components/GetGamesStatusBadge";
+import Settings from "./Components/SettingsTab";
 
 
 interface ShowProps {
     game: Game;
     templates: MessageTemplate[];
+    tab: string;
 }
 
-export default function Show({ game, templates }: ShowProps) {
+export default function Show({ game, templates, tab }: ShowProps) {
     const { t } = useTranslation();
     const page = usePage<SharedData>();
     const { auth } = page.props;
-    const [homeTeamPresences, setHomeTeamPresences] = useState(game.homeTeamPresences);
-    const [awayTeamPresences, setAwayTeamPresences] = useState(game.awayTeamPresences);
-
-    // Helper function to get game status
-    const getGameStatus = () => {
-        if (game.home_team_score !== null && game.away_team_score !== null) {
-            return 'completed';
-        }
-        const gameDate = new Date(game.gameday?.date || '');
-        const [hours, minutes] = game.time.split(':').map(Number);
-        gameDate.setHours(hours, minutes);
-        const now = new Date();
-        if (gameDate < now) {
-            return 'overdue';
-        }
-        return 'scheduled';
-    };
-
-    // Helper function to get status badge variant
-    const getStatusBadgeVariant = (status: string) => {
-        switch (status) {
-            case 'completed':
-                return 'default';
-            case 'overdue':
-                return 'destructive';
-            case 'scheduled':
-                return 'secondary';
-            default:
-                return 'outline';
-        }
-    };
-
-    const status = getGameStatus();
 
     const findUsersTeam = (userId: any) => {
         const home_team = game?.home_team?.players?.find((player) => player.id === userId)
@@ -88,20 +55,25 @@ export default function Show({ game, templates }: ShowProps) {
                                     {game.competition?.name}
                                 </Link>
                             </div>
-                            <Badge variant={getStatusBadgeVariant(status)}>
-                                {status.charAt(0).toUpperCase() + status.slice(1)}
-                            </Badge>
+                            <GetGamesStatusBadge game={game} />
                         </div>
                     </div>
                 </div>
 
                 <Separator />
 
-                <Tabs defaultValue="general">
+                <Tabs value={tab} defaultValue="general" onValueChange={(value) => {
+                    router.get(route('game.show', [game]),
+                        { tab: value }, {
+                        preserveScroll: true,
+                        preserveState: true,
+                    });
+                }}>
                     <TabsList>
                         <TabsTrigger value="general">{t('Algemeen')}</TabsTrigger>
                         <TabsTrigger value="players" className="capitalize">{t('spelers')}</TabsTrigger>
                         <TabsTrigger value="messages">{t('Berichten')}</TabsTrigger>
+                        <TabsTrigger value="settings">{t('Instellingen')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="general" className="space-y-8">
                         <General game={game} />
@@ -114,6 +86,10 @@ export default function Show({ game, templates }: ShowProps) {
                     <TabsContent value="messages">
                         <p>messages</p>
                         <Messages game={game} team={findUsersTeam(auth.user.id)} templates={templates} />
+                    </TabsContent>
+
+                    <TabsContent value="settings">
+                        <Settings game={game} />
                     </TabsContent>
                 </Tabs>
             </div>
