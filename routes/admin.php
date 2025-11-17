@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('{role}')->group(function() {
                 Route::get('edit', 'edit')->name('.edit');
-                Route::post('update', 'update')->name('.update');
+                Route::put('update', 'update')->name('.update');
                 Route::delete('delete', 'delete')->name('.delete');
             });
         });
