@@ -25,8 +25,9 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::orderBy('name')->get();
+        $clubs = Club::orderBy('name')->get();
 
-        return Inertia::render('Admin/Team/Index', compact('teams'));
+        return Inertia::render('Admin/Team/Index', compact('teams', 'clubs'));
     }
 
     public function show(Team $team)
@@ -43,16 +44,16 @@ class TeamController extends Controller
 
     public function create(Club $club)
     {
-        return Inertia::render('Team/Create', [
-            'club_id' => $club->id,
-        ]);
+        $clubs = Club::orderBy('name')->get();
+
+        return Inertia::render('Team/Create', compact('clubs'));
     }
 
     public function store(StoreTeamRequest $request, Club $club)
     {
         $team = new Team();
         $team->name = $request->name;
-        // $team->category = $request->category;
+        $team->category = $request->category_id;
         $team->club_id = $request->club_id;
         $team->travel_time = $request->travel_time;
 
@@ -67,18 +68,23 @@ class TeamController extends Controller
             $team->save();
         }
 
-        return redirect()->route('admin.club.show', $club);
+        return redirect()->route('admin.teams')->with('success', 'Team is toegevoegd.');
     }
 
     public function edit(Team $team)
     {
-        return Inertia::render('Admin/Team/edit', compact('team'));
+        $clubs = Club::orderBy('name')->get();
+        $team->load('players', 'coaches', 'values');
+        $roles = Role::orderBy('name')->get();
+
+        return Inertia::render('Admin/Team/Edit', compact('team', 'clubs', 'roles'));
     }
 
     public function update(UpdateTeamRequest $request, Team $team)
     {
         $team->name = $request->name;
-        // $team->category = $request->category;
+        $team->category = $request->category;
+        $team->club_id = $request->club_id;
         $team->travel_time = $request->travel_time;
 
         if ($request->hasFile('logo')) {
@@ -95,13 +101,13 @@ class TeamController extends Controller
 
         $team->save();
 
-        return redirect()->route('admin.team.index');
+        return redirect()->route('admin.teams.edit', $team)->with('success', 'Team is aangepast');
     }
 
     public function destroy(Team $team)
     {
         $team->delete();
-        return redirect()->route('admin.team.index');
+        return redirect()->route('admin.teams')->with('success', 'Team is verwijderd');
     }
 
     public function addPlayer(AddPlayerRequest $request, Team $team)

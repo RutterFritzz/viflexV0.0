@@ -29,6 +29,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('edit', 'edit')->name('.edit');
                 Route::post('update', 'update')->name('.update');
                 Route::delete('delete', 'delete')->name('.delete');
+
+                Route::prefix('players')->name('.players.')->group(function() {
+                    Route::get('store', 'addPlayer')->name('addPlayer');
+                    Route::delete('{player}/delete', 'delete')->name('delete');
+                });
             });
         });
 
@@ -38,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('{user}')->group(function() {
                 Route::get('edit', 'edit')->name('.edit');
-                Route::post('update', 'update')->name('.update');
+                Route::put('update', 'update')->name('.update');
                 Route::delete('delete', 'delete')->name('.delete');
             });
         });

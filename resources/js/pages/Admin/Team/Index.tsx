@@ -1,19 +1,20 @@
 import Header from "@/components/Admin/Header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
-import { Team } from "@/types";
-import MainLayout from "@/layouts/MainLayout";
+import { Club, Team } from "@/types";
 import AdminLayout from "@/layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
+import CreateDialog from "./Components/CreateDialog";
+import DeleteDialog from "@/components/Assets/DeleteDialog";
+import { Edit2 } from "lucide-react";
 
-export default function Index({ teams }: { teams: Team[] }) {
+export default function Index({ teams, clubs }: { teams: Team[], clubs: Club[] }) {
     return (
         <AdminLayout>
-            <Header title="Teams" modelName="team" />
 
-            <div className="my-8 flex justify-end">
-                {/* <Link>Create</Link> */}
-                {/* <CreateDialog /> */}
+            <div className="flex justify-between items-center mb-8">
+                <Header title="Teams" modelName="team" />
+                <CreateDialog clubs={clubs} />
             </div>
 
             <Card>
@@ -30,14 +31,14 @@ export default function Index({ teams }: { teams: Team[] }) {
                                 <TableRow key={team.id}>
                                     <TableCell>
                                         <Link href={ route('admin.teams.edit', [team])}>{team.name}</Link>
-                                        {/* <EditDialog messageTemplate={messageTemplate} title={<p className="cursor-pointer">{messageTemplate.name}</p>} /> */}
-
                                     </TableCell>
 
                                     <TableCell className="flex justify-end items-center gap-x-2">
+                                        <Link href={ route('admin.teams.edit', [team])}>
+                                        <Edit2 className="w-5 h-5" />
+                                        </Link>
                                         {/* <EditDialog messageTemplate={messageTemplate} title={<Edit2 className="size-5 cursor-pointer" />} /> */}
-
-                                        {/* <DeleteDialog routeName="admin.templates.delete" model={messageTemplate} /> */}
+                                        <DeleteDialog routeName="admin.teams.delete" model={team} />
                                     </TableCell>
                                 </TableRow>
                             ))}

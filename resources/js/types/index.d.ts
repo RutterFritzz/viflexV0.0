@@ -55,6 +55,7 @@ export interface Role {
 export interface Team {
     id: number;
     name: string;
+    club_id: string;
     category: Category;
     logo?: File;
     game_values?: GameTeamValue[];
@@ -70,6 +71,8 @@ export interface Team {
     last_results?: Game[];
     competitions?: Competition[];
     messages?: Message[];
+
+    club: Club;
 }
 
 export interface TeamValue {
